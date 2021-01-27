@@ -1,0 +1,133 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">GYM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" (click)="nuevo($event)">Nuevo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" (click)="crear($event)">Crear</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/leer-cliente">Ver</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="row">
+        <div class="col-sm" align="center">
+            <h2>CLIENTE</h2>
+            <hr>
+        </div>
+    </div>
+    <form [formGroup]="clienteForm">
+        <div class="row">
+            <div class="col-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Nombre:</label>
+                        <input type="text" formControlName="nombre" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Talla:</label>
+                        <input type="text" formControlName="talla" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Peso:</label>
+                        <input type="text" formControlName="peso" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Edad:</label>
+                        <input type="text" formControlName="edad" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Observaciones:</label>
+                        <input type="text" formControlName="observacion" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-block btn-primary" (click)="crearObservacion()">Agregar</button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered" style="font-size: 0.7rem">
+                            <thead class="table-active">
+                                <tr>
+                                    <th>No.</th>
+                                    <th>OBSERVACION</th>
+                                    <th>OPC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let observacion of observaciones; let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{observacion}}</td>
+                                    <td>
+                                        <button (click)="eliminarObservacion(i)" class="btn btn-primary form-control-sm"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Objetivos:</label>
+                        <input type="text" formControlName="objetivo" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-block btn-primary" (click)="crearObjetivo()">Agregar</button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered" style="font-size: 0.7rem">
+                            <thead class="table-active">
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Objetivo</th>
+                                    <th>OPC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let objetivo of objetivos; let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{objetivo}}</td>
+                                    <td>
+                                        <button (click)="eliminarObjetivo(i)" class="btn btn-primary form-control-sm"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

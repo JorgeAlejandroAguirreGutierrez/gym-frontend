@@ -1,0 +1,127 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">GYM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" (click)="nuevo($event)">Nuevo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" (click)="crear($event)">Crear</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/leer-cliente">Ver</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="row">
+        <div class="col-sm" align="center">
+            <h2>CLIENTES REGISTRADOS</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <label>Nombre:</label>
+            <input type="text" formControlName="nombre" class="form-control form-control-sm"
+                oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div class="col-sm-2">
+            <label>&nbsp;</label>
+            <button class="btn btn-sm btn-block btn-primary" (click)="buscarNombre()">Buscar</button>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-hover table-bordered" style="font-size: 0.7rem">
+                <thead class="table-active">
+                    <tr>
+                        <th>No.</th>
+                        <th>NOMBRE</th>
+                        <th>TALLA</th>
+                        <th>PESO</th>
+                        <th>EDAD</th>
+                        <th>OBSERV</th>
+                        <th>OBJETIVOS</th>
+                        <th>PLAN</th>
+                        <th>OPC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cliente of clientes; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{cliente.nombre}}</td>
+                        <td>{{cliente.talla}}</td>
+                        <td>{{cliente.peso}}</td>
+                        <td>{{cliente.edad}}</td>
+                        <td>
+                            <button (click)="verObservaciones(i)"
+                                class="btn btn-primary form-control-sm">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button (click)="verObjetivos(i)" class="btn btn-primary form-control-sm">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button (click)="verPlanEntrenamiento(i)"
+                                class="btn btn-primary form-control-sm">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button (click)="editar(cliente)" class="btn btn-primary form-control-sm">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<ng-template #observaciones let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">OBSERVACIONES</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <table class="table table-hover table-bordered" style="font-size: 0.7rem">
+            <thead class="table-active">
+                <tr>
+                    <th>No.</th>
+                    <th>OBSERVACION</th>
+                    <th>OPC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let observacion of clienteActualizar.observaciones; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{observacion.descripcion}}</td>
+                    <td>
+                        <button (click)="eliminarObservacion(i)" class="btn btn-primary form-control-sm">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="actualizar()">Cerrar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cerrar')">Cerrar</button>
+    </div>
+</ng-template>
