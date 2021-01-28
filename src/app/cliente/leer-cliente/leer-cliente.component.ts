@@ -6,6 +6,9 @@ import * as constantes from '../../constantes';
 import { environment } from './../../../environments/environment';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewChild } from '@angular/core';
+import { Observacion } from 'src/app/modelos/observacion';
+import { Objetivo } from 'src/app/modelos/objetivo';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-leer-cliente',
@@ -18,8 +21,8 @@ export class LeerClienteComponent implements OnInit {
   clienteBuscar: Cliente=new Cliente();
   clienteActualizar: Cliente=new Cliente();
 
-  observacionActualizar: String="";
-  objetivoActualizar: String="";
+  observacionActualizar: string="";
+  objetivoActualizar: string="";
 
   cerrarModal: string="";
 
@@ -27,7 +30,7 @@ export class LeerClienteComponent implements OnInit {
   @ViewChild('modalObjetivos', { static: false }) private modalObjetivos: any;
   @ViewChild('modalClienteActualizar', { static: false }) private modalClienteActualizar: any;
 
-  constructor(private clienteService: ClienteService, private modalService: NgbModal) { }
+  constructor(private clienteService: ClienteService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.clienteService.consultar().subscribe(
@@ -40,25 +43,28 @@ export class LeerClienteComponent implements OnInit {
     );
   }
 
-  verObservaciones(i: number){
+  observacionesVer(i: number){
     this.clienteActualizar=this.clientes[i];
     this.open(this.modalObservaciones);
   }
 
-  eliminarObservacion(i: number){
+  observacionEliminar(i: number){
     this.clienteActualizar.observaciones.splice(i, 1);
   }
 
-  verObjetivos(i: number){
+  objetivosVer(i: number){
     this.clienteActualizar=this.clientes[i];
     this.open(this.modalObjetivos);
   }
 
-  eliminarObjetivo(i: number){
+  planEntrenamientoVer(i:number){
+  }
+
+  objetivoEliminar(i: number){
     this.clienteActualizar.objetivos.splice(i, 1);
   }
 
-  verPlanEntrenamiento(i:number){
+  planEntrenamientoEliminar(i:number){
   }
 
   editar(i: number){
@@ -67,10 +73,12 @@ export class LeerClienteComponent implements OnInit {
   }
 
   actualizar(){
+    console.log(this.clienteActualizar);
     this.clienteService.actualizar(this.clienteActualizar).subscribe(
       res => {
-        this.clienteActualizar = res;
+        this.modalService.dismissAll();
         Swal.fire(constantes.exito, constantes.exito_actualizar_cliente, constantes.exito_swal)
+        this.navegarClienteActualizar();
       },
       err => {
         Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
@@ -78,16 +86,22 @@ export class LeerClienteComponent implements OnInit {
     );
   }
 
-  buscarNombre(){
-
-  }
-
-  objetivoCrear(){
+  nombreBuscar(){
 
   }
 
   observacionCrear(){
-    
+    let observacion: Observacion=new Observacion();
+    observacion.descripcion=this.observacionActualizar;
+    this.clienteActualizar.observaciones.push(observacion);
+    this.observacionActualizar="";
+  }
+
+  objetivoCrear(){
+    let objetivo: Objetivo=new Objetivo();
+    objetivo.descripcion=this.objetivoActualizar;
+    this.clienteActualizar.objetivos.push(objetivo);
+    this.objetivoActualizar="";
   }
 
   open(content: any) {
@@ -106,6 +120,10 @@ export class LeerClienteComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  navegarClienteActualizar() {
+    this.router.navigate(['/leer-cliente']);
   }
 
 }
