@@ -9,10 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" (click)="nuevo($event)">Nuevo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" (click)="crear($event)">Crear</a>
+                    <a class="nav-link" href="/crear-cliente">Crear</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/leer-cliente">Ver</a>
@@ -30,7 +27,7 @@
     <div class="row">
         <div class="col-sm-10">
             <label>Nombre:</label>
-            <input type="text" formControlName="nombre" class="form-control form-control-sm"
+            <input type="text" [(ngModel)]="clienteBuscar.nombre" class="form-control form-control-sm"
                 oninput="this.value = this.value.toUpperCase()">
         </div>
         <div class="col-sm-2">
@@ -46,6 +43,7 @@
                     <tr>
                         <th>No.</th>
                         <th>NOMBRE</th>
+                        <th>IDENT</th>
                         <th>TALLA</th>
                         <th>PESO</th>
                         <th>EDAD</th>
@@ -59,6 +57,7 @@
                     <tr *ngFor="let cliente of clientes; let i=index">
                         <td>{{i+1}}</td>
                         <td>{{cliente.nombre}}</td>
+                        <td>{{cliente.identificacion}}</td>
                         <td>{{cliente.talla}}</td>
                         <td>{{cliente.peso}}</td>
                         <td>{{cliente.edad}}</td>
@@ -70,17 +69,17 @@
                         </td>
                         <td>
                             <button (click)="verObjetivos(i)" class="btn btn-primary form-control-sm">
-                                <i class="fa fa-trash"></i>
+                                <i class="fa fa-dumbbell"></i>
                             </button>
                         </td>
                         <td>
                             <button (click)="verPlanEntrenamiento(i)"
                                 class="btn btn-primary form-control-sm">
-                                <i class="fa fa-trash"></i>
+                                <i class="fa fa-play"></i>
                             </button>
                         </td>
                         <td>
-                            <button (click)="editar(cliente)" class="btn btn-primary form-control-sm">
+                            <button (click)="editar(i)" class="btn btn-primary form-control-sm">
                                 <i class="fa fa-edit"></i>
                             </button>
                         </td>
@@ -91,7 +90,7 @@
     </div>
 </div>
 
-<ng-template #observaciones let-modal>
+<ng-template #modalObservaciones let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">OBSERVACIONES</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -99,6 +98,21 @@
         </button>
     </div>
     <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Nueva Observacion:</label>
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="observacionActualizar" class="form-control form-control-sm"
+                        oninput="this.value = this.value.toUpperCase()">
+                    <div class="input-group-text"><i class="fa fa-dumbbell"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-sm btn-success btn-block" (click)="observacionCrear()">Agregar</button>
+            </div>
+        </div>
         <table class="table table-hover table-bordered" style="font-size: 0.7rem">
             <thead class="table-active">
                 <tr>
@@ -121,7 +135,122 @@
         </table>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="actualizar()">Cerrar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="actualizar()">Guardar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cerrar')">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #modalObjetivos let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">OBJETIVOS</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Nuevo Objetivo:</label>
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="objetivoActualizar" class="form-control form-control-sm"
+                        oninput="this.value = this.value.toUpperCase()">
+                    <div class="input-group-text"><i class="fa fa-dumbbell"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-sm btn-success btn-block" (click)="objetivoCrear()">Agregar</button>
+            </div>
+        </div>
+        <table class="table table-hover table-bordered" style="font-size: 0.7rem">
+            <thead class="table-active">
+                <tr>
+                    <th>No.</th>
+                    <th>OBJETIVO</th>
+                    <th>OPC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let objetivo of clienteActualizar.objetivos; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{objetivo.descripcion}}</td>
+                    <td>
+                        <button (click)="eliminarObjetivo(i)" class="btn btn-primary form-control-sm">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="actualizar()">Guardar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cerrar')">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #modalClienteActualizar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">DATOS BASICOS</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Nombre:</label>
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="clienteActualizar.nombre" class="form-control form-control-sm"
+                        oninput="this.value = this.value.toUpperCase()">
+                    <div class="input-group-text"><i class="fa fa-user"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Identificacion:</label>
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="clienteActualizar.identificacion" class="form-control form-control-sm"
+                        oninput="this.value = this.value.toUpperCase()">
+                    <div class="input-group-text"><i class="fa fa-id-card"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Talla:</label>
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="clienteActualizar.talla" class="form-control form-control-sm"
+                        oninput="this.value = this.value.toUpperCase()">
+                    <div class="input-group-text"><i class="fa fa-text-height"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Peso:</label>
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="clienteActualizar.peso" class="form-control form-control-sm"
+                        oninput="this.value = this.value.toUpperCase()">
+                    <div class="input-group-text"><i class="fa fa-weight"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Edad:</label>
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="clienteActualizar.edad" class="form-control form-control-sm"
+                        oninput="this.value = this.value.toUpperCase()">
+                    <div class="input-group-text"><i class="fa fa-pager"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="actualizar()">Guardar</button>
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cerrar')">Cerrar</button>
     </div>
 </ng-template>

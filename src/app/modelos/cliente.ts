@@ -6,6 +6,7 @@ import { Suscripcion } from "./suscripcion";
 export class Cliente {
     id: number;
     nombre: string;
+    identificacion: string;
     contrasena: string; 
     talla: string;
     peso: string;
@@ -19,6 +20,7 @@ export class Cliente {
     constructor(){
         this.id=0;
         this.nombre="";
+        this.identificacion="";
         this.contrasena="";
         this.talla="";
         this.peso="";

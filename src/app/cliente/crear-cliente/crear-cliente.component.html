@@ -12,9 +12,6 @@
                     <a class="nav-link" href="#" (click)="nuevo($event)">Nuevo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" (click)="crear($event)">Crear</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/leer-cliente">Ver</a>
                 </li>
             </ul>
@@ -27,107 +24,165 @@
             <hr>
         </div>
     </div>
-    <form [formGroup]="clienteForm">
-        <div class="row">
-            <div class="col-sm">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label>Nombre:</label>
-                        <input type="text" formControlName="nombre" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label>Talla:</label>
-                        <input type="text" formControlName="talla" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label>Peso:</label>
-                        <input type="text" formControlName="peso" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label>Edad:</label>
-                        <input type="text" formControlName="edad" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Nombre:</label>
+                    <div class="input-group">
+                        <input type="text" [(ngModel)]="cliente.nombre" class="form-control form-control-sm"
+                            oninput="this.value = this.value.toUpperCase()">
+                        <div class="input-group-text"><i class="fa fa-user"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label>Observaciones:</label>
-                        <input type="text" formControlName="observacion" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Identificacion:</label>
+                    <div class="input-group">
+                        <input type="text" [(ngModel)]="cliente.identificacion" class="form-control form-control-sm"
+                            oninput="this.value = this.value.toUpperCase()">
+                        <div class="input-group-text"><i class="fa fa-id-card"></i></div>
                     </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <button class="btn btn-block btn-primary" (click)="crearObservacion()">Agregar</button>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Talla:</label>
+                    <div class="input-group">
+                        <input type="text" [(ngModel)]="cliente.talla" class="form-control form-control-sm"
+                            oninput="this.value = this.value.toUpperCase()">
+                        <div class="input-group-text"><i class="fa fa-text-height"></i></div>
                     </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-hover table-bordered" style="font-size: 0.7rem">
-                            <thead class="table-active">
-                                <tr>
-                                    <th>No.</th>
-                                    <th>OBSERVACION</th>
-                                    <th>OPC</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let observacion of observaciones; let i=index">
-                                    <td>{{i+1}}</td>
-                                    <td>{{observacion}}</td>
-                                    <td>
-                                        <button (click)="eliminarObservacion(i)" class="btn btn-primary form-control-sm"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Peso:</label>
+                    <div class="input-group">
+                        <input type="text" [(ngModel)]="cliente.peso" class="form-control form-control-sm"
+                            oninput="this.value = this.value.toUpperCase()">
+                        <div class="input-group-text"><i class="fa fa-weight"></i></div>
                     </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label>Objetivos:</label>
-                        <input type="text" formControlName="objetivo" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Edad:</label>
+                    <div class="input-group">
+                            <input type="text" [(ngModel)]="cliente.edad" class="form-control form-control-sm"
+                                oninput="this.value = this.value.toUpperCase()">
+                            <div class="input-group-text"><i class="fa fa-pager"></i></div>
                     </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <button class="btn btn-block btn-primary" (click)="crearObjetivo()">Agregar</button>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Observaciones:</label>
+                    <div class="input-group">
+                        <input type="text" [(ngModel)]="observacion" class="form-control form-control-sm"
+                            oninput="this.value = this.value.toUpperCase()">
+                        <div class="input-group-text"><i class="fa fa-bolt"></i></div>
                     </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-hover table-bordered" style="font-size: 0.7rem">
-                            <thead class="table-active">
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Objetivo</th>
-                                    <th>OPC</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let objetivo of objetivos; let i=index">
-                                    <td>{{i+1}}</td>
-                                    <td>{{objetivo}}</td>
-                                    <td>
-                                        <button (click)="eliminarObjetivo(i)" class="btn btn-primary form-control-sm"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button class="btn btn-block btn-primary" (click)="crearObservacion()">Agregar Observacion</button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-hover table-bordered" style="font-size: 0.7rem">
+                        <thead class="table-active">
+                            <tr>
+                                <th>No.</th>
+                                <th>OBSERVACION</th>
+                                <th>OPC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let observacion of cliente.observaciones; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{observacion.descripcion}}</td>
+                                <td>
+                                    <button (click)="eliminarObservacion(i)" class="btn btn-primary form-control-sm"><i
+                                            class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Objetivos:</label>
+                    <div class="input-group">
+                        <input type="text" [(ngModel)]="objetivo" class="form-control form-control-sm"
+                            oninput="this.value = this.value.toUpperCase()">
+                        <div class="input-group-text"><i class="fa fa-list-ol"></i></div>
                     </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button class="btn btn-block btn-primary" (click)="crearObjetivo()">Agregar Objetivo</button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-hover table-bordered" style="font-size: 0.7rem">
+                        <thead class="table-active">
+                            <tr>
+                                <th>No.</th>
+                                <th>Objetivo</th>
+                                <th>OPC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let objetivo of cliente.objetivos; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{objetivo.descripcion}}</td>
+                                <td>
+                                    <button (click)="eliminarObjetivo(i)" class="btn btn-primary form-control-sm">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" (click)="crear()" class="btn btn-success btn-sm btn-block"
+                        oninput="this.value = this.value.toUpperCase()">Guardar</button>
                 </div>
             </div>
         </div>
-    </form>
+        <div class="col-sm-3"></div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm">
+            <footer class="text-muted">
+                <div class="container">
+                    <p class="float-right">
+                        <span href="#">Back to top</span>
+                    </p>
+                    <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+                    <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a
+                            href="../../getting-started/">getting started guide</a>.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
 </div>

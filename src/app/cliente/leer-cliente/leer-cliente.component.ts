@@ -4,10 +4,8 @@ import { Cliente } from '../../modelos/cliente';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
 import { environment } from './../../../environments/environment';
-import { Observacion } from 'src/app/modelos/observacion';
-import { Objetivo } from 'src/app/modelos/objetivo';
-import { DiaEntrenamiento } from 'src/app/modelos/dia-entrenamiento';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-leer-cliente',
@@ -17,9 +15,17 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class LeerClienteComponent implements OnInit {
 
   clientes: Cliente[]=[];
+  clienteBuscar: Cliente=new Cliente();
   clienteActualizar: Cliente=new Cliente();
 
+  observacionActualizar: String="";
+  objetivoActualizar: String="";
+
   cerrarModal: string="";
+
+  @ViewChild('modalObservaciones', { static: false }) private modalObservaciones: any;
+  @ViewChild('modalObjetivos', { static: false }) private modalObjetivos: any;
+  @ViewChild('modalClienteActualizar', { static: false }) private modalClienteActualizar: any;
 
   constructor(private clienteService: ClienteService, private modalService: NgbModal) { }
 
@@ -36,17 +42,20 @@ export class LeerClienteComponent implements OnInit {
 
   verObservaciones(i: number){
     this.clienteActualizar=this.clientes[i];
+    this.open(this.modalObservaciones);
   }
 
   eliminarObservacion(i: number){
-
+    this.clienteActualizar.observaciones.splice(i, 1);
   }
 
   verObjetivos(i: number){
     this.clienteActualizar=this.clientes[i];
+    this.open(this.modalObjetivos);
   }
 
   eliminarObjetivo(i: number){
+    this.clienteActualizar.objetivos.splice(i, 1);
   }
 
   verPlanEntrenamiento(i:number){
@@ -54,6 +63,7 @@ export class LeerClienteComponent implements OnInit {
 
   editar(i: number){
     this.clienteActualizar=this.clientes[i];
+    this.open(this.modalClienteActualizar);
   }
 
   actualizar(){
@@ -66,6 +76,18 @@ export class LeerClienteComponent implements OnInit {
         Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
+  }
+
+  buscarNombre(){
+
+  }
+
+  objetivoCrear(){
+
+  }
+
+  observacionCrear(){
+    
   }
 
   open(content: any) {

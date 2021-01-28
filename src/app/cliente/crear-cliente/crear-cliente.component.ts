@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Cliente } from 'src/app/modelos/cliente';
 import { Objetivo } from 'src/app/modelos/objetivo';
 import { Observacion } from 'src/app/modelos/observacion';
@@ -15,34 +15,26 @@ import * as constantes from '../../constantes';
 export class CrearClienteComponent implements OnInit {
 
   cliente: Cliente=new Cliente();
+  observacion: string=""
+  objetivo: string="";
 
-  observaciones: string[]=[];
-  objetivos: string[]=[];
-
-  constructor(private clienteService: ClienteService) { }
+  constructor(private clienteService: ClienteService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  clienteForm = new FormGroup({
-    nombre: new FormControl(''),
-    talla: new FormControl(''),
-    peso: new FormControl(''),
-    edad: new FormControl(''),
-    observacion: new FormControl(''),
-    objetivo: new FormControl(''),
-  });
-
   crearObservacion(){
-    let observacion=this.clienteForm.get('observacion')?.value;
-    console.log(observacion);
-    this.observaciones.push(observacion);
+    let observacion: Observacion=new Observacion();
+    observacion.descripcion=this.observacion;
+    this.cliente.observaciones.push(observacion);
+    this.observacion="";
   }
 
   crearObjetivo(){
-    let objetivo=this.clienteForm.get('objetivo')?.value;
-    console.log(objetivo);
-    this.objetivos.push(objetivo);
+    let objetivo: Objetivo=new Objetivo();
+    objetivo.descripcion=this.objetivo;
+    this.cliente.objetivos.push(objetivo);
+    this.objetivo="";
   }
 
   nuevo(event:any){
@@ -50,26 +42,13 @@ export class CrearClienteComponent implements OnInit {
       event.preventDefault();
   }
 
-  crear(event:any){
-    if (event!=null)
-      event.preventDefault();
-    this.cliente.nombre=this.clienteForm.get('nombre')?.value;
-    this.cliente.talla=this.clienteForm.get('talla')?.value;
-    this.cliente.peso=this.clienteForm.get('peso')?.value;
-    this.cliente.edad=this.clienteForm.get('edad')?.value;
-    for(let i=0; i<this.observaciones.length; i++){
-      let observacion= new Observacion();
-      observacion.descripcion=this.observaciones[i];
-    }
-    for(let i=0; i<this.objetivos.length; i++){
-      let objetivos= new Objetivo();
-      objetivos.descripcion=this.objetivos[i];
-    }
+  crear(){
     console.log(this.cliente);
     this.clienteService.crear(this.cliente).subscribe(
       res => {
         if (res!=null){
-          Swal.fire(constantes.exito, constantes.exito_crear_producto, constantes.exito_swal);
+          Swal.fire(constantes.exito, constantes.exito_crear_cliente, constantes.exito_swal);
+          this.navegarExitoso();
         }
       },
       err => {
@@ -79,11 +58,15 @@ export class CrearClienteComponent implements OnInit {
   }
 
   eliminarObservacion(i: number){
-    this.observaciones.splice(i, 1);
+    this.cliente.observaciones.splice(i, 1);
   }
 
   eliminarObjetivo(i: number){
-    this.objetivos.splice(i, 1);
+    this.cliente.objetivos.splice(i, 1);
+  }
+
+  navegarExitoso() {
+    this.router.navigate(['/crear-cliente']);
   }
 
 }
