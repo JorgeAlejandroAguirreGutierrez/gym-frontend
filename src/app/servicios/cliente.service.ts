@@ -73,4 +73,13 @@ export class ClienteService {
       })
     );
   }
+
+  buscar(cliente: Cliente): Observable<Cliente[]> {
+    return this.http.put(environment.host+util.ruta+util.cliente+util.buscar, cliente, util.options).pipe(
+      map(response => response as Cliente[]),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
 }

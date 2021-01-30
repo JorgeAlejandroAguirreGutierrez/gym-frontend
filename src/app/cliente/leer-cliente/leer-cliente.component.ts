@@ -86,8 +86,16 @@ export class LeerClienteComponent implements OnInit {
     );
   }
 
-  nombreBuscar(){
-
+  buscar(){
+    console.log(this.clienteBuscar);
+    this.clienteService.buscar(this.clienteBuscar).subscribe(
+      res => {
+        this.clientes=res;
+      },
+      err => {
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      }
+    );
   }
 
   observacionCrear(){

@@ -15,6 +15,7 @@ import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PrincipalComponent } from './principal/principal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CrearClienteComponent,
     LeerClienteComponent,
     InicioSesionComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PrincipalComponent
   ],
   imports: [
     BrowserModule,
