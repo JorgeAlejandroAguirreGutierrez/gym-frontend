@@ -4,6 +4,7 @@ import { Cliente } from 'src/app/modelos/cliente';
 import { Objetivo } from 'src/app/modelos/objetivo';
 import { Observacion } from 'src/app/modelos/observacion';
 import { ClienteService } from 'src/app/servicios/cliente.service';
+import { SesionService } from 'src/app/servicios/sesion.service';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
 
@@ -18,9 +19,21 @@ export class CrearClienteComponent implements OnInit {
   observacion: string=""
   objetivo: string="";
 
-  constructor(private clienteService: ClienteService, private router: Router) { }
+  constructor(private clienteService: ClienteService, private sesionService: SesionService, private router: Router) { }
 
   ngOnInit(): void {
+    this.validarSesion();
+  }
+
+  validarSesion(){
+    let clienteActivo=this.sesionService.clienteLogueado();
+    let adminActivo=this.sesionService.adminLogueado();
+    if(clienteActivo){
+      this.navegarIndex();
+    }
+    if(!adminActivo){
+      this.navegarIndex();
+    }
   }
 
   crearObservacion(){
@@ -67,6 +80,16 @@ export class CrearClienteComponent implements OnInit {
 
   navegarExitoso() {
     this.router.navigate(['/crear-cliente']);
+  }
+
+  navegarIndex() {
+    this.router.navigate(['/index']);
+  }
+
+  cerrarSesion(event:any){
+    if (event!=null)
+      event.preventDefault();
+    this.sesionService.cerrarSesion();
   }
 
 }

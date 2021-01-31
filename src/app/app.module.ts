@@ -16,6 +16,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PrincipalComponent } from './principal/principal.component';
+import { LeerEjercicioComponent } from './ejercicio/leer-ejercicio/leer-ejercicio.component';
+import { CrearEjercicioComponent } from './ejercicio/crear-ejercicio/crear-ejercicio.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { PrincipalComponent } from './principal/principal.component';
     LeerClienteComponent,
     InicioSesionComponent,
     PageNotFoundComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    LeerEjercicioComponent,
+    CrearEjercicioComponent,
   ],
   imports: [
     BrowserModule,

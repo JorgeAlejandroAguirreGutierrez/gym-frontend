@@ -1,6 +1,6 @@
 import { Cliente } from "./cliente";
 
-export class SesionCliente {
+export class Sesion {
     id: number;
     estado:boolean;
     fechaApertura: Date;

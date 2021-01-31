@@ -1,0 +1,118 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">GYM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/crear-cliente">Crear Cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/leer-cliente">Ver Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/crear-ejercicio">Crear Ejercicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/leer-ejercicio">Ver Ejercicios</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <a class="nav-link" type="button" href="#" (click)="cerrarSesion($event)">CERRAR SESION</a>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div class="row">
+        <div class="col-sm" align="center">
+            <h2>EJERCICIOS REGISTRADOS</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <label>Descripcion:</label>
+            <input type="text" [(ngModel)]="ejercicioBuscar.descripcion" class="form-control form-control-sm"
+                oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div class="col-sm-2">
+            <label>&nbsp;</label>
+            <button class="btn btn-sm btn-block btn-primary" (click)="buscar()">Buscar</button>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-hover table-bordered" style="font-size: 0.7rem">
+                <thead class="table-active">
+                    <tr>
+                        <th>No.</th>
+                        <th>DESCRIPCION</th>
+                        <th>TIPO</th>
+                        <th>OPC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ejercicio of ejercicios; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{ejercicio.descripcion}}</td>
+                        <td>{{ejercicio.tipo}}</td>
+                        <td>
+                            <button (click)="editar(i)" class="btn btn-primary form-control-sm">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalEjercicioActualizar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">DATOS</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Descripcion:</label>
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="ejercicioActualizar.descripcion" class="form-control form-control-sm"
+                        oninput="this.value = this.value.toUpperCase()">
+                    <div class="input-group-text"><i class="fa fa-walking"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Tipo:</label>
+                <div class="input-group">
+                    <select [(ngModel)]="ejercicioActualizar.tipo" class="form-control form-control-sm">
+                        <option value="BICEPS">BICEPS</option>
+                        <option value="TRICEPS">TRICEPS</option>
+                        <option value="BRAZO">BRAZO</option>
+                        <option value="ESPALDA">ESPALDA</option>
+                        <option value="PECHO">PECHO</option>
+                        <option value="PECHO">ABDOMEN</option>
+                        <option value="HOMBRO">HOMBRO</option>
+                        <option value="PIERNA">PIERNA</option>
+                        <option value="PECHO">PANTORRILLA</option>
+                    </select>
+                    <div class="input-group-text"><i class="fa fa-dumbbell"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="actualizar()">Guardar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cerrar')">Cerrar</button>
+    </div>
+</ng-template>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SesionCliente } from '../modelos/sesion-cliente';
-import { SesionClienteService } from '../servicios/sesion-cliente.service';
+import { Sesion } from '../modelos/sesion';
+import { SesionService } from '../servicios/sesion.service';
 import Swal from 'sweetalert2';
 import * as constantes from '../constantes';
 import { Router } from '@angular/router';
@@ -12,27 +12,43 @@ import { Router } from '@angular/router';
 })
 export class InicioSesionComponent implements OnInit {
 
-  sesionCliente: SesionCliente=new SesionCliente();
+  sesion: Sesion=new Sesion();
 
-  constructor(private sesionClienteService: SesionClienteService, private router: Router) { }
+  constructor(private sesionService: SesionService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   iniciarSesion() {
-    this.sesionClienteService.crear(this.sesionCliente).subscribe(
+    this.sesionService.crear(this.sesion).subscribe(
       res => {
-        this.sesionCliente=res;
-        this.sesionClienteService.setSesion(this.sesionCliente);
+        this.sesion=res;
+        this.sesionService.setSesion(this.sesion);
         Swal.fire(constantes.exito, constantes.exito_iniciar_sesion, constantes.exito_swal);
+        if(this.sesion.cliente.perfil.descripcion==constantes.perfil_admin){
+          this.navegarAdmin();
+        }
+        if(this.sesion.cliente.perfil.descripcion==constantes.perfil_cliente){
+          this.navegarCliente();
+        }
       },
-      error => Swal.fire(constantes.error, constantes.error_iniciar_sesion, constantes.error_swal),
-      () => this.navigate()
+      error => {
+        Swal.fire(constantes.error, constantes.error_iniciar_sesion, constantes.error_swal);
+        this.navegarFallido();
+      }
     );
   }
 
-  navigate() {
-    this.router.navigateByUrl('/iniciar-sesion');
+  navegarAdmin() {
+    this.router.navigate(['/crear-cliente']);
+  }
+
+  navegarCliente() {
+    this.router.navigate(['/leer-planentrenamiento']);
+  }
+
+  navegarFallido() {
+    this.router.navigate(['/iniciar-sesion']);
   }
 
 }

@@ -9,6 +9,7 @@ import { ViewChild } from '@angular/core';
 import { Observacion } from 'src/app/modelos/observacion';
 import { Objetivo } from 'src/app/modelos/objetivo';
 import { Router } from '@angular/router';
+import { SesionService } from 'src/app/servicios/sesion.service';
 
 @Component({
   selector: 'app-leer-cliente',
@@ -30,9 +31,10 @@ export class LeerClienteComponent implements OnInit {
   @ViewChild('modalObjetivos', { static: false }) private modalObjetivos: any;
   @ViewChild('modalClienteActualizar', { static: false }) private modalClienteActualizar: any;
 
-  constructor(private clienteService: ClienteService, private router: Router, private modalService: NgbModal) { }
+  constructor(private clienteService: ClienteService, private sesionService: SesionService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.validarSesion();
     this.clienteService.consultar().subscribe(
       res => {
         this.clientes = res;
@@ -41,6 +43,17 @@ export class LeerClienteComponent implements OnInit {
         Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
+  }
+
+  validarSesion(){
+    let clienteActivo=this.sesionService.clienteLogueado();
+    let adminActivo=this.sesionService.adminLogueado();
+    if(clienteActivo){
+      this.navegarIndex();
+    }
+    if(!adminActivo){
+      this.navegarIndex();
+    }
   }
 
   observacionesVer(i: number){
@@ -68,7 +81,7 @@ export class LeerClienteComponent implements OnInit {
   }
 
   editar(i: number){
-    this.clienteActualizar=this.clientes[i];
+    this.clienteActualizar= {... this.clientes[i]};
     this.open(this.modalClienteActualizar);
   }
 
@@ -78,7 +91,7 @@ export class LeerClienteComponent implements OnInit {
       res => {
         this.modalService.dismissAll();
         Swal.fire(constantes.exito, constantes.exito_actualizar_cliente, constantes.exito_swal)
-        this.navegarClienteActualizar();
+        this.navegarExitoso();
       },
       err => {
         Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
@@ -130,8 +143,18 @@ export class LeerClienteComponent implements OnInit {
     }
   }
 
-  navegarClienteActualizar() {
+  navegarExitoso() {
     this.router.navigate(['/leer-cliente']);
+  }
+
+  navegarIndex() {
+    this.router.navigate(['/index']);
+  }
+
+  cerrarSesion(event:any){
+    if (event!=null)
+      event.preventDefault();
+    this.sesionService.cerrarSesion();
   }
 
 }
