@@ -28,7 +28,7 @@ import { CrearEjercicioComponent } from './ejercicio/crear-ejercicio/crear-ejerc
     PageNotFoundComponent,
     PrincipalComponent,
     LeerEjercicioComponent,
-    CrearEjercicioComponent,
+    CrearEjercicioComponent
   ],
   imports: [
     BrowserModule,
