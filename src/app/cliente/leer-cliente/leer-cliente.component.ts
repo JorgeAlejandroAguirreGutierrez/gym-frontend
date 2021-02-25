@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ClienteService } from 'src/app/servicios/cliente.service';
-import { Cliente } from '../../modelos/cliente';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { Usuario } from '../../modelos/usuario';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
 import { environment } from './../../../environments/environment';
@@ -10,6 +10,7 @@ import { Observacion } from 'src/app/modelos/observacion';
 import { Objetivo } from 'src/app/modelos/objetivo';
 import { Router } from '@angular/router';
 import { SesionService } from 'src/app/servicios/sesion.service';
+import { Peso } from 'src/app/modelos/peso';
 
 @Component({
   selector: 'app-leer-cliente',
@@ -18,26 +19,32 @@ import { SesionService } from 'src/app/servicios/sesion.service';
 })
 export class LeerClienteComponent implements OnInit {
 
-  clientes: Cliente[]=[];
-  clienteBuscar: Cliente=new Cliente();
-  clienteActualizar: Cliente=new Cliente();
+  usuarios: Usuario[]=[];
+  usuarioBuscar: Usuario=new Usuario();
+  usuarioActualizar: Usuario=new Usuario();
 
+  pesoActualizar: number=0;
   observacionActualizar: string="";
   objetivoActualizar: string="";
 
   cerrarModal: string="";
 
+  @ViewChild('modalPesos', { static: false }) private modalPesos: any;
   @ViewChild('modalObservaciones', { static: false }) private modalObservaciones: any;
   @ViewChild('modalObjetivos', { static: false }) private modalObjetivos: any;
-  @ViewChild('modalClienteActualizar', { static: false }) private modalClienteActualizar: any;
+  @ViewChild('modalUsuarioActualizar', { static: false }) private modalUsuarioActualizar: any;
 
-  constructor(private clienteService: ClienteService, private sesionService: SesionService, private router: Router, private modalService: NgbModal) { }
+  constructor(private usuarioService: UsuarioService, private sesionService: SesionService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.validarSesion();
-    this.clienteService.consultar().subscribe(
+    
+  }
+
+  consultarClientes(){
+    this.usuarioService.consultar().subscribe(
       res => {
-        this.clientes = res;
+        this.usuarios = res;
       },
       err => {
         Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
@@ -56,17 +63,26 @@ export class LeerClienteComponent implements OnInit {
     }
   }
 
+  pesosVer(i: number){
+    this.usuarioActualizar=this.usuarios[i];
+    this.open(this.modalPesos);
+  }
+
   observacionesVer(i: number){
-    this.clienteActualizar=this.clientes[i];
+    this.usuarioActualizar=this.usuarios[i];
     this.open(this.modalObservaciones);
   }
 
+  pesoEliminar(i: number){
+    this.usuarioActualizar.pesos.splice(i, 1);
+  }
+  
   observacionEliminar(i: number){
-    this.clienteActualizar.observaciones.splice(i, 1);
+    this.usuarioActualizar.observaciones.splice(i, 1);
   }
 
   objetivosVer(i: number){
-    this.clienteActualizar=this.clientes[i];
+    this.usuarioActualizar=this.usuarios[i];
     this.open(this.modalObjetivos);
   }
 
@@ -74,54 +90,61 @@ export class LeerClienteComponent implements OnInit {
   }
 
   objetivoEliminar(i: number){
-    this.clienteActualizar.objetivos.splice(i, 1);
+    this.usuarioActualizar.objetivos.splice(i, 1);
   }
 
   planEntrenamientoEliminar(i:number){
   }
 
   editar(i: number){
-    this.clienteActualizar= {... this.clientes[i]};
-    this.open(this.modalClienteActualizar);
+    this.usuarioActualizar= {... this.usuarios[i]};
+    this.open(this.modalUsuarioActualizar);
   }
 
   actualizar(){
-    console.log(this.clienteActualizar);
-    this.clienteService.actualizar(this.clienteActualizar).subscribe(
+    console.log(this.usuarioActualizar);
+    this.usuarioService.actualizar(this.usuarioActualizar).subscribe(
       res => {
         this.modalService.dismissAll();
-        Swal.fire(constantes.exito, constantes.exito_actualizar_cliente, constantes.exito_swal)
+        Swal.fire(constantes.exito, constantes.exito_actualizar_usuario, constantes.exito_swal)
         this.navegarExitoso();
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire(constantes.error, constantes.error_actualizar_usuario, constantes.error_swal)
       }
     );
   }
 
   buscar(){
-    console.log(this.clienteBuscar);
-    this.clienteService.buscar(this.clienteBuscar).subscribe(
+    console.log(this.usuarioBuscar);
+    this.usuarioService.buscar(this.usuarioBuscar).subscribe(
       res => {
-        this.clientes=res;
+        this.usuarios=res;
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire(constantes.error, constantes.error_buscar_usuario, constantes.error_swal)
       }
     );
+  }
+
+  pesoCrear(){
+    let peso: Peso=new Peso();
+    peso.valor=this.pesoActualizar;
+    this.usuarioActualizar.pesos.push(peso);
+    this.pesoActualizar=0;
   }
 
   observacionCrear(){
     let observacion: Observacion=new Observacion();
     observacion.descripcion=this.observacionActualizar;
-    this.clienteActualizar.observaciones.push(observacion);
+    this.usuarioActualizar.observaciones.push(observacion);
     this.observacionActualizar="";
   }
 
   objetivoCrear(){
     let objetivo: Objetivo=new Objetivo();
     objetivo.descripcion=this.objetivoActualizar;
-    this.clienteActualizar.objetivos.push(objetivo);
+    this.usuarioActualizar.objetivos.push(objetivo);
     this.objetivoActualizar="";
   }
 

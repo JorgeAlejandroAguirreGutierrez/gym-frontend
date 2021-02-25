@@ -51,27 +51,29 @@
                     <label>Tipo:</label>
                     <div class="input-group">
                         <select [(ngModel)]="ejercicio.tipo" class="form-control form-control-sm">
-                            <option value="BICEPS">BICEPS</option>
-                            <option value="TRICEPS">TRICEPS</option>
-                            <option value="BRAZO">BRAZO</option>
-                            <option value="ESPALDA">ESPALDA</option>
-                            <option value="PECHO">PECHO</option>
-                            <option value="PECHO">ABDOMEN</option>
-                            <option value="HOMBRO">HOMBRO</option>
-                            <option value="PIERNA">PIERNA</option>
-                            <option value="PECHO">PANTORRILLA</option>
+                            <option value=""></option>
+                            <option *ngFor="let musculo of musculos; let i=index" [value]=musculo.valor>
+                                {{musculo.valor}}</option>
                         </select>
                         <div class="input-group-text"><i class="fa fa-dumbbell"></i></div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm">
                     <label>Imagen:</label>
                     <div class="input-group">
-                        <input type="file" id="imagen" name="imagen" (change)="cargarImagen($event)" required>
-                        <div class="input-group-text"><i class="fa fa-image"></i></div>
+                        <input hidden type="file" #botonImagen id="imagen" name="imagen"
+                            (change)="cargarImagen($event)">
+                        <button (click)="botonImagen.click()" class="btn btn-sm btn-block btn-primary">Cargar Imagen</button>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <ng-container *ngIf="imagen!=null">
+                        <p>{{imagen.name}}</p>
+                    </ng-container>
                 </div>
             </div>
             <br>

@@ -18,6 +18,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PrincipalComponent } from './principal/principal.component';
 import { LeerEjercicioComponent } from './ejercicio/leer-ejercicio/leer-ejercicio.component';
 import { CrearEjercicioComponent } from './ejercicio/crear-ejercicio/crear-ejercicio.component';
+import { CrearPlanEntrenamientoComponent } from './plan-entrenamiento/crear-plan-entrenamiento/crear-plan-entrenamiento.component';
+import { LeerPlanEntrenamientoComponent } from './plan-entrenamiento/leer-plan-entrenamiento/leer-plan-entrenamiento.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { CrearEjercicioComponent } from './ejercicio/crear-ejercicio/crear-ejerc
     PageNotFoundComponent,
     PrincipalComponent,
     LeerEjercicioComponent,
-    CrearEjercicioComponent
+    CrearEjercicioComponent,
+    CrearPlanEntrenamientoComponent,
+    LeerPlanEntrenamientoComponent
   ],
   imports: [
     BrowserModule,

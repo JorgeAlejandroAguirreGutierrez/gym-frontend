@@ -25,10 +25,10 @@ export class InicioSesionComponent implements OnInit {
         this.sesion=res;
         this.sesionService.setSesion(this.sesion);
         Swal.fire(constantes.exito, constantes.exito_iniciar_sesion, constantes.exito_swal);
-        if(this.sesion.cliente.perfil.descripcion==constantes.perfil_admin){
+        if(this.sesion.usuario.perfil.descripcion==constantes.perfil_admin){
           this.navegarAdmin();
         }
-        if(this.sesion.cliente.perfil.descripcion==constantes.perfil_cliente){
+        if(this.sesion.usuario.perfil.descripcion==constantes.perfil_cliente){
           this.navegarCliente();
         }
       },

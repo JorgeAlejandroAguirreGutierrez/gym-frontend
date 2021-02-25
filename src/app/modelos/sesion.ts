@@ -1,17 +1,17 @@
-import { Cliente } from "./cliente";
+import { Usuario } from "./usuario";
 
 export class Sesion {
     id: number;
     estado:boolean;
     fechaApertura: Date;
     fechaCierre: Date;
-    cliente: Cliente;
+    usuario: Usuario;
 
     constructor() { 
         this.id=0;
         this.estado=true;
         this.fechaApertura=new Date();
         this.fechaCierre=null as any;
-        this.cliente=new Cliente();  
+        this.usuario=new Usuario();  
     }
 }

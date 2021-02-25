@@ -2,9 +2,10 @@ import { DiaEntrenamiento } from "./dia-entrenamiento";
 import { Objetivo } from "./objetivo";
 import { Observacion } from "./observacion";
 import { Perfil } from "./perfil";
+import { Peso } from "./peso";
 import { Suscripcion } from "./suscripcion";
 
-export class Cliente {
+export class Usuario {
     id: number;
     nombre: string;
     identificacion: string;
@@ -14,6 +15,7 @@ export class Cliente {
     edad: string;
     imagen: string;
     perfil: Perfil;
+    pesos: Peso[];
     suscripciones: Suscripcion[];
     objetivos: Objetivo[];
     observaciones: Observacion[];
@@ -29,6 +31,7 @@ export class Cliente {
         this.edad="";
         this.imagen="";
         this.perfil=new Perfil();
+        this.pesos=[];
         this.suscripciones=[];
         this.objetivos=[];
         this.observaciones=[];

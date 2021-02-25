@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Cliente } from '../modelos/cliente';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { of, Observable, throwError } from 'rxjs';
@@ -15,9 +14,9 @@ export class EjercicioService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  crear(ejercicio: Ejercicio): Observable<Cliente> {
+  crear(ejercicio: Ejercicio): Observable<Ejercicio> {
     return this.http.post(environment.host + util.ruta + util.ejercicio, ejercicio, util.options).pipe(
-      map(response => response as Cliente),
+      map(response => response as Ejercicio),
       catchError(err => {
         return throwError(err);
       })
