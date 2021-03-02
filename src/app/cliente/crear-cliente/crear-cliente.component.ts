@@ -69,7 +69,7 @@ export class CrearClienteComponent implements OnInit {
     this.usuarioService.crearCliente(this.usuario).subscribe(
       res => {
         Swal.fire(constantes.exito, constantes.exito_crear_usuario, constantes.exito_swal);
-        this.navegarExitoso();
+        this.navegarLeerCliente();
       },
       err => {
         Swal.fire(constantes.error, constantes.error_crear_usuario, constantes.error_swal)
@@ -89,8 +89,12 @@ export class CrearClienteComponent implements OnInit {
     this.usuario.objetivos.splice(i, 1);
   }
 
-  navegarExitoso() {
+  navegarCrearCliente() {
     this.router.navigate(['/crear-cliente']);
+  }
+
+  navegarLeerCliente() {
+    this.router.navigate(['/leer-cliente']);
   }
 
   navegarIndex() {

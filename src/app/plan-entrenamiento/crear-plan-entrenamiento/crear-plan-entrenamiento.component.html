@@ -66,7 +66,7 @@
                                 </h5>
                             </div>
 
-                            <div id="collapse{{i+1}}" class="collapse" attr.aria-labelledby="heading{{i+1}}"
+                            <div id="collapse{{i+1}}" class="collapse {{planEntrenamiento.show}}" attr.aria-labelledby="heading{{i+1}}"
                                 data-parent="#accordion">
                                 <div class="card-body">
                                     <div class="row">
@@ -105,11 +105,11 @@
                                                                 </button>
                                                                 <button class="btn btn-sm btn-primary separate"
                                                                     (click)="abrirModalActualizarRutinaEntrenamiento(i, j)">
-                                                                    <i class="fa fa-eye"></i>
+                                                                    <i class="fa fa-edit"></i>
                                                                 </button>
                                                                 <button class="btn btn-sm btn-primary separate"
                                                                     (click)="eliminarRutinaEntrenamiento(i, j)">
-                                                                    <i class="fa fa-eye"></i>
+                                                                    <i class="fa fa-trash"></i>
                                                                 </button>
                                                             </td>
                                                         </tr>

@@ -7,6 +7,7 @@ export const sesion: string='/sesion';
 export const ejercicio: string='/ejercicio';
 export const parametro: string='/parametro';
 export const tipomusculo: string='/tipomusculo';
+export const rutinaentrenamiento: string='/rutinaentrenamiento';
 export const buscar: string='/buscar';
 export const consultarPorTipo: string='/consultarPorTipo';
 export const consultarPorTituloTipo: string='/consultarPorTituloTipo';

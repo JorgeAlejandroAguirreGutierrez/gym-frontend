@@ -2,7 +2,6 @@ import { Ejercicio } from "./ejercicio";
 
 export class RutinaEntrenamiento {
     id: number;
-    numero: number;
     repeticiones: number;
     veces: number;
     pesaje: string;
@@ -10,7 +9,6 @@ export class RutinaEntrenamiento {
 
     constructor(){
         this.id=0;
-        this.numero=0;
         this.repeticiones=0;
         this.veces=0;
         this.pesaje="";
