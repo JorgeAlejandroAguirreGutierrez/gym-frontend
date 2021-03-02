@@ -57,7 +57,7 @@
                         <th scope="col">EDAD</th>
                         <th scope="col">PESO</th>
                         <th scope="col">OBSERV</th>
-                        <th scope="col">OBJETIVOS</th>
+                        <th scope="col">OBJ</th>
                         <th scope="col">PLAN</th>
                         <th scope="col">OPC</th>
                     </tr>
@@ -70,30 +70,28 @@
                         <td>{{usuario.talla}}</td>
                         <td>{{usuario.edad}}</td>
                         <td>
-                            <button (click)="pesosVer(i)"
-                                class="btn btn-primary form-control-sm">
+                            <button (click)="pesosVer(i)" class="btn btn-sm btn-primary">
+                                KG
+                            </button>
+                        </td>
+                        <td>
+                            <button (click)="observacionesVer(i)" class="btn btn-sm btn-primary">
                                 <i class="fa fa-eye"></i>
                             </button>
                         </td>
                         <td>
-                            <button (click)="observacionesVer(i)"
-                                class="btn btn-primary form-control-sm">
-                                <i class="fa fa-eye"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button (click)="objetivosVer(i)" class="btn btn-primary form-control-sm">
+                            <button (click)="objetivosVer(i)" class="btn btn-sm btn-primary">
                                 <i class="fa fa-dumbbell"></i>
                             </button>
                         </td>
                         <td>
-                            <button (click)="planEntrenamientoVer(i)"
-                                class="btn btn-primary form-control-sm">
+                            <a type="button" href="/crear-plan-entrenamiento?identificacion={{usuario.identificacion}}"
+                                class="btn btn-sm btn-primary">
                                 <i class="fa fa-play"></i>
-                            </button>
+                            </a>
                         </td>
                         <td>
-                            <button (click)="editar(i)" class="btn btn-primary form-control-sm">
+                            <button (click)="editar(i)" class="btn btn-sm btn-primary">
                                 <i class="fa fa-edit"></i>
                             </button>
                         </td>
@@ -142,7 +140,7 @@
                 <tr *ngFor="let peso of usuarioActualizar.pesos; let i=index">
                     <td>{{i+1}}</td>
                     <td>{{peso.valor}}</td>
-                    <td>{{peso.fecha}}</td>
+                    <td>{{peso.fecha | DateShortPipe}}</td>
                     <td>
                         <button (click)="pesoEliminar(i)" class="btn btn-primary form-control-sm">
                             <i class="fa fa-trash"></i>
@@ -179,7 +177,8 @@
         <br>
         <div class="row">
             <div class="col-sm-12">
-                <button type="button" class="btn btn-sm btn-success btn-block" (click)="observacionCrear()">Agregar</button>
+                <button type="button" class="btn btn-sm btn-success btn-block"
+                    (click)="observacionCrear()">Agregar</button>
             </div>
         </div>
         <br>
@@ -231,7 +230,8 @@
         <br>
         <div class="row">
             <div class="col-sm-12">
-                <button type="button" class="btn btn-sm btn-success btn-block" (click)="objetivoCrear()">Agregar</button>
+                <button type="button" class="btn btn-sm btn-success btn-block"
+                    (click)="objetivoCrear()">Agregar</button>
             </div>
         </div>
         <br>
@@ -284,8 +284,8 @@
             <div class="col-sm-12">
                 <label>Identificacion:</label>
                 <div class="input-group">
-                    <input type="text" [(ngModel)]="usuarioActualizar.identificacion" class="form-control form-control-sm"
-                        oninput="this.value = this.value.toUpperCase()">
+                    <input type="text" [(ngModel)]="usuarioActualizar.identificacion"
+                        class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
                     <div class="input-group-text"><i class="fa fa-id-card"></i></div>
                 </div>
             </div>
@@ -297,16 +297,6 @@
                     <input type="text" [(ngModel)]="usuarioActualizar.talla" class="form-control form-control-sm"
                         oninput="this.value = this.value.toUpperCase()">
                     <div class="input-group-text"><i class="fa fa-text-height"></i></div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <label>Peso:</label>
-                <div class="input-group">
-                    <input type="text" [(ngModel)]="usuarioActualizar.peso" class="form-control form-control-sm"
-                        oninput="this.value = this.value.toUpperCase()">
-                    <div class="input-group-text"><i class="fa fa-weight"></i></div>
                 </div>
             </div>
         </div>

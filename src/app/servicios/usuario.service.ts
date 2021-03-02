@@ -100,4 +100,30 @@ export class UsuarioService {
       })
     );
   }
+
+  obtenerPorIdentificacion(identificacion: string): Observable<Usuario> {
+    return this.http.get<Usuario>(environment.host + util.ruta + util.usuario+util.obtenerPorIdentificacion + '/' + identificacion, util.options).pipe(
+      map(response => response as Usuario),
+      catchError(err => {
+        return throwError(err);
+      }));
+  }
+
+  crearCliente(usuario: Usuario): Observable<Usuario> {
+    return this.http.post(environment.host + util.ruta + util.usuario + util.crearCliente, usuario, util.options).pipe(
+      map(response => response as Usuario),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
+
+  crearAdmin(usuario: Usuario): Observable<Usuario> {
+    return this.http.post(environment.host + util.ruta + util.usuario + util.crearAdmin, usuario, util.options).pipe(
+      map(response => response as Usuario),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
 }

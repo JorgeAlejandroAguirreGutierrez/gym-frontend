@@ -1,4 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Ejercicio } from 'src/app/modelos/ejercicio';
+import { PlanEntrenamiento } from 'src/app/modelos/plan-entrenamiento';
+import { RutinaEntrenamiento } from 'src/app/modelos/rutina-entrenamiento';
+import { Usuario } from 'src/app/modelos/usuario';
+import { EjercicioService } from 'src/app/servicios/ejercicio.service';
+import { SesionService } from 'src/app/servicios/sesion.service';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import Swal from 'sweetalert2';
+import * as constantes from '../../constantes';
 
 @Component({
   selector: 'app-crear-plan-entrenamiento',
@@ -7,9 +18,171 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrearPlanEntrenamientoComponent implements OnInit {
 
-  constructor() { }
+  identificacion: string="";
+  usuario: Usuario=new Usuario();
+  cerrarModal: string = "";
+  planEntrenamientoActualizar: PlanEntrenamiento=new PlanEntrenamiento();
+  rutinaEntrenamientoCrear: RutinaEntrenamiento=new RutinaEntrenamiento();
+  rutinaEntrenamientoActualizar: RutinaEntrenamiento=new RutinaEntrenamiento();
+  seleccionPE: number=-1;
+  seleccionRE: number=-1;
+
+  ejercicios: Ejercicio[]=[];
+
+  ejercicioForm:number=-1;
+
+  @ViewChild('modalCrearRutinaEntrenamiento', { static: false }) private modalCrearRutinaEntrenamiento: any;
+  @ViewChild('modalActualizarRutinaEntrenamiento', { static: false }) private modalActualizarRutinaEntrenamiento: any;
+  @ViewChild('modalLeerEjercicio', { static: false }) private modalLeerEjercicio: any;
+
+  constructor(private sesionService: SesionService, private usuarioService: UsuarioService,
+    private ejercicioService: EjercicioService,
+    private route: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.identificacion=this.route.snapshot.queryParamMap.get('identificacion') || null as any;
+    console.log(this.identificacion);
+    if(this.identificacion==null){
+      this.navegarIndex();
+    }
+    this.obtenerPorIdentificacion();
+    this.consultarEjercicios();
+  }
+
+  obtenerPorIdentificacion(){
+    this.usuarioService.obtenerPorIdentificacion(this.identificacion).subscribe(
+      res => {
+        this.usuario=res;
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_obtener_usuario, constantes.error_swal)
+      }
+    );
+  }
+
+  crearPlanEntrenamiento(){
+    let planEntrenamiento=new PlanEntrenamiento();
+    planEntrenamiento.numero=this.usuario.planesEntrenamiento.length+1;
+    this.usuario.planesEntrenamiento.push(planEntrenamiento);
+    this.usuarioService.actualizar(this.usuario).subscribe(
+      res => {
+        this.usuario=res;
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_crear_plan_entrenamiento, constantes.error_swal)
+      }
+    );
+  }
+
+  abrirModalCrearRutinaEntrenamiento(i: number) {
+    this.seleccionPE=i;
+    this.open(this.modalCrearRutinaEntrenamiento);
+  }
+
+  abrirModalActualizarRutinaEntrenamiento(i: number, j:number) {
+    this.seleccionPE=i;
+    this.seleccionRE=j;
+    this.rutinaEntrenamientoActualizar={ ... this.usuario.planesEntrenamiento[this.seleccionPE].rutinasEntrenamiento[this.seleccionRE]};
+    this.open(this.modalActualizarRutinaEntrenamiento);
+  }
+
+  abrirModalLeerEjercicio(i:number, j:number){
+    this.seleccionPE=i;
+    this.seleccionRE=j;
+    this.open(this.modalLeerEjercicio);
+  }
+
+  crearRutinaEntrenamiento(){
+    if(this.ejercicioForm==-1){
+      Swal.fire(constantes.error, constantes.error_seleccion_ejercicio, constantes.error_swal)
+      return;
+    }
+    this.rutinaEntrenamientoCrear.ejercicio=this.ejercicios[this.ejercicioForm];
+    this.usuario.planesEntrenamiento[this.seleccionPE].rutinasEntrenamiento.push({... this.rutinaEntrenamientoCrear})
+    console.log(this.usuario.planesEntrenamiento);
+    this.usuarioService.actualizar(this.usuario).subscribe(
+      res => {
+        this.usuario=res;
+        this.modalService.dismissAll();
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_actualizar_usuario, constantes.error_swal)
+      }
+    );
+  }
+
+  actualizarRutinaEntrenamiento(){
+    if(this.ejercicioForm==-1){
+      Swal.fire(constantes.error, constantes.error_seleccion_ejercicio, constantes.error_swal)
+      return;
+    }
+    this.rutinaEntrenamientoActualizar.ejercicio=this.ejercicios[this.ejercicioForm];
+    this.usuario.planesEntrenamiento[this.seleccionPE].rutinasEntrenamiento[this.seleccionRE]=({... this.rutinaEntrenamientoActualizar})
+    console.log(this.usuario.planesEntrenamiento);
+    this.usuarioService.actualizar(this.usuario).subscribe(
+      res => {
+        this.usuario=res;
+        this.modalService.dismissAll();
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_actualizar_usuario, constantes.error_swal)
+      }
+    );
+  }
+
+  eliminarRutinaEntrenamiento(i: number, j:number){
+    this.seleccionPE=i;
+    this.seleccionRE=j;
+    this.usuario.planesEntrenamiento[this.seleccionPE].rutinasEntrenamiento.splice(this.seleccionRE, 1);
+    console.log(this.usuario.planesEntrenamiento);
+    this.usuarioService.actualizar(this.usuario).subscribe(
+      res => {
+        this.usuario=res;
+        this.modalService.dismissAll();
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_actualizar_usuario, constantes.error_swal)
+      }
+    );
+  }
+
+  consultarEjercicios(){
+    this.ejercicioService.consultar().subscribe(
+      res => {
+        this.ejercicios=res;
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_obtener_usuario, constantes.error_swal)
+      }
+    );
+  }
+
+  open(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true }).result.then((result) => {
+      this.cerrarModal = `Closed with: ${result}`;
+    }, (reason) => {
+      this.cerrarModal = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  navegarIndex() {
+    this.router.navigate(['/index']);
+  }
+
+  cerrarSesion(event:any){
+    if (event!=null)
+      event.preventDefault();
+    this.sesionService.cerrarSesion();
   }
 
 }

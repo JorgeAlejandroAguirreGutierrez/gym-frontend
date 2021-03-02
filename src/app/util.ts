@@ -6,11 +6,15 @@ export const usuario: string='/usuario';
 export const sesion: string='/sesion';
 export const ejercicio: string='/ejercicio';
 export const parametro: string='/parametro';
+export const tipomusculo: string='/tipomusculo';
 export const buscar: string='/buscar';
 export const consultarPorTipo: string='/consultarPorTipo';
 export const consultarPorTituloTipo: string='/consultarPorTituloTipo';
 export const consultarClientes: string='/consultarClientes';
 export const consultarAdmins: string='/consultarAdmins';
+export const crearCliente: string='/crearCliente';
+export const crearAdmin: string='/crearAdmin';
+export const obtenerPorIdentificacion: string='/obtenerPorIdentificacion';
 
 export const headers= new HttpHeaders({'Content-Type':'application/json'});
 export const options = {headers: headers};

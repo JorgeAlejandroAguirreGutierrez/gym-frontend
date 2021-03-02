@@ -36,13 +36,13 @@ export class SesionService {
   adminLogueado(){
     let sesion=JSON.parse(sessionStorage.getItem('sesion') || null as any);
     if(sesion== null) return false;
-    return sesion.cliente.perfil.descripcion==constantes.perfil_admin;
+    return sesion.usuario.perfil.descripcion==constantes.perfil_admin;
   }
 
   clienteLogueado(){
     let sesion=JSON.parse(sessionStorage.getItem('sesion') || null as any);
     if(sesion== null) return false;
-    return sesion.cliente.perfil.descripcion==constantes.perfil_cliente;
+    return sesion.usuario.perfil.descripcion==constantes.perfil_cliente;
   }
 
   cerrarSesion(){

@@ -60,7 +60,7 @@
                     <tr *ngFor="let ejercicio of ejercicios; let i=index">
                         <td>{{i+1}}</td>
                         <td>{{ejercicio.descripcion}}</td>
-                        <td>{{ejercicio.tipo}}</td>
+                        <td>{{ejercicio.tipoMusculo.descripcion}}</td>
                         <td>
                             <button (click)="editar(i)" class="btn btn-primary form-control-sm">
                                 <i class="fa fa-edit"></i>
@@ -95,16 +95,9 @@
             <div class="col-sm-12">
                 <label>Tipo:</label>
                 <div class="input-group">
-                    <select [(ngModel)]="ejercicioActualizar.tipo" class="form-control form-control-sm">
-                        <option value="BICEPS">BICEPS</option>
-                        <option value="TRICEPS">TRICEPS</option>
-                        <option value="BRAZO">BRAZO</option>
-                        <option value="ESPALDA">ESPALDA</option>
-                        <option value="PECHO">PECHO</option>
-                        <option value="PECHO">ABDOMEN</option>
-                        <option value="HOMBRO">HOMBRO</option>
-                        <option value="PIERNA">PIERNA</option>
-                        <option value="PECHO">PANTORRILLA</option>
+                    <select [(ngModel)]="ejercicioActualizar.tipoMusculo" class="form-control form-control-sm">
+                        <option value=""></option>
+                        <option *ngFor="let tipoMusculo of tiposMusculo; let i=index" [value]=tipoMusculo>{{tipoMusculo.descripcion}}</option>
                     </select>
                     <div class="input-group-text"><i class="fa fa-dumbbell"></i></div>
                 </div>

@@ -1,8 +1,8 @@
-import { DiaEntrenamiento } from "./dia-entrenamiento";
 import { Objetivo } from "./objetivo";
 import { Observacion } from "./observacion";
 import { Perfil } from "./perfil";
 import { Peso } from "./peso";
+import { PlanEntrenamiento } from "./plan-entrenamiento";
 import { Suscripcion } from "./suscripcion";
 
 export class Usuario {
@@ -11,7 +11,6 @@ export class Usuario {
     identificacion: string;
     contrasena: string; 
     talla: string;
-    peso: string;
     edad: string;
     imagen: string;
     perfil: Perfil;
@@ -19,7 +18,7 @@ export class Usuario {
     suscripciones: Suscripcion[];
     objetivos: Objetivo[];
     observaciones: Observacion[];
-    planEntrenamiento: DiaEntrenamiento[];
+    planesEntrenamiento: PlanEntrenamiento[];
 
     constructor(){
         this.id=0;
@@ -27,7 +26,6 @@ export class Usuario {
         this.identificacion="";
         this.contrasena="";
         this.talla="";
-        this.peso="";
         this.edad="";
         this.imagen="";
         this.perfil=new Perfil();
@@ -35,6 +33,6 @@ export class Usuario {
         this.suscripciones=[];
         this.objetivos=[];
         this.observaciones=[];
-        this.planEntrenamiento=[];
+        this.planesEntrenamiento=[];
     }
 }

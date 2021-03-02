@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Ejercicio } from 'src/app/modelos/ejercicio';
+import { TipoMusculo } from 'src/app/modelos/tipo-musculo';
 import { EjercicioService } from 'src/app/servicios/ejercicio.service';
 import { SesionService } from 'src/app/servicios/sesion.service';
+import { TipoMusculoService } from 'src/app/servicios/tipo-musculo.service';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
 
@@ -18,17 +20,31 @@ export class LeerEjercicioComponent implements OnInit {
   ejercicioBuscar: Ejercicio=new Ejercicio();
   ejercicioActualizar: Ejercicio=new Ejercicio();
 
+  tiposMusculo: TipoMusculo[]=[];
+
   cerrarModal: string="";
 
   @ViewChild('modalEjercicioActualizar', { static: false }) private modalEjercicioActualizar: any;
 
-  constructor(private ejercicioService: EjercicioService, private sesionService: SesionService, private router: Router, private modalService: NgbModal) { 
+  constructor(private ejercicioService: EjercicioService, private tipoMusculoService: TipoMusculoService,
+    private sesionService: SesionService, private router: Router, private modalService: NgbModal) { 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit(): void {
     this.validarSesion();
     this.consultarEjercicios();
+  }
+
+  consultarTiposMuculo(){
+    this.tipoMusculoService.consultar().subscribe(
+      res => {
+        this.tiposMusculo = res;
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_consultar_musculos, constantes.error_swal)
+      }
+    );
   }
 
   consultarEjercicios(){

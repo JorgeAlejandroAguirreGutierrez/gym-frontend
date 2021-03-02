@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +9,7 @@ import { AppComponent } from './app.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
+import { DateShortPipe } from './pipes/date-short-pipe';
 
 import { CrearClienteComponent } from './cliente/crear-cliente/crear-cliente.component';
 import { LeerClienteComponent } from './cliente/leer-cliente/leer-cliente.component';
@@ -24,6 +26,7 @@ import { LeerPlanEntrenamientoComponent } from './plan-entrenamiento/leer-plan-e
 @NgModule({
   declarations: [
     AppComponent,
+    DateShortPipe,
     CrearClienteComponent,
     LeerClienteComponent,
     InicioSesionComponent,
@@ -36,6 +39,7 @@ import { LeerPlanEntrenamientoComponent } from './plan-entrenamiento/leer-plan-e
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,

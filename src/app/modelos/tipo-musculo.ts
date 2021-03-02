@@ -1,4 +1,4 @@
-export class DiaEntrenamiento {
+export class TipoMusculo {
     id: number;
     descripcion: string;
 

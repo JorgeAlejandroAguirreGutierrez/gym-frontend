@@ -1,1 +1,247 @@
-<p>crear-plan-entrenamiento works!</p>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">GYM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/crear-cliente">Crear Cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/leer-cliente">Ver Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/crear-ejercicio">Crear Ejercicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/leer-ejercicio">Ver Ejercicios</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <a class="nav-link" type="button" href="#" (click)="cerrarSesion($event)">CERRAR SESION</a>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div class="row">
+        <div class="col-sm" align="center">
+            <h2>PLAN DE ENTRENAMIENTO</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <button (click)="crearPlanEntrenamiento()" class="btn btn-sm btn-block btn-primary">Crear dia de
+                Entrenamiento</button>
+        </div>
+        <hr>
+    </div>
+    <br>
+    <ng-container *ngIf="usuario.planesEntrenamiento.length==0">
+        <div class="row">
+            <div class="col-sm">
+                <div align="center" class="alert alert-warning font-weight-bold" role="alert">
+                    NO EXISTE PLAN DE ENTRENAMIENTO
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="usuario.planesEntrenamiento.length!=0">
+        <div class="row">
+            <div class="col-sm">
+                <div id="accordion">
+                    <ng-container *ngFor="let planEntrenamiento of usuario.planesEntrenamiento; let i=index">
+                        <div class="card">
+                            <div class="card-header" id="heading{{i+1}}">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse"
+                                        attr.data-target="#collapse{{i+1}}" aria-expanded="true"
+                                        attr.aria-controls="collapse{{i+1}}">
+                                        DIA {{i+1}}
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapse{{i+1}}" class="collapse" attr.aria-labelledby="heading{{i+1}}"
+                                data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <button class="btn btn-sm btn-primary btn-block"
+                                                (click)="abrirModalCrearRutinaEntrenamiento(i)">Crear Rutina</button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <ng-container *ngIf="planEntrenamiento.rutinasEntrenamiento.length>0">
+                                        <div class="row">
+                                            <div class="col-sm table-responsive">
+                                                <table class="table table-sm table-hover table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">EJERCICIO</th>
+                                                            <th scope="col">REP</th>
+                                                            <th scope="col">VECES</th>
+                                                            <th scope="col">PESO</th>
+                                                            <th scope="col">OPCIONES</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr
+                                                            *ngFor="let rutinaEntrenamiento of planEntrenamiento.rutinasEntrenamiento; let j=index">
+                                                            <td>{{j+1}}</td>
+                                                            <td>{{rutinaEntrenamiento.ejercicio.descripcion}}</td>
+                                                            <td>{{rutinaEntrenamiento.repeticiones}}</td>
+                                                            <td>{{rutinaEntrenamiento.veces}}</td>
+                                                            <td>{{rutinaEntrenamiento.pesaje}}</td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-primary separate"
+                                                                    (click)="abrirModalLeerEjercicio(i, j)">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </button>
+                                                                <button class="btn btn-sm btn-primary separate"
+                                                                    (click)="abrirModalActualizarRutinaEntrenamiento(i, j)">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </button>
+                                                                <button class="btn btn-sm btn-primary separate"
+                                                                    (click)="eliminarRutinaEntrenamiento(i, j)">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #modalCrearRutinaEntrenamiento let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">RUTINA</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="rutinaEntrenamientoCrear.repeticiones"
+                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Veces</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="rutinaEntrenamientoCrear.veces"
+                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Peso</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="rutinaEntrenamientoCrear.pesaje"
+                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Ejercicio</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <select [(ngModel)]="ejercicioForm" class="form-control form-control-sm">
+                        <option value="-1"></option>
+                        <option *ngFor="let ejercicio of ejercicios; let i=index" [value]="i">
+                            {{ejercicio.descripcion}}
+                        </option>
+                    </select>
+                    <div class="input-group-text"><i class="fa fa-tumblr"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="crearRutinaEntrenamiento()">Guardar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cerrar')">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #modalActualizarRutinaEntrenamiento let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">RUTINA</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="rutinaEntrenamientoActualizar.repeticiones"
+                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Veces</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="rutinaEntrenamientoActualizar.veces"
+                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Peso</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="rutinaEntrenamientoActualizar.pesaje"
+                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Ejercicio</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <select [(ngModel)]="ejercicioForm" class="form-control form-control-sm">
+                        <option value="-1"></option>
+                        <option *ngFor="let ejercicio of ejercicios; let i=index" [value]="i">
+                            {{ejercicio.descripcion}}
+                        </option>
+                    </select>
+                    <div class="input-group-text"><i class="fa fa-tumblr"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="actualizarRutinaEntrenamiento()">Guardar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cerrar')">Cerrar</button>
+    </div>
+</ng-template>

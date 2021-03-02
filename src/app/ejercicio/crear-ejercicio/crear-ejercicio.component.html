@@ -50,7 +50,7 @@
                 <div class="col-sm-12">
                     <label>Tipo:</label>
                     <div class="input-group">
-                        <select [(ngModel)]="ejercicio.tipo" class="form-control form-control-sm">
+                        <select [(ngModel)]="ejercicio.tipoMusculo" class="form-control form-control-sm">
                             <option value=""></option>
                             <option *ngFor="let musculo of musculos; let i=index" [value]=musculo.valor>
                                 {{musculo.valor}}</option>

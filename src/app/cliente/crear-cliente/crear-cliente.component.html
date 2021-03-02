@@ -68,16 +68,6 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <label>Peso:</label>
-                    <div class="input-group">
-                        <input type="text" [(ngModel)]="usuario.peso" class="form-control form-control-sm"
-                            oninput="this.value = this.value.toUpperCase()">
-                        <div class="input-group-text"><i class="fa fa-weight"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
                     <label>Edad:</label>
                     <div class="input-group">
                         <input type="text" [(ngModel)]="usuario.edad" class="form-control form-control-sm"
@@ -88,18 +78,20 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <label>Pesos:</label>
-                    <div class="input-group">
+                    <label>Peso:</label>
+                    <div class="input-group input-group-sm">
                         <input type="text" [(ngModel)]="peso" class="form-control form-control-sm"
                             oninput="this.value = this.value.toUpperCase()">
-                        <div class="input-group-text"><i class="fa fa-bolt"></i></div>
+                        <div class="input-group-append">
+                            <span class="input-group-text font-weight-bold">KG</span>
+                        </div>
                     </div>
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-sm-12">
-                    <button class="btn btn-block btn-primary" (click)="crearPeso()">Agregar Observacion</button>
+                    <button class="btn btn-block btn-primary" (click)="crearPeso()">Agregar Peso</button>
                 </div>
             </div>
             <br>
@@ -118,7 +110,7 @@
                             <tr *ngFor="let peso of usuario.pesos; let i=index">
                                 <td>{{i+1}}</td>
                                 <td>{{peso.valor}}</td>
-                                <td>{{peso.fecha}}</td>
+                                <td>{{peso.fecha | DateShortPipe}}</td>
                                 <td>
                                     <button (click)="eliminarPeso(i)" class="btn btn-primary form-control-sm"><i
                                             class="fa fa-trash"></i></button>

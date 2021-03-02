@@ -38,11 +38,11 @@ export class LeerClienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.validarSesion();
-    
+    this.consultarClientes();
   }
 
   consultarClientes(){
-    this.usuarioService.consultar().subscribe(
+    this.usuarioService.consultarClientes().subscribe(
       res => {
         this.usuarios = res;
       },

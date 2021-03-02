@@ -1,11 +1,13 @@
+import { TipoMusculo } from "./tipo-musculo";
+
 export class Ejercicio {
     id: number;
     descripcion: string;
-    tipo: string;
+    tipoMusculo: TipoMusculo;
 
     constructor(){
         this.id=0;
         this.descripcion="";
-        this.tipo="";
+        this.tipoMusculo=new TipoMusculo();
     }
 }
