@@ -32,3 +32,4 @@ export const parametroMusculo="MUSCULO";
 export const error_consultar_musculos='Error al consultar los tipos de musculos';
 
 export const error_seleccion_ejercicio='Error al seleccionar el ejercicio';
+export const error_maximo_plan_entrenamiento='Error supera la semana de entrenamiento';

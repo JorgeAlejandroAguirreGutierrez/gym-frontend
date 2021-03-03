@@ -129,7 +129,7 @@ export class LeerEjercicioComponent implements OnInit {
   }
 
   open(content: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
       this.cerrarModal = `Closed with: ${result}`;
     }, (reason) => {
       this.cerrarModal = `Dismissed ${this.getDismissReason(reason)}`;

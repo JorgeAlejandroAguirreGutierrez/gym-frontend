@@ -82,6 +82,9 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
   }
 
   crearPlanEntrenamiento(){
+    if(this.usuario.planesEntrenamiento.length==7){
+      Swal.fire(constantes.error, constantes.error_maximo_plan_entrenamiento, constantes.error_swal)
+    }
     let numero: number=this.usuario.planesEntrenamiento.length+1;
     this.planEntrenamientoCrear.numero=numero;
     this.planEntrenamientoCrear.dia=util.dia.get("DIA"+numero)!;
@@ -91,6 +94,8 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
       res => {
         this.usuario=res;
         this.planEntrenamientoCrear=new PlanEntrenamiento();
+        this.desactivarAcordeon();
+        this.usuario.planesEntrenamiento[this.usuario.planesEntrenamiento.length-1].show="show";
       },
       err => {
         Swal.fire(constantes.error, constantes.error_crear_plan_entrenamiento, constantes.error_swal)

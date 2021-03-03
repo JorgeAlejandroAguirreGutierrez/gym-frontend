@@ -109,7 +109,7 @@
                         <tbody>
                             <tr *ngFor="let peso of usuario.pesos; let i=index">
                                 <td>{{i+1}}</td>
-                                <td>{{peso.valor}}</td>
+                                <td>{{peso.valor}} KG</td>
                                 <td>{{peso.fecha | DateShortPipe}}</td>
                                 <td>
                                     <button (click)="eliminarPeso(i)" class="btn btn-primary form-control-sm"><i
