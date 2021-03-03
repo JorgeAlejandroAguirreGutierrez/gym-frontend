@@ -95,6 +95,7 @@ export class CrearEjercicioComponent implements OnInit {
     if (event != null)
       event.preventDefault();
     this.sesionService.cerrarSesion();
+    this.navegarIndex();
   }
 
 }

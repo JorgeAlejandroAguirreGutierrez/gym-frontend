@@ -174,10 +174,11 @@ export class LeerClienteComponent implements OnInit {
     this.router.navigate(['/index']);
   }
 
-  cerrarSesion(event:any){
-    if (event!=null)
+  cerrarSesion(event: any) {
+    if (event != null)
       event.preventDefault();
     this.sesionService.cerrarSesion();
+    this.navegarIndex();
   }
 
 }

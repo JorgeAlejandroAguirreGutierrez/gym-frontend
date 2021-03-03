@@ -10,6 +10,8 @@ import { SesionService } from 'src/app/servicios/sesion.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
+import { environment } from '../../../environments/environment';
+import * as util from '../../util';
 
 @Component({
   selector: 'app-crear-plan-entrenamiento',
@@ -21,7 +23,7 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
   identificacion: string="";
   usuario: Usuario=new Usuario();
   cerrarModal: string = "";
-  planEntrenamientoActualizar: PlanEntrenamiento=new PlanEntrenamiento();
+  planEntrenamientoCrear: PlanEntrenamiento=new PlanEntrenamiento();
   rutinaEntrenamientoCrear: RutinaEntrenamiento=new RutinaEntrenamiento();
   rutinaEntrenamientoActualizar: RutinaEntrenamiento=new RutinaEntrenamiento();
   seleccionPE: number=-1;
@@ -29,7 +31,7 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
 
   ejercicios: Ejercicio[]=[];
 
-  ejercicioForm:number=-1;
+  prefijoUrlEjercicios= environment.prefijo_url_ejercicios;
 
   @ViewChild('modalCrearRutinaEntrenamiento', { static: false }) private modalCrearRutinaEntrenamiento: any;
   @ViewChild('modalActualizarRutinaEntrenamiento', { static: false }) private modalActualizarRutinaEntrenamiento: any;
@@ -60,21 +62,6 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     );
   }
 
-  crearPlanEntrenamiento(){
-    let planEntrenamiento=new PlanEntrenamiento();
-    planEntrenamiento.numero=this.usuario.planesEntrenamiento.length+1;
-    this.usuario.planesEntrenamiento.push(planEntrenamiento);
-    console.log(this.usuario);
-    this.usuarioService.actualizar(this.usuario).subscribe(
-      res => {
-        this.usuario=res;
-      },
-      err => {
-        Swal.fire(constantes.error, constantes.error_crear_plan_entrenamiento, constantes.error_swal)
-      }
-    );
-  }
-
   abrirModalCrearRutinaEntrenamiento(i: number) {
     this.seleccionPE=i;
     this.open(this.modalCrearRutinaEntrenamiento);
@@ -87,23 +74,37 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     this.open(this.modalActualizarRutinaEntrenamiento);
   }
 
+
   abrirModalLeerEjercicio(i:number, j:number){
     this.seleccionPE=i;
     this.seleccionRE=j;
     this.open(this.modalLeerEjercicio);
   }
 
+  crearPlanEntrenamiento(){
+    let numero: number=this.usuario.planesEntrenamiento.length+1;
+    this.planEntrenamientoCrear.numero=numero;
+    this.planEntrenamientoCrear.dia=util.dia.get("DIA"+numero)!;
+    this.usuario.planesEntrenamiento.push(this.planEntrenamientoCrear);
+    console.log(this.usuario);
+    this.usuarioService.actualizar(this.usuario).subscribe(
+      res => {
+        this.usuario=res;
+        this.planEntrenamientoCrear=new PlanEntrenamiento();
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_crear_plan_entrenamiento, constantes.error_swal)
+      }
+    );
+  }
+
   crearRutinaEntrenamiento(){
-    if(this.ejercicioForm==-1){
-      Swal.fire(constantes.error, constantes.error_seleccion_ejercicio, constantes.error_swal)
-      return;
-    }
-    this.rutinaEntrenamientoCrear.ejercicio=this.ejercicios[this.ejercicioForm];
     this.usuario.planesEntrenamiento[this.seleccionPE].rutinasEntrenamiento.push({... this.rutinaEntrenamientoCrear})
     console.log(this.usuario);
     this.usuarioService.actualizar(this.usuario).subscribe(
       res => {
         this.usuario=res;
+        this.rutinaEntrenamientoCrear=new RutinaEntrenamiento();
         this.desactivarAcordeon();
         this.usuario.planesEntrenamiento[this.seleccionPE].show="show";
         this.modalService.dismissAll();
@@ -115,16 +116,12 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
   }
 
   actualizarRutinaEntrenamiento(){
-    if(this.ejercicioForm==-1){
-      Swal.fire(constantes.error, constantes.error_seleccion_ejercicio, constantes.error_swal)
-      return;
-    }
-    this.rutinaEntrenamientoActualizar.ejercicio=this.ejercicios[this.ejercicioForm];
     this.usuario.planesEntrenamiento[this.seleccionPE].rutinasEntrenamiento[this.seleccionRE]=({... this.rutinaEntrenamientoActualizar})
     console.log(this.usuario.planesEntrenamiento);
     this.usuarioService.actualizar(this.usuario).subscribe(
       res => {
         this.usuario=res;
+        this.rutinaEntrenamientoActualizar=new RutinaEntrenamiento();
         this.desactivarAcordeon();
         this.usuario.planesEntrenamiento[this.seleccionPE].show="show";
         this.modalService.dismissAll();
@@ -165,6 +162,10 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     );
   }
 
+  compareFn(a:any, b:any) {
+    return a && b && a.id == b.id;
+  }
+
   desactivarAcordeon(){
     for(let i=0; i<this.usuario.planesEntrenamiento.length; i++){
       this.usuario.planesEntrenamiento[i].show="";
@@ -193,10 +194,11 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     this.router.navigate(['/index']);
   }
 
-  cerrarSesion(event:any){
-    if (event!=null)
+  cerrarSesion(event: any) {
+    if (event != null)
       event.preventDefault();
     this.sesionService.cerrarSesion();
+    this.navegarIndex();
   }
 
 }

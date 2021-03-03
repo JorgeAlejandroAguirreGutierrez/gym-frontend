@@ -21,3 +21,14 @@ export const headers= new HttpHeaders({'Content-Type':'application/json'});
 export const options = {headers: headers};
 export const headersImagen= new HttpHeaders({});
 export const optionsImagen = {headers: headersImagen};
+
+
+export const dia = new Map([
+    ["DIA1", "LUNES"],
+    ["DIA2", "MARTES"],
+    ["DIA3", "MIERCOLES"],
+    ["DIA4", "JUEVES"],
+    ["DIA5", "VIERNES"],
+    ["DIA6", "SABADO"],
+    ["DIA7", "DOMINGO"],
+]);

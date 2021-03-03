@@ -20,6 +20,9 @@ export const exito_actualizar_ejercicio='Exito al actualizar el ejercicio';
 export const exito_iniciar_sesion='Exito al iniciar sesion';
 export const error_iniciar_sesion='Error en usuario o contraseña';
 
+export const exito_eliminar_ejercicio='Exito al eliminar el ejercicio'
+export const error_eliminar_ejercicio='Error al eliminar el ejercicio';
+
 export const error_crear_plan_entrenamiento='Error al crear el plan de entrenamiento';
 
 export const perfil_admin='ADMIN';

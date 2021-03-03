@@ -62,8 +62,15 @@
                         <td>{{ejercicio.descripcion}}</td>
                         <td>{{ejercicio.tipoMusculo.descripcion}}</td>
                         <td>
-                            <button (click)="editar(i)" class="btn btn-primary form-control-sm">
+                            <button (click)="editar(i)" class="btn btn-sm btn-primary separate">
                                 <i class="fa fa-edit"></i>
+                            </button>
+                            <button (click)="abrirModalLeerEjercicio(i)" class="btn btn-sm btn-primary separate">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary separate"
+                                (click)="eliminar(i)">
+                                <i class="fa fa-trash"></i>
                             </button>
                         </td>
                     </tr>
@@ -95,9 +102,9 @@
             <div class="col-sm-12">
                 <label>Tipo:</label>
                 <div class="input-group">
-                    <select [(ngModel)]="ejercicioActualizar.tipoMusculo" class="form-control form-control-sm">
-                        <option value=""></option>
-                        <option *ngFor="let tipoMusculo of tiposMusculo; let i=index" [value]=tipoMusculo>{{tipoMusculo.descripcion}}</option>
+                    <select [(ngModel)]="ejercicioActualizar.tipoMusculo" [compareWith]="compareFn" class="form-control form-control-sm">
+                        <option></option>
+                        <option *ngFor="let tipoMusculo of tiposMusculo" [ngValue]=tipoMusculo>{{tipoMusculo.descripcion}}</option>
                     </select>
                     <div class="input-group-text"><i class="fa fa-dumbbell"></i></div>
                 </div>
@@ -106,6 +113,29 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="actualizar()">Guardar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cerrar')">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #modalLeerEjercicio let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">EJERCICIO</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <div align="center" class="col-sm">
+                <label
+                    class="font-weight-bold">{{ejercicioLeer.descripcion}}</label>
+                <img class="card-img-top"
+                    src="{{prefijoUrlEjercicios+ejercicioLeer.imagen}}"
+                    height="300px" alt="Card image cap">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cerrar')">Cerrar</button>
     </div>
 </ng-template>
