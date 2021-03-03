@@ -11,6 +11,7 @@ import { Objetivo } from 'src/app/modelos/objetivo';
 import { Router } from '@angular/router';
 import { SesionService } from 'src/app/servicios/sesion.service';
 import { Peso } from 'src/app/modelos/peso';
+import { Suscripcion } from 'src/app/modelos/suscripcion';
 
 @Component({
   selector: 'app-leer-cliente',
@@ -27,12 +28,17 @@ export class LeerClienteComponent implements OnInit {
   observacionActualizar: string="";
   objetivoActualizar: string="";
 
+  suscripcionCrear: Suscripcion=new Suscripcion();
+
+  usuariosEnc: any[] = [];
+
   cerrarModal: string="";
 
   @ViewChild('modalPesos', { static: false }) private modalPesos: any;
   @ViewChild('modalObservaciones', { static: false }) private modalObservaciones: any;
   @ViewChild('modalObjetivos', { static: false }) private modalObjetivos: any;
   @ViewChild('modalUsuarioActualizar', { static: false }) private modalUsuarioActualizar: any;
+  @ViewChild('modalActualizarSuscripciones', { static: false }) private modalActualizarSuscripciones: any;
 
   constructor(private usuarioService: UsuarioService, private sesionService: SesionService, private router: Router, private modalService: NgbModal) { }
 
@@ -45,6 +51,17 @@ export class LeerClienteComponent implements OnInit {
     this.usuarioService.consultarClientes().subscribe(
       res => {
         this.usuarios = res;
+        let usuariosRec: Usuario[] = [];
+        for (let i = 0; i < this.usuarios.length; i++) {
+          usuariosRec.push(this.usuarios[i]);
+          if (usuariosRec.length == 4) {
+            this.usuariosEnc.push(usuariosRec);
+            usuariosRec = [];
+          }
+        }
+        if (usuariosRec.length > 0) {
+          this.usuariosEnc.push(usuariosRec);
+        }
       },
       err => {
         Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
@@ -93,12 +110,21 @@ export class LeerClienteComponent implements OnInit {
     this.usuarioActualizar.objetivos.splice(i, 1);
   }
 
+  suscripcionEliminar(i: number){
+    this.usuarioActualizar.suscripciones.splice(i, 1);
+  }
+
   planEntrenamientoEliminar(i:number){
   }
 
   editar(i: number){
     this.usuarioActualizar= {... this.usuarios[i]};
     this.open(this.modalUsuarioActualizar);
+  }
+
+  actualizarSuscripciones(i: number){
+    this.usuarioActualizar= {... this.usuarios[i]};
+    this.open(this.modalActualizarSuscripciones);
   }
 
   actualizar(){
@@ -125,6 +151,11 @@ export class LeerClienteComponent implements OnInit {
         Swal.fire(constantes.error, constantes.error_buscar_usuario, constantes.error_swal)
       }
     );
+  }
+
+  crearSuscripcion(){
+    this.usuarioActualizar.suscripciones.push({ ... this.suscripcionCrear});
+    this.suscripcionCrear=new Suscripcion();
   }
 
   pesoCrear(){

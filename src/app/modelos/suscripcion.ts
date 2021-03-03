@@ -1,11 +1,11 @@
 export class Suscripcion {
     id: number;
-    activa: boolean;
+    valor: number;
     fecha: Date;
 
     constructor(){
         this.id=0;
-        this.activa=false;
+        this.valor=0;
         this.fecha=new Date();
     }
 }

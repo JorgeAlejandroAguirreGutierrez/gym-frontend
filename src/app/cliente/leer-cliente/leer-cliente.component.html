@@ -45,62 +45,161 @@
         </div>
     </div>
     <br>
-    <div class="row">
-        <div class="col-sm-12 table-responsive">
-            <table class="table table-hover table-bordered" style="font-size: 0.7rem">
-                <thead>
-                    <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">NOMBRE</th>
-                        <th scope="col">IDENT</th>
-                        <th scope="col">TALLA</th>
-                        <th scope="col">EDAD</th>
-                        <th scope="col">PESO</th>
-                        <th scope="col">OBSERV</th>
-                        <th scope="col">OBJ</th>
-                        <th scope="col">PLAN</th>
-                        <th scope="col">OPC</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let usuario of usuarios; let i=index">
-                        <td>{{i+1}}</td>
-                        <td>{{usuario.nombre}}</td>
-                        <td>{{usuario.identificacion}}</td>
-                        <td>{{usuario.talla}}</td>
-                        <td>{{usuario.edad}}</td>
-                        <td>
-                            <button (click)="pesosVer(i)" class="btn btn-sm btn-primary">
-                                KG
-                            </button>
-                        </td>
-                        <td>
-                            <button (click)="observacionesVer(i)" class="btn btn-sm btn-primary">
-                                <i class="fa fa-eye"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button (click)="objetivosVer(i)" class="btn btn-sm btn-primary">
-                                <i class="fa fa-dumbbell"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <a type="button" href="/crear-plan-entrenamiento?identificacion={{usuario.identificacion}}"
-                                class="btn btn-sm btn-primary">
-                                <i class="fa fa-play"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <button (click)="editar(i)" class="btn btn-sm btn-primary">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <ng-container *ngFor="let usuarioEnc of usuariosEnc">
+        <div class="row">
+            <div class="card-group col-sm">
+                <ng-container *ngFor="let usuario of usuarioEnc; let i=index">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">{{usuario.nombre}}</h2>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex">
+                                <span class="justify-content-start">
+                                    IDENTIFICACION
+                                </span>
+                                <span class="justify-content-end ml-auto">
+                                    {{usuario.identificacion}}
+                                </span>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <span class="justify-content-start">
+                                    TALLA
+                                </span>
+                                <span class="justify-content-end ml-auto">
+                                    {{usuario.talla}}
+                                </span>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <span class="justify-content-start">
+                                    EDAD
+                                </span>
+                                <span class="justify-content-end ml-auto">
+                                    {{usuario.edad}}
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm" style="text-align: center;">
+                                        <button (click)="editar(i)" class="btn btn-sm btn-block btn-primary">ACTUALIZAR DATOS DEL CLIENTE</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm" style="text-align: center;">
+                                        <button (click)="actualizarSuscripciones(i)" class="btn btn-sm btn-block btn-primary">ACTUALIZAR SUSCRIPCION</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm" style="text-align: center;">
+                                        <button (click)="pesosVer(i)" class="btn btn-sm btn-block btn-primary">
+                                            VER PESOS
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm" style="text-align: center;">
+                                        <button (click)="observacionesVer(i)" class="btn btn-sm btn-block btn-primary">
+                                            VER OBSERVACIONES
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm" style="text-align: center;">
+                                        <button (click)="objetivosVer(i)" class="btn btn-sm btn-block btn-primary">
+                                            VER OBJETIVOS
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm" style="text-align: center;">
+                                        <a type="button"
+                                            href="/crear-plan-entrenamiento?identificacion={{usuario.identificacion}}"
+                                            class="btn btn-sm btn-primary btn-block">
+                                            VER PLAN DE ENTRENAMIENTO
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </ng-container>
+            </div>
         </div>
-    </div>
+    </ng-container>
 </div>
+
+<ng-template #modalActualizarSuscripciones let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">SUSCRIPCIONES</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Fecha:</label>
+                <div class="input-group">
+                    <input type="date" [(ngModel)]="suscripcionCrear.fecha" class="form-control form-control-sm"
+                        oninput="this.value = this.value.toUpperCase()">
+                    <div class="input-group-text"><i class="fa fa-dumbbell"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Valor:</label>
+                <div class="input-group">
+                    <input type="date" [(ngModel)]="suscripcionCrear.valor" class="form-control form-control-sm"
+                        oninput="this.value = this.value.toUpperCase()">
+                    <div class="input-group-text"><i class="fa fa-dumbbell"></i></div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-sm btn-success btn-block" (click)="crearSuscripcion()">Agregar</button>
+            </div>
+        </div>
+        <br>
+        <table class="table table-hover table-bordered" style="font-size: 0.7rem">
+            <thead class="table-active">
+                <tr>
+                    <th>No.</th>
+                    <th>FECHA</th>
+                    <th>VALOR</th>
+                    <th>OPC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let suscripcion of usuarioActualizar.suscripciones; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{suscripcion.fecha | DateShortPipe}}</td>
+                    <td>
+                        <button (click)="suscripcionEliminar(i)" class="btn btn-primary form-control-sm">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="actualizar()">Guardar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cerrar')">Cerrar</button>
+    </div>
+</ng-template>
 
 <ng-template #modalPesos let-modal>
     <div class="modal-header">
