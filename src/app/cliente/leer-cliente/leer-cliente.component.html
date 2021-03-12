@@ -34,14 +34,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-10">
+        <div class="col-sm-5">
             <label>Nombre:</label>
-            <input type="text" [(ngModel)]="usuarioBuscar.nombre" class="form-control form-control-sm"
+            <input type="text" [(ngModel)]="nombre" (change)="limpiarIdentificacion()" class="form-control form-control-sm"
+                oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div class="col-sm-5">
+            <label>Identificacion:</label>
+            <input type="text" [(ngModel)]="identificacion" (change)="limpiarNombre()" class="form-control form-control-sm"
                 oninput="this.value = this.value.toUpperCase()">
         </div>
         <div class="col-sm-2">
             <label>&nbsp;</label>
-            <button class="btn btn-sm btn-block btn-primary" (click)="buscar()">Buscar</button>
+            <button class="btn btn-sm btn-block btn-primary" (click)="consultarPorNombreIdentificacion()">Buscar</button>
         </div>
     </div>
     <br>

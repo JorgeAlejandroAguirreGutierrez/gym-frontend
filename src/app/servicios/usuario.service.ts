@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../modelos/usuario';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { of, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -74,8 +74,10 @@ export class UsuarioService {
     );
   }
 
-  buscar(usuario: Usuario): Observable<Usuario[]> {
-    return this.http.put(environment.host+util.ruta+util.usuario+util.buscar, usuario, util.options).pipe(
+  consultarPorNombreIdentificacion(nombre: string, identificacion: string): Observable<Usuario[]> {
+    let params = new HttpParams().set("nombre", nombre)
+                                 .set("identificacion", identificacion);
+    return this.http.put(environment.host+util.ruta+util.usuario+util.consultarPorNombreIdentificacion, {params: params, headers: util.options.headers}).pipe(
       map(response => response as Usuario[]),
       catchError(err => {
         return throwError(err);

@@ -21,8 +21,10 @@ import { Suscripcion } from 'src/app/modelos/suscripcion';
 export class LeerClienteComponent implements OnInit {
 
   usuarios: Usuario[]=[];
-  usuarioBuscar: Usuario=new Usuario();
   usuarioActualizar: Usuario=new Usuario();
+
+  nombre: string="";
+  identificacion: string="";
 
   pesoActualizar: number=0;
   observacionActualizar: string="";
@@ -141,9 +143,15 @@ export class LeerClienteComponent implements OnInit {
     );
   }
 
-  buscar(){
-    console.log(this.usuarioBuscar);
-    this.usuarioService.buscar(this.usuarioBuscar).subscribe(
+  limpiarNombre(){
+    this.nombre="";
+  }
+
+  limpiarIdentificacion(){
+    this.identificacion="";
+  }
+  consultarPorNombreIdentificacion(){
+    this.usuarioService.consultarPorNombreIdentificacion(this.nombre, this.identificacion).subscribe(
       res => {
         this.usuarios=res;
       },

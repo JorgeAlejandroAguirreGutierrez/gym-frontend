@@ -36,12 +36,12 @@
     <div class="row">
         <div class="col-sm-10">
             <label>Descripcion:</label>
-            <input type="text" [(ngModel)]="ejercicioBuscar.descripcion" class="form-control form-control-sm"
+            <input type="text" [(ngModel)]="descripcion" class="form-control form-control-sm"
                 oninput="this.value = this.value.toUpperCase()">
         </div>
         <div class="col-sm-2">
             <label>&nbsp;</label>
-            <button class="btn btn-sm btn-block btn-primary" (click)="buscar()">Buscar</button>
+            <button class="btn btn-sm btn-block btn-primary" (click)="consultarPorDescripcion()">Buscar</button>
         </div>
     </div>
     <br>

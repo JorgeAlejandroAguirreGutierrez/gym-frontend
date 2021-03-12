@@ -18,7 +18,7 @@ import { environment } from '../../../environments/environment';
 export class LeerEjercicioComponent implements OnInit {
 
   ejercicios: Ejercicio[]=[];
-  ejercicioBuscar: Ejercicio=new Ejercicio();
+  descripcion: string="";
   ejercicioActualizar: Ejercicio=new Ejercicio();
 
   ejercicioLeer: Ejercicio=null as any;
@@ -107,9 +107,8 @@ export class LeerEjercicioComponent implements OnInit {
     );
   }
 
-  buscar(){
-    console.log(this.ejercicioBuscar);
-    this.ejercicioService.buscar(this.ejercicioBuscar).subscribe(
+  consultarPorDescripcion(){
+    this.ejercicioService.consultarPorDescripcion(this.descripcion).subscribe(
       res => {
         this.ejercicios=res;
       },
