@@ -1,108 +1,103 @@
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">GYM</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/leer-plan-entrenamiento">Ver Plan Entrenamiento</a>
-                </li>
-            </ul>
-            <div class="d-flex">
-                <a class="nav-link" type="button" href="#" (click)="cerrarSesion($event)">CERRAR SESION</a>
-            </div>
-        </div>
-    </nav>
-    <br>
-    <div class="row">
-        <div class="col-sm" align="center">
-            <hr>
-            <h2>MEDIDAS</h2>
-            <hr>
+<div class="d-flex" id="wrapper">
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">MENU </div>
+        <hr>
+        <div class="list-group list-group-flush">
+            <a href="/leer-plan-entrenamiento" class="list-group-item list-group-item-action bg-light">VER PLAN</a>
+            <a href="#" (click)="cerrarSesion($event)" class="list-group-item list-group-item-action bg-light" >CERRAR SESION</a>
         </div>
     </div>
-    <div class="row">
-        <div class="card-group col-sm">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title">{{usuario.nombre}}</h2>
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn btn-ligth" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></button>
+        </nav>
+        <div class="container myfont">
+            <div class="row">
+                <div class="col-sm" align="center">
+                    <hr>
+                    <h2>MEDIDAS</h2>
+                    <hr>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex">
-                        <span class="justify-content-start">
-                            IDENTIFICACION
-                        </span>
-                        <span class="justify-content-end ml-auto">
-                            {{usuario.identificacion}}
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex">
-                        <span class="justify-content-start">
-                            TALLA
-                        </span>
-                        <span class="justify-content-end ml-auto">
-                            {{usuario.talla}}
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex">
-                        <span class="justify-content-start">
-                            EDAD
-                        </span>
-                        <span class="justify-content-end ml-auto">
-                            {{usuario.edad}}
-                        </span>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-sm" style="text-align: center;">
-                                <button (click)="suscripcionesVer()"
-                                    class="btn btn-sm btn-block btn-primary">VER SUSCRIPCIONES</button>
-                            </div>
+            </div>
+            <div class="row">
+                <div class="card-group col-sm">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">{{usuario.nombre}}</h2>
                         </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-sm" style="text-align: center;">
-                                <button (click)="pesosVer()" class="btn btn-sm btn-block btn-primary">
-                                    VER PESOS
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-sm" style="text-align: center;">
-                                <button (click)="observacionesVer()" class="btn btn-sm btn-block btn-primary">
-                                    VER OBSERVACIONES
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-sm" style="text-align: center;">
-                                <button (click)="objetivosVer()" class="btn btn-sm btn-block btn-primary">
-                                    VER OBJETIVOS
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-sm" style="text-align: center;">
-                                <a type="button"
-                                    href="/leer-plan-entrenamiento"
-                                    class="btn btn-sm btn-primary btn-block">
-                                    VER PLAN DE ENTRENAMIENTO
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex">
+                                <span class="justify-content-start">
+                                    IDENTIFICACION
+                                </span>
+                                <span class="justify-content-end ml-auto">
+                                    {{usuario.identificacion}}
+                                </span>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <span class="justify-content-start">
+                                    TALLA
+                                </span>
+                                <span class="justify-content-end ml-auto">
+                                    {{usuario.talla}}
+                                </span>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <span class="justify-content-start">
+                                    EDAD
+                                </span>
+                                <span class="justify-content-end ml-auto">
+                                    {{usuario.edad}}
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm" style="text-align: center;">
+                                        <button (click)="suscripcionesVer()"
+                                            class="btn btn-sm btn-block btn-primary">VER SUSCRIPCIONES</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm" style="text-align: center;">
+                                        <button (click)="pesosVer()" class="btn btn-sm btn-block btn-primary">
+                                            VER PESOS
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm" style="text-align: center;">
+                                        <button (click)="observacionesVer()" class="btn btn-sm btn-block btn-primary">
+                                            VER OBSERVACIONES
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm" style="text-align: center;">
+                                        <button (click)="objetivosVer()" class="btn btn-sm btn-block btn-primary">
+                                            VER OBJETIVOS
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm" style="text-align: center;">
+                                        <a type="button" href="/leer-plan-entrenamiento"
+                                            class="btn btn-sm btn-primary btn-block">
+                                            VER PLAN DE ENTRENAMIENTO
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
