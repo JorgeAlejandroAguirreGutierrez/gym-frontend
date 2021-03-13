@@ -8,6 +8,7 @@ import * as constantes from '../../constantes';
 import { environment } from '../../../environments/environment';
 import * as util from '../../util';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Sesion } from 'src/app/modelos/sesion';
 
 @Component({
   selector: 'app-leer-plan-entrenamiento',
@@ -16,10 +17,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class LeerPlanEntrenamientoComponent implements OnInit {
 
-  identificacion:string="";
-
+  sesion: Sesion= null as any;
   usuario: Usuario=new Usuario();
-
   prefijoUrlEjercicios= environment.prefijo_url_ejercicios;
   seleccionPE: number=-1;
   seleccionRE: number=-1;
@@ -30,16 +29,16 @@ export class LeerPlanEntrenamientoComponent implements OnInit {
     private modalService: NgbModal, private router: Router) { }
 
   ngOnInit(): void {
-    this.identificacion=this.route.snapshot.queryParamMap.get('identificacion') || null as any;
-    console.log(this.identificacion);
-    if(this.identificacion==null){
+    this.sesion=this.sesionService.getSesion();
+    console.log(this.sesion);
+    if(this.sesion==null || this.sesion.usuario.perfil.descripcion!=constantes.perfil_cliente){
       this.navegarIndex();
     }
     this.obtenerPorIdentificacion();
   }
 
   obtenerPorIdentificacion(){
-    this.usuarioService.obtenerPorIdentificacion(this.identificacion).subscribe(
+    this.usuarioService.obtenerPorIdentificacion(this.sesion.usuario.identificacion).subscribe(
       res => {
         this.usuario=res;
       },

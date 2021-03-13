@@ -74,10 +74,10 @@ export class UsuarioService {
     );
   }
 
-  consultarPorNombreIdentificacion(nombre: string, identificacion: string): Observable<Usuario[]> {
+  consultarClientesPorNombreIdentificacion(nombre: string, identificacion: string): Observable<Usuario[]> {
     let params = new HttpParams().set("nombre", nombre)
                                  .set("identificacion", identificacion);
-    return this.http.put(environment.host+util.ruta+util.usuario+util.consultarPorNombreIdentificacion, {params: params, headers: util.options.headers}).pipe(
+    return this.http.get(environment.host+util.ruta+util.usuario+util.consultarClientesPorNombreIdentificacion, {params: params, headers: util.options.headers}).pipe(
       map(response => response as Usuario[]),
       catchError(err => {
         return throwError(err);

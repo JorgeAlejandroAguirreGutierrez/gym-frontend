@@ -44,7 +44,7 @@ export class InicioSesionComponent implements OnInit {
   }
 
   navegarCliente() {
-    this.router.navigate(['/leer-planentrenamiento']);
+    this.router.navigate(['/leer-plan-entrenamiento']);
   }
 
   navegarFallido() {

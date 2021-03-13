@@ -22,6 +22,7 @@ import { LeerEjercicioComponent } from './ejercicio/leer-ejercicio/leer-ejercici
 import { CrearEjercicioComponent } from './ejercicio/crear-ejercicio/crear-ejercicio.component';
 import { CrearPlanEntrenamientoComponent } from './plan-entrenamiento/crear-plan-entrenamiento/crear-plan-entrenamiento.component';
 import { LeerPlanEntrenamientoComponent } from './plan-entrenamiento/leer-plan-entrenamiento/leer-plan-entrenamiento.component';
+import { LeerMedidaComponent } from './plan-entrenamiento/leer-medida/leer-medida.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { LeerPlanEntrenamientoComponent } from './plan-entrenamiento/leer-plan-e
     LeerEjercicioComponent,
     CrearEjercicioComponent,
     CrearPlanEntrenamientoComponent,
-    LeerPlanEntrenamientoComponent
+    LeerPlanEntrenamientoComponent,
+    LeerMedidaComponent
   ],
   imports: [
     BrowserModule,

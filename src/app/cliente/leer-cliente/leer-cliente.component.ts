@@ -53,6 +53,7 @@ export class LeerClienteComponent implements OnInit {
     this.usuarioService.consultarClientes().subscribe(
       res => {
         this.usuarios = res;
+        this.usuariosEnc=[];
         let usuariosRec: Usuario[] = [];
         for (let i = 0; i < this.usuarios.length; i++) {
           usuariosRec.push(this.usuarios[i]);
@@ -120,7 +121,7 @@ export class LeerClienteComponent implements OnInit {
   }
 
   editar(i: number){
-    this.usuarioActualizar= {... this.usuarios[i]};
+    this.usuarioActualizar= this.usuarios[i];
     this.open(this.modalUsuarioActualizar);
   }
 
@@ -133,6 +134,7 @@ export class LeerClienteComponent implements OnInit {
     console.log(this.usuarioActualizar);
     this.usuarioService.actualizar(this.usuarioActualizar).subscribe(
       res => {
+        this.usuarioActualizar=res;
         this.modalService.dismissAll();
         Swal.fire(constantes.exito, constantes.exito_actualizar_usuario, constantes.exito_swal)
         this.navegarExitoso();
@@ -150,10 +152,22 @@ export class LeerClienteComponent implements OnInit {
   limpiarIdentificacion(){
     this.identificacion="";
   }
-  consultarPorNombreIdentificacion(){
-    this.usuarioService.consultarPorNombreIdentificacion(this.nombre, this.identificacion).subscribe(
+  consultarClientesPorNombreIdentificacion(){
+    this.usuarioService.consultarClientesPorNombreIdentificacion(this.nombre, this.identificacion).subscribe(
       res => {
-        this.usuarios=res;
+        this.usuariosEnc=[];
+        this.usuarios = res;
+        let usuariosRec: Usuario[] = [];
+        for (let i = 0; i < this.usuarios.length; i++) {
+          usuariosRec.push(this.usuarios[i]);
+          if (usuariosRec.length == 4) {
+            this.usuariosEnc.push(usuariosRec);
+            usuariosRec = [];
+          }
+        }
+        if (usuariosRec.length > 0) {
+          this.usuariosEnc.push(usuariosRec);
+        }
       },
       err => {
         Swal.fire(constantes.error, constantes.error_buscar_usuario, constantes.error_swal)

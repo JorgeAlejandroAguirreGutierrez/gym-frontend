@@ -29,7 +29,9 @@ export const perfil_admin='ADMIN';
 export const perfil_cliente='CLIENTE';
 
 export const parametroMusculo="MUSCULO";
+export const parametroMedidaPeso="MEDIDAPESO";
 export const error_consultar_musculos='Error al consultar los tipos de musculos';
+export const error_consultar_medidas_pesos='Error al consultar las medidas de los pesos';
 
 export const error_seleccion_ejercicio='Error al seleccionar el ejercicio';
 export const error_maximo_plan_entrenamiento='Error supera la semana de entrenamiento';

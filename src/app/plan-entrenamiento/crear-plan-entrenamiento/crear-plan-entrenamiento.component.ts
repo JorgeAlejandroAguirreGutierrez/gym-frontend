@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
 import { environment } from '../../../environments/environment';
 import * as util from '../../util';
+import { Parametro } from 'src/app/modelos/parametro';
+import { ParametroService } from 'src/app/servicios/parametro.service';
 
 @Component({
   selector: 'app-crear-plan-entrenamiento',
@@ -30,6 +32,7 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
   seleccionRE: number=-1;
 
   ejercicios: Ejercicio[]=[];
+  medidasPesos: Parametro[]=[];
 
   prefijoUrlEjercicios= environment.prefijo_url_ejercicios;
 
@@ -38,7 +41,7 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
   @ViewChild('modalLeerEjercicio', { static: false }) private modalLeerEjercicio: any;
 
   constructor(private sesionService: SesionService, private usuarioService: UsuarioService,
-    private ejercicioService: EjercicioService,
+    private ejercicioService: EjercicioService, private parametroService: ParametroService,
     private route: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -49,6 +52,7 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     }
     this.obtenerPorIdentificacion();
     this.consultarEjercicios();
+    this.consultarMedidasPesos();
   }
 
   obtenerPorIdentificacion(){
@@ -163,6 +167,17 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
       },
       err => {
         Swal.fire(constantes.error, constantes.error_obtener_usuario, constantes.error_swal)
+      }
+    );
+  }
+
+  consultarMedidasPesos(){
+    this.parametroService.consultarPorTipo(constantes.parametroMedidaPeso).subscribe(
+      res => {
+        this.medidasPesos=res;
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_consultar_medidas_pesos, constantes.error_swal)
       }
     );
   }

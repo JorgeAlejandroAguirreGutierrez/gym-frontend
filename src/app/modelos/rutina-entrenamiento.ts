@@ -4,14 +4,16 @@ export class RutinaEntrenamiento {
     id: number;
     repeticiones: number;
     veces: number;
-    pesaje: string;
+    valorPeso: string;
+    medidaPeso: string;
     ejercicio: Ejercicio;
 
     constructor(){
         this.id=0;
         this.repeticiones=0;
         this.veces=0;
-        this.pesaje="";
+        this.valorPeso="";
+        this.medidaPeso="";
         this.ejercicio=new Ejercicio();
     }
 }

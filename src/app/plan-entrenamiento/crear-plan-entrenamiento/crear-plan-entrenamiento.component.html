@@ -98,7 +98,7 @@
                                                             <td>{{rutinaEntrenamiento.ejercicio.descripcion}}</td>
                                                             <td>{{rutinaEntrenamiento.repeticiones}}</td>
                                                             <td>{{rutinaEntrenamiento.veces}}</td>
-                                                            <td>{{rutinaEntrenamiento.pesaje}}</td>
+                                                            <td>{{rutinaEntrenamiento.valorPeso}} - {{rutinaEntrenamiento.medidaPeso}}</td>
                                                             <td>
                                                                 <button class="btn btn-sm btn-primary separate"
                                                                     (click)="abrirModalLeerEjercicio(i, j)">
@@ -143,7 +143,7 @@
                 <div class="input-group">
                     <input type="text" [(ngModel)]="rutinaEntrenamientoCrear.repeticiones"
                         oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                    <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
                 </div>
             </div>
         </div>
@@ -153,17 +153,31 @@
                 <div class="input-group">
                     <input type="text" [(ngModel)]="rutinaEntrenamientoCrear.veces"
                         oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                    <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
                 </div>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Peso</label>
+            <label class="col-sm-4 col-form-label font-weight-bold">Valor Peso</label>
             <div class="col-sm-8">
                 <div class="input-group">
-                    <input type="text" [(ngModel)]="rutinaEntrenamientoCrear.pesaje"
+                    <input type="text" [(ngModel)]="rutinaEntrenamientoCrear.valorPeso"
                         oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Medida Peso</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <select [(ngModel)]="rutinaEntrenamientoCrear.medidaPeso" class="form-control form-control-sm">
+                        <option></option>
+                        <option *ngFor="let medidaPeso of medidasPesos" [ngValue]="medidaPeso.valor">
+                            {{medidaPeso.valor}}
+                        </option>
+                    </select>
+                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
                 </div>
             </div>
         </div>
@@ -177,7 +191,7 @@
                             {{ejercicio.descripcion}}
                         </option>
                     </select>
-                    <div class="input-group-text"><i class="fa fa-tumblr"></i></div>
+                    <div class="input-group-text"><i class="fa fa-user-circle"></i></div>
                 </div>
             </div>
         </div>
@@ -202,7 +216,7 @@
                 <div class="input-group">
                     <input type="text" [(ngModel)]="rutinaEntrenamientoActualizar.repeticiones"
                         oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                    <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
                 </div>
             </div>
         </div>
@@ -212,17 +226,31 @@
                 <div class="input-group">
                     <input type="text" [(ngModel)]="rutinaEntrenamientoActualizar.veces"
                         oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                    <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
                 </div>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Peso</label>
+            <label class="col-sm-4 col-form-label font-weight-bold">Valor Peso</label>
             <div class="col-sm-8">
                 <div class="input-group">
-                    <input type="text" [(ngModel)]="rutinaEntrenamientoActualizar.pesaje"
+                    <input type="text" [(ngModel)]="rutinaEntrenamientoActualizar.valorPeso"
                         oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-percent"></i></div>
+                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Medida Peso</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <select [(ngModel)]="rutinaEntrenamientoActualizar.medidaPeso" class="form-control form-control-sm">
+                        <option></option>
+                        <option *ngFor="let medidaPeso of medidasPesos" [ngValue]="medidaPeso.valor">
+                            {{medidaPeso.valor}}
+                        </option>
+                    </select>
+                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
                 </div>
             </div>
         </div>
@@ -236,7 +264,7 @@
                             {{ejercicio.descripcion}}
                         </option>
                     </select>
-                    <div class="input-group-text"><i class="fa fa-tumblr"></i></div>
+                    <div class="input-group-text"><i class="fa fa-user-circle"></i></div>
                 </div>
             </div>
         </div>

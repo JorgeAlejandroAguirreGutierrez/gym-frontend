@@ -46,7 +46,7 @@
         </div>
         <div class="col-sm-2">
             <label>&nbsp;</label>
-            <button class="btn btn-sm btn-block btn-primary" (click)="consultarPorNombreIdentificacion()">Buscar</button>
+            <button class="btn btn-sm btn-block btn-primary" (click)="consultarClientesPorNombreIdentificacion()">Buscar</button>
         </div>
     </div>
     <br>
@@ -93,7 +93,7 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-sm" style="text-align: center;">
-                                        <button (click)="actualizarSuscripciones(i)" class="btn btn-sm btn-block btn-primary">ACTUALIZAR SUSCRIPCION</button>
+                                        <button (click)="actualizarSuscripciones(i)" class="btn btn-sm btn-block btn-primary">ACTUALIZAR SUSCRIPCIONES</button>
                                     </div>
                                 </div>
                             </li>
@@ -155,18 +155,7 @@
             <div class="col-sm-12">
                 <label>Fecha:</label>
                 <div class="input-group">
-                    <input type="date" [(ngModel)]="suscripcionCrear.fecha" class="form-control form-control-sm"
-                        oninput="this.value = this.value.toUpperCase()">
-                    <div class="input-group-text"><i class="fa fa-dumbbell"></i></div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <label>Valor:</label>
-                <div class="input-group">
-                    <input type="date" [(ngModel)]="suscripcionCrear.valor" class="form-control form-control-sm"
-                        oninput="this.value = this.value.toUpperCase()">
+                    <input type="date" [(ngModel)]="suscripcionCrear.fecha" class="form-control form-control-sm">
                     <div class="input-group-text"><i class="fa fa-dumbbell"></i></div>
                 </div>
             </div>
@@ -183,7 +172,6 @@
                 <tr>
                     <th>No.</th>
                     <th>FECHA</th>
-                    <th>VALOR</th>
                     <th>OPC</th>
                 </tr>
             </thead>
@@ -243,7 +231,7 @@
             <tbody>
                 <tr *ngFor="let peso of usuarioActualizar.pesos; let i=index">
                     <td>{{i+1}}</td>
-                    <td>{{peso.valor}}</td>
+                    <td>{{peso.valor}} KG</td>
                     <td>{{peso.fecha | DateShortPipe}}</td>
                     <td>
                         <button (click)="pesoEliminar(i)" class="btn btn-primary form-control-sm">
@@ -389,6 +377,16 @@
                 <label>Identificacion:</label>
                 <div class="input-group">
                     <input type="text" [(ngModel)]="usuarioActualizar.identificacion"
+                        class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
+                    <div class="input-group-text"><i class="fa fa-id-card"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Contraseña:</label>
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="usuarioActualizar.contrasena"
                         class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
                     <div class="input-group-text"><i class="fa fa-id-card"></i></div>
                 </div>

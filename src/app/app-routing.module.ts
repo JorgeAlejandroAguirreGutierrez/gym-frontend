@@ -7,6 +7,7 @@ import { LeerEjercicioComponent } from './ejercicio/leer-ejercicio/leer-ejercici
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CrearPlanEntrenamientoComponent } from './plan-entrenamiento/crear-plan-entrenamiento/crear-plan-entrenamiento.component';
+import { LeerMedidaComponent } from './plan-entrenamiento/leer-medida/leer-medida.component';
 import { LeerPlanEntrenamientoComponent } from './plan-entrenamiento/leer-plan-entrenamiento/leer-plan-entrenamiento.component';
 import { PrincipalComponent } from './principal/principal.component';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'leer-ejercicio', component: LeerEjercicioComponent},
   { path: 'crear-plan-entrenamiento', component: CrearPlanEntrenamientoComponent},
   { path: 'leer-plan-entrenamiento', component: LeerPlanEntrenamientoComponent},
+  { path: 'leer-medida', component: LeerMedidaComponent},
   { path: '**', component: PageNotFoundComponent },
 ];
 
