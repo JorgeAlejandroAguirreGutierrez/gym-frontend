@@ -30,8 +30,14 @@ export const perfil_cliente='CLIENTE';
 
 export const parametroMusculo="MUSCULO";
 export const parametroMedidaPeso="MEDIDAPESO";
+export const parametroSlider="SLIDER";
+export const parametroServicio="SERVICIO";
+export const parametroDescripcion="DESCRIPCION";
 export const error_consultar_musculos='Error al consultar los tipos de musculos';
 export const error_consultar_medidas_pesos='Error al consultar las medidas de los pesos';
+export const error_consultar_sliders='Error al consultar las imagenes de los sliders';
+export const error_consultar_servicios='Error al consultar las imagenes de los servicios';
+export const error_consultar_descripciones='Error al consultar las descripciones de los servicios';
 
 export const error_seleccion_ejercicio='Error al seleccionar el ejercicio';
 export const error_maximo_plan_entrenamiento='Error supera la semana de entrenamiento';

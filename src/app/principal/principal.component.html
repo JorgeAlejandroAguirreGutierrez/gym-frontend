@@ -1,7 +1,7 @@
-<div class="container-fluid">
+<div class="container-fluid myfont">
     <div class="row">
         <div class="col-sm">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">GIMNASIO OLIMPIA</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -11,15 +11,6 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">OPCION1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">OPCION2</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">OPCION3</a>
-                        </li>
                     </ul>
                     <div class="d-flex">
                         <a class="nav-link" type="button" href="/iniciar-sesion">INICIAR SESION</a>
@@ -33,13 +24,13 @@
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="{{prefijoUrlImagenes+sliders[0]}}" height="480px" alt="First slide">
+                        <img class="d-block w-100" src="{{prefijoUrlImagenes+sliders[0].valor}}" height="480px" alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="{{prefijoUrlImagenes+sliders[1]}}" height="480px" alt="Second slide">
+                        <img class="d-block w-100" src="{{prefijoUrlImagenes+sliders[1].valor}}" height="480px" alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="{{prefijoUrlImagenes+sliders[2]}}" height="480px" alt="Third slide">
+                        <img class="d-block w-100" src="{{prefijoUrlImagenes+sliders[2].valor}}" height="480px" alt="Third slide">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -56,7 +47,8 @@
     <br>
     <div class="row">
         <div class="col-sm" align="center">
-            <h1>GIMNASIO OLIMPIA</h1>
+            <hr>
+            <h1 class="font-weight-bold" style="color: #e5bc47;">GIMNASIO OLIMPIA</h1>
             <hr>
         </div>
     </div>
@@ -64,129 +56,45 @@
         <div class="col-sm">
             <div class="card-group">
                 <div class="card col-sm-4">
-                    <img class="card-img-top" src="{{prefijoUrlImagenes+servicios[0]}}" height="300px" alt="Card image cap">
+                    <img class="card-img-top img-sombra" src="{{prefijoUrlImagenes+servicios[0].valor}}" height="300px" alt="Card image cap">
                     <div class="card-body">
-                        <h2 class="card-title">AUMENTO DE MASA MUSCULAR</h2>
-                        <p class="card-text">DESCRIPCION</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <h2 class="card-title">{{descripciones[0].titulo}}</h2>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-sm" style="text-align: left;">
-                                    DESCRIPCION
-                                </div>
-                                <div class="col-sm" style="text-align: right;">
-                                    <span class="badge bg-success text-white" style="font-size: medium;">DESCRIPCION
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-sm-4" style="text-align: left;">
-                                    DESCRIPCION
-                                </div>
-                                <div class="col-sm-8" style="text-align: right;">
-                                    <span class="badge bg-primary text-white separate" style="font-size: medium;">
-                                        DESCRIPCION </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-sm-4" style="text-align: left;">
-                                    DESCRIPCION
-                                </div>
-                                <div class="col-sm-8" style="text-align: right;">
-                                    <span class="badge bg-primary text-white separate" style="font-size: medium;">
-                                        DESCRIPCION </span>
+                                    {{descripciones[0].valor}}
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="card col-sm-4">
-                    <img class="card-img-top" src="{{prefijoUrlImagenes+servicios[1]}}" height="300px" alt="Card image cap">
+                    <img class="card-img-top img-sombra" src="{{prefijoUrlImagenes+servicios[1].valor}}" height="300px" alt="Card image cap">
                     <div class="card-body">
-                        <h2 class="card-title">ENTRENAMIENTO CARDIOVASCULAR</h2>
-                        <p class="card-text">DESCRIPCION</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <h2 class="card-title">{{descripciones[1].titulo}}</h2>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-sm" style="text-align: left;">
-                                    DESCRIPCION
-                                </div>
-                                <div class="col-sm" style="text-align: right;">
-                                    <span class="badge bg-success text-white" style="font-size: medium;">DESCRIPCION
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-sm-4" style="text-align: left;">
-                                    DESCRIPCION
-                                </div>
-                                <div class="col-sm-8" style="text-align: right;">
-                                    <span class="badge bg-primary text-white separate" style="font-size: medium;">
-                                        DESCRIPCION </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-sm-4" style="text-align: left;">
-                                    DESCRIPCION
-                                </div>
-                                <div class="col-sm-8" style="text-align: right;">
-                                    <span class="badge bg-primary text-white separate" style="font-size: medium;">
-                                        DESCRIPCION </span>
+                                    {{descripciones[1].valor}}
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="card col-sm-4">
-                    <img class="card-img-top" src="{{prefijoUrlImagenes+servicios[2]}}" height="300px" alt="Card image cap">
+                    <img class="card-img-top img-sombra" src="{{prefijoUrlImagenes+servicios[2].valor}}" height="300px" alt="Card image cap">
                     <div class="card-body">
-                        <h2 class="card-title">ENTRENAMIENTO FUNCIONAL</h2>
-                        <p class="card-text">DESCRIPCION</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <h2 class="card-title">{{descripciones[2].titulo}}</h2>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-sm" style="text-align: left;">
-                                    DESCRIPCION
-                                </div>
-                                <div class="col-sm" style="text-align: right;">
-                                    <span class="badge bg-success text-white" style="font-size: medium;">DESCRIPCION
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-sm-4" style="text-align: left;">
-                                    DESCRIPCION
-                                </div>
-                                <div class="col-sm-8" style="text-align: right;">
-                                    <span class="badge bg-primary text-white separate" style="font-size: medium;">
-                                        DESCRIPCION </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-sm-4" style="text-align: left;">
-                                    DESCRIPCION
-                                </div>
-                                <div class="col-sm-8" style="text-align: right;">
-                                    <span class="badge bg-primary text-white separate" style="font-size: medium;">
-                                        DESCRIPCION </span>
+                                    {{descripciones[2].valor}}
                                 </div>
                             </div>
                         </li>
