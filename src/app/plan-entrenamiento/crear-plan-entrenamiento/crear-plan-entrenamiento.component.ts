@@ -45,6 +45,7 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     private route: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    util.loadScripts();
     this.identificacion=this.route.snapshot.queryParamMap.get('identificacion') || null as any;
     console.log(this.identificacion);
     if(this.identificacion==null){

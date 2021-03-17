@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ejercicio } from 'src/app/modelos/ejercicio';
 import { Parametro } from 'src/app/modelos/parametro';
+import { Sesion } from 'src/app/modelos/sesion';
 import { EjercicioService } from 'src/app/servicios/ejercicio.service';
 import { ParametroService } from 'src/app/servicios/parametro.service';
 import { SesionService } from 'src/app/servicios/sesion.service';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
+import * as util from '../../util';
 
 @Component({
   selector: 'app-crear-ejercicio',
@@ -18,25 +20,35 @@ export class CrearEjercicioComponent implements OnInit {
   ejercicio: Ejercicio = new Ejercicio();
   imagen: any = null;
   musculos: Parametro[] = [];
+  sesion: Sesion=null as any;
 
 
   constructor(private ejercicioService: EjercicioService, private parametroService: ParametroService,
     private sesionService: SesionService, private router: Router) { }
 
   ngOnInit(): void {
+    util.loadScripts();
     this.validarSesion();
     this.consultarMusculos();
   }
 
   validarSesion() {
-    let clienteActivo = this.sesionService.clienteLogueado();
-    let adminActivo = this.sesionService.adminLogueado();
-    if (clienteActivo) {
-      this.navegarIndex();
-    }
-    if (!adminActivo) {
-      this.navegarIndex();
-    }
+    this.sesion=this.sesionService.getSesion();
+    this.sesionService.validar(this.sesion.id).subscribe(
+      res => {
+        this.sesion=res;
+      },
+      err => {
+        if(err.error.message==constantes.error_codigo_sesion_invalida){
+          this.sesionService.cerrarSesion();
+          this.navegarIndex();
+        }
+        if(err.error.message==constantes.error_codigo_modelo_no_existente){
+          this.sesionService.cerrarSesion();
+          this.navegarIndex();
+        }
+      }
+    );
   }
 
   nuevo(event: any) {

@@ -7,7 +7,9 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { SesionService } from 'src/app/servicios/sesion.service';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
+import * as util from '../../util';
 import { Peso } from 'src/app/modelos/peso';
+import { Sesion } from 'src/app/modelos/sesion';
 
 @Component({
   selector: 'app-crear-cliente',
@@ -20,22 +22,33 @@ export class CrearClienteComponent implements OnInit {
   observacion: string = ""
   objetivo: string = "";
   peso: number = 0;
+  sesion: Sesion=null as any;
 
-  constructor(private usuarioService: UsuarioService, private sesionService: SesionService, private router: Router) { }
+  constructor(private usuarioService: UsuarioService, 
+    private sesionService: SesionService, private router: Router) { }
 
   ngOnInit(): void {
+    util.loadScripts();
     this.validarSesion();
   }
 
   validarSesion() {
-    let clienteActivo = this.sesionService.clienteLogueado();
-    let adminActivo = this.sesionService.adminLogueado();
-    if (clienteActivo) {
-      this.navegarIndex();
-    }
-    if (!adminActivo) {
-      this.navegarIndex();
-    }
+    this.sesion=this.sesionService.getSesion();
+    this.sesionService.validar(this.sesion.id).subscribe(
+      res => {
+        this.sesion=res;
+      },
+      err => {
+        if(err.error.message==constantes.error_codigo_sesion_invalida){
+          this.sesionService.cerrarSesion();
+          this.navegarIndex();
+        }
+        if(err.error.message==constantes.error_codigo_modelo_no_existente){
+          this.sesionService.cerrarSesion();
+          this.navegarIndex();
+        }
+      }
+    );
   }
 
   crearPeso() {
@@ -107,5 +120,4 @@ export class CrearClienteComponent implements OnInit {
     this.sesionService.cerrarSesion();
     this.navegarIndex();
   }
-
 }

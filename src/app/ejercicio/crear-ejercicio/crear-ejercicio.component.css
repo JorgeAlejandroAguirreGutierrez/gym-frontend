@@ -2,6 +2,10 @@
     margin-right: 10px;
 }
 
+.justify {
+  justify-content: start;
+}
+
 .myfont {
     font-family: 'Raleway', sans-serif;
 }
@@ -36,18 +40,9 @@
   margin-left: 0;
 }
 
-/*
-@media (min-width: 768px) {
-  #sidebar-wrapper {
-    margin-left: 0;
-  }
 
-  #page-content-wrapper {
-    min-width: 0;
-    width: 100%;
+@media only screen and (max-width: 767px) {
+  .separate {
+    margin-bottom: 5px;
   }
-
-  #wrapper.toggled #sidebar-wrapper {
-    margin-left: -15rem;
-  }
-}*/
+}

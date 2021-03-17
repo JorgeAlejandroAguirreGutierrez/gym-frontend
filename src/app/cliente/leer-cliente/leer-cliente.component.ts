@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { SesionService } from 'src/app/servicios/sesion.service';
 import { Peso } from 'src/app/modelos/peso';
 import { Suscripcion } from 'src/app/modelos/suscripcion';
+import { Sesion } from 'src/app/modelos/sesion';
+import * as util from '../../util';
 
 @Component({
   selector: 'app-leer-cliente',
@@ -34,6 +36,8 @@ export class LeerClienteComponent implements OnInit {
 
   usuariosEnc: any[] = [];
 
+  sesion: Sesion=null as any;
+
   cerrarModal: string="";
 
   @ViewChild('modalPesos', { static: false }) private modalPesos: any;
@@ -45,6 +49,7 @@ export class LeerClienteComponent implements OnInit {
   constructor(private usuarioService: UsuarioService, private sesionService: SesionService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    util.loadScripts();
     this.validarSesion();
     this.consultarClientes();
   }
@@ -73,14 +78,22 @@ export class LeerClienteComponent implements OnInit {
   }
 
   validarSesion(){
-    let clienteActivo=this.sesionService.clienteLogueado();
-    let adminActivo=this.sesionService.adminLogueado();
-    if(clienteActivo){
-      this.navegarIndex();
-    }
-    if(!adminActivo){
-      this.navegarIndex();
-    }
+    this.sesion=this.sesionService.getSesion();
+    this.sesionService.validar(this.sesion.id).subscribe(
+      res => {
+        this.sesion=res;
+      },
+      err => {
+        if(err.error.message==constantes.error_codigo_sesion_invalida){
+          this.sesionService.cerrarSesion();
+          this.navegarIndex();
+        }
+        if(err.error.message==constantes.error_codigo_modelo_no_existente){
+          this.sesionService.cerrarSesion();
+          this.navegarIndex();
+        }
+      }
+    );
   }
 
   pesosVer(i: number){

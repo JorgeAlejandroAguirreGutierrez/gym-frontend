@@ -9,6 +9,8 @@ import { TipoMusculoService } from 'src/app/servicios/tipo-musculo.service';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
 import { environment } from '../../../environments/environment';
+import { Sesion } from 'src/app/modelos/sesion';
+import * as util from '../../util';
 
 @Component({
   selector: 'app-leer-ejercicio',
@@ -20,6 +22,8 @@ export class LeerEjercicioComponent implements OnInit {
   ejercicios: Ejercicio[]=[];
   descripcion: string="";
   ejercicioActualizar: Ejercicio=new Ejercicio();
+
+  sesion: Sesion=null as any;
 
   ejercicioLeer: Ejercicio=null as any;
 
@@ -39,6 +43,7 @@ export class LeerEjercicioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    util.loadScripts();
     this.validarSesion();
     this.consultarEjercicios();
     this.consultarTiposMuculo();
@@ -67,14 +72,22 @@ export class LeerEjercicioComponent implements OnInit {
   }
 
   validarSesion(){
-    let clienteActivo=this.sesionService.clienteLogueado();
-    let adminActivo=this.sesionService.adminLogueado();
-    if(clienteActivo){
-      this.navegarIndex();
-    }
-    if(!adminActivo){
-      this.navegarIndex();
-    }
+    this.sesion=this.sesionService.getSesion();
+    this.sesionService.validar(this.sesion.id).subscribe(
+      res => {
+        this.sesion=res;
+      },
+      err => {
+        if(err.error.message==constantes.error_codigo_sesion_invalida){
+          this.sesionService.cerrarSesion();
+          this.navegarIndex();
+        }
+        if(err.error.message==constantes.error_codigo_modelo_no_existente){
+          this.sesionService.cerrarSesion();
+          this.navegarIndex();
+        }
+      }
+    );
   }
 
   editar(i: number){

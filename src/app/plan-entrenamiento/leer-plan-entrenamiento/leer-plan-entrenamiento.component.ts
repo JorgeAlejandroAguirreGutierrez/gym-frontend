@@ -29,6 +29,7 @@ export class LeerPlanEntrenamientoComponent implements OnInit {
     private modalService: NgbModal, private router: Router) { }
 
   ngOnInit(): void {
+    util.loadScripts();
     this.sesion=this.sesionService.getSesion();
     console.log(this.sesion);
     if(this.sesion==null || this.sesion.usuario.perfil.descripcion!=constantes.perfil_cliente){

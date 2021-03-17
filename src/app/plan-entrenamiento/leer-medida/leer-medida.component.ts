@@ -7,6 +7,7 @@ import { SesionService } from 'src/app/servicios/sesion.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
+import * as util from '../../util';
 
 @Component({
   selector: 'app-leer-medida',
@@ -16,6 +17,7 @@ import Swal from 'sweetalert2';
 export class LeerMedidaComponent implements OnInit {
 
   usuario: Usuario=new Usuario();
+  sesion: Sesion=null as any;
 
   cerrarModal: string="";
 
@@ -27,23 +29,29 @@ export class LeerMedidaComponent implements OnInit {
   constructor(private usuarioService: UsuarioService, private sesionService: SesionService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    util.loadScripts();
     this.validarSesion();
   }
 
   validarSesion(){
-    let sesion=this.sesionService.getSesion();
-    let clienteActivo=this.sesionService.clienteLogueado();
-    let adminActivo=this.sesionService.adminLogueado();
-    if(adminActivo){
-      this.navegarIndex();
-    }
-    if(!clienteActivo){
-      this.navegarIndex();
-    }
-    if(sesion==null) {
-      this.navegarIndex();
-    }
-    this.obtenerPorIdentificacion(sesion.usuario.identificacion);
+    this.sesion=this.sesionService.getSesion();
+    this.sesionService.validar(this.sesion.id).subscribe(
+      res => {
+        this.sesion=res;
+        this.obtenerPorIdentificacion(this.sesion.usuario.identificacion);
+      },
+      err => {
+        if(err.error.message==constantes.error_codigo_sesion_invalida){
+          this.sesionService.cerrarSesion();
+          this.navegarIndex();
+        }
+        if(err.error.message==constantes.error_codigo_modelo_no_existente){
+          this.sesionService.cerrarSesion();
+          this.navegarIndex();
+        }
+      }
+    );
+    
   }
 
   obtenerPorIdentificacion(identificacion: string){

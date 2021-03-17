@@ -32,9 +32,13 @@ export class InicioSesionComponent implements OnInit {
           this.navegarCliente();
         }
       },
-      error => {
-        Swal.fire(constantes.error, constantes.error_iniciar_sesion, constantes.error_swal);
-        this.navegarFallido();
+      err => {
+        if(err.error.message==constantes.error_codigo_modelo_no_existente){
+          Swal.fire(constantes.error, constantes.error_iniciar_sesion, constantes.error_swal);
+        }
+        if(err.error.message==constantes.error_codigo_suscripcion_invalida){
+          Swal.fire(constantes.error, constantes.error_suscripcion_invalida, constantes.error_swal);
+        }
       }
     );
   }

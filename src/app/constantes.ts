@@ -19,6 +19,7 @@ export const exito_crear_ejercicio='Exito al crear el ejercicio';
 export const exito_actualizar_ejercicio='Exito al actualizar el ejercicio';
 export const exito_iniciar_sesion='Exito al iniciar sesion';
 export const error_iniciar_sesion='Error en usuario o contraseña';
+export const error_suscripcion_invalida='Error suscripcion vencida o invalida';
 
 export const exito_eliminar_ejercicio='Exito al eliminar el ejercicio'
 export const error_eliminar_ejercicio='Error al eliminar el ejercicio';
@@ -41,3 +42,9 @@ export const error_consultar_descripciones='Error al consultar las descripciones
 
 export const error_seleccion_ejercicio='Error al seleccionar el ejercicio';
 export const error_maximo_plan_entrenamiento='Error supera la semana de entrenamiento';
+
+//CODIGOS DE ERROR
+export const error_codigo_modelo_existente="4001";
+export const error_codigo_modelo_no_existente="4002";
+export const error_codigo_suscripcion_invalida="4003";
+export const error_codigo_sesion_invalida="4004";
