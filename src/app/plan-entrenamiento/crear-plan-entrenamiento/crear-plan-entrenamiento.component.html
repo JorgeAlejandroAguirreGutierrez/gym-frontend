@@ -86,8 +86,7 @@
                                                                 <tr
                                                                     *ngFor="let rutinaEntrenamiento of planEntrenamiento.rutinasEntrenamiento; let j=index">
                                                                     <td>{{j+1}}</td>
-                                                                    <td>{{rutinaEntrenamiento.ejercicio.descripcion}}
-                                                                    </td>
+                                                                    <td class="menor-fuente">{{rutinaEntrenamiento.ejercicio.descripcion}}</td>
                                                                     <td>{{rutinaEntrenamiento.repeticiones}}</td>
                                                                     <td>{{rutinaEntrenamiento.veces}}</td>
                                                                     <td>{{rutinaEntrenamiento.valorPeso}} -
@@ -120,6 +119,18 @@
                     </div>
                 </div>
             </ng-container>
+            <br>
+            <div class="row">
+                <div class="col-sm">
+                    <footer class="text-muted">
+                        <div class="container">
+                            <p>GIMNASIO OLIMPIA SALAMINA CALDAS. Todos los derechos reservados 2021.</p>
+                            <p>Instagram Gimnasio Olimpia <a href="../../">
+                                    Visitala!</a> o haznos una pregunta a <a href="../../getting-started/">Contactenos</a>.</p>
+                        </div>
+                    </footer>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -133,6 +144,21 @@
         </button>
     </div>
     <div class="modal-body">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Ejercicio</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <select [(ngModel)]="rutinaEntrenamientoCrear.ejercicio" [compareWith]="compareFn"
+                        class="form-control form-control-sm">
+                        <option></option>
+                        <option *ngFor="let ejercicio of ejercicios" [ngValue]="ejercicio">
+                            {{ejercicio.descripcion}}
+                        </option>
+                    </select>
+                    <div class="input-group-text"><i class="fa fa-user-circle"></i></div>
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
             <div class="col-sm-8">
@@ -177,21 +203,6 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Ejercicio</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <select [(ngModel)]="rutinaEntrenamientoCrear.ejercicio" [compareWith]="compareFn"
-                        class="form-control form-control-sm">
-                        <option></option>
-                        <option *ngFor="let ejercicio of ejercicios" [ngValue]="ejercicio">
-                            {{ejercicio.descripcion}}
-                        </option>
-                    </select>
-                    <div class="input-group-text"><i class="fa fa-user-circle"></i></div>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="crearRutinaEntrenamiento()">Guardar</button>
@@ -207,6 +218,21 @@
         </button>
     </div>
     <div class="modal-body">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label font-weight-bold">Ejercicio</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <select [(ngModel)]="rutinaEntrenamientoActualizar.ejercicio" [compareWith]="compareFn"
+                        class="form-control form-control-sm">
+                        <option></option>
+                        <option *ngFor="let ejercicio of ejercicios" [ngValue]="ejercicio">
+                            {{ejercicio.descripcion}}
+                        </option>
+                    </select>
+                    <div class="input-group-text"><i class="fa fa-user-circle"></i></div>
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
             <div class="col-sm-8">
@@ -248,21 +274,6 @@
                         </option>
                     </select>
                     <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Ejercicio</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <select [(ngModel)]="rutinaEntrenamientoActualizar.ejercicio" [compareWith]="compareFn"
-                        class="form-control form-control-sm">
-                        <option></option>
-                        <option *ngFor="let ejercicio of ejercicios" [ngValue]="ejercicio">
-                            {{ejercicio.descripcion}}
-                        </option>
-                    </select>
-                    <div class="input-group-text"><i class="fa fa-user-circle"></i></div>
                 </div>
             </div>
         </div>

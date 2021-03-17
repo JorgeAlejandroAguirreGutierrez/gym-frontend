@@ -41,7 +41,10 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .separate{
+  .separate {
     margin-bottom: 5px;
+  }
+  .menor-fuente {
+    font-size: small;
   }
 }

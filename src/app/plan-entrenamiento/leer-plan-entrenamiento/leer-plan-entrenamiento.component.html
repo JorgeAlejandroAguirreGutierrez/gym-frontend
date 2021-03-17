@@ -69,7 +69,7 @@
                                                                 <tr
                                                                     *ngFor="let rutinaEntrenamiento of planEntrenamiento.rutinasEntrenamiento; let j=index">
                                                                     <td>{{j+1}}</td>
-                                                                    <td>{{rutinaEntrenamiento.ejercicio.descripcion}}
+                                                                    <td class="menor-fuente">{{rutinaEntrenamiento.ejercicio.descripcion}}
                                                                     </td>
                                                                     <td>{{rutinaEntrenamiento.repeticiones}}</td>
                                                                     <td>{{rutinaEntrenamiento.veces}}</td>
@@ -95,6 +95,18 @@
                     </div>
                 </div>
             </ng-container>
+            <br>
+            <div class="row">
+                <div class="col-sm">
+                    <footer class="text-muted">
+                        <div class="container">
+                            <p>GIMNASIO OLIMPIA SALAMINA CALDAS. Todos los derechos reservados 2021.</p>
+                            <p>Instagram Gimnasio Olimpia <a href="../../">
+                                    Visitala!</a> o haznos una pregunta a <a href="../../getting-started/">Contactenos</a>.</p>
+                        </div>
+                    </footer>
+                </div>
+            </div>
         </div>
     </div>
 </div>
