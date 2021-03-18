@@ -39,11 +39,11 @@ export class CrearClienteComponent implements OnInit {
         this.sesion=res;
       },
       err => {
-        if(err.error.message==constantes.error_codigo_sesion_invalida){
+        if(err.error.codigo==constantes.error_codigo_sesion_invalida){
           this.sesionService.cerrarSesion();
           this.navegarIndex();
         }
-        if(err.error.message==constantes.error_codigo_modelo_no_existente){
+        if(err.error.codigo==constantes.error_codigo_modelo_no_existente){
           this.sesionService.cerrarSesion();
           this.navegarIndex();
         }
@@ -85,7 +85,13 @@ export class CrearClienteComponent implements OnInit {
         this.navegarLeerCliente();
       },
       err => {
-        Swal.fire(constantes.error, constantes.error_crear_usuario, constantes.error_swal)
+        console.log(err);
+        if(err.error.codigo==constantes.error_codigo_datos_invalidos){
+          Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+        }
+        if(err.error.codigo==constantes.error_codigo_generico){
+          Swal.fire(constantes.error, constantes.error_crear_usuario, constantes.error_swal);
+        }
       }
     );
   }

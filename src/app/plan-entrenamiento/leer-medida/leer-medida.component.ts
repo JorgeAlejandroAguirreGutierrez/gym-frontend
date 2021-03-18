@@ -41,11 +41,11 @@ export class LeerMedidaComponent implements OnInit {
         this.obtenerPorIdentificacion(this.sesion.usuario.identificacion);
       },
       err => {
-        if(err.error.message==constantes.error_codigo_sesion_invalida){
+        if(err.error.codigo==constantes.error_codigo_sesion_invalida){
           this.sesionService.cerrarSesion();
           this.navegarIndex();
         }
-        if(err.error.message==constantes.error_codigo_modelo_no_existente){
+        if(err.error.codigo==constantes.error_codigo_modelo_no_existente){
           this.sesionService.cerrarSesion();
           this.navegarIndex();
         }

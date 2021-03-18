@@ -10,8 +10,8 @@ export class Usuario {
     nombre: string;
     identificacion: string;
     contrasena: string; 
-    talla: string;
-    edad: string;
+    talla: number;
+    edad: number;
     imagen: string;
     perfil: Perfil;
     pesos: Peso[];
@@ -25,8 +25,8 @@ export class Usuario {
         this.nombre="";
         this.identificacion="";
         this.contrasena="";
-        this.talla="";
-        this.edad="";
+        this.talla=0;
+        this.edad=0;
         this.imagen="";
         this.perfil=new Perfil();
         this.pesos=[];

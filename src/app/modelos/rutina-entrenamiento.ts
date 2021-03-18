@@ -4,7 +4,7 @@ export class RutinaEntrenamiento {
     id: number;
     repeticiones: number;
     veces: number;
-    valorPeso: string;
+    valorPeso: number;
     medidaPeso: string;
     ejercicio: Ejercicio;
 
@@ -12,7 +12,7 @@ export class RutinaEntrenamiento {
         this.id=0;
         this.repeticiones=0;
         this.veces=0;
-        this.valorPeso="";
+        this.valorPeso=0;
         this.medidaPeso="";
         this.ejercicio=new Ejercicio();
     }

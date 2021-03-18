@@ -33,10 +33,10 @@ export class InicioSesionComponent implements OnInit {
         }
       },
       err => {
-        if(err.error.message==constantes.error_codigo_modelo_no_existente){
+        if(err.error.codigo==constantes.error_codigo_modelo_no_existente){
           Swal.fire(constantes.error, constantes.error_iniciar_sesion, constantes.error_swal);
         }
-        if(err.error.message==constantes.error_codigo_suscripcion_invalida){
+        if(err.error.codigo==constantes.error_codigo_suscripcion_invalida){
           Swal.fire(constantes.error, constantes.error_suscripcion_invalida, constantes.error_swal);
         }
       }
@@ -44,7 +44,7 @@ export class InicioSesionComponent implements OnInit {
   }
 
   navegarAdmin() {
-    this.router.navigate(['/crear-cliente']);
+    this.router.navigate(['/leer-cliente']);
   }
 
   navegarCliente() {

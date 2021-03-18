@@ -103,7 +103,12 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
         this.usuario.planesEntrenamiento[this.usuario.planesEntrenamiento.length-1].show="show";
       },
       err => {
-        Swal.fire(constantes.error, constantes.error_crear_plan_entrenamiento, constantes.error_swal)
+        if(err.error.codigo==constantes.error_codigo_datos_invalidos){
+          Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+        }
+        if(err.error.codigo==constantes.error_codigo_generico){
+          Swal.fire(constantes.error, constantes.error_crear_plan_entrenamiento, constantes.error_swal);
+        }
       }
     );
   }
@@ -120,7 +125,12 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
         this.modalService.dismissAll();
       },
       err => {
-        Swal.fire(constantes.error, constantes.error_actualizar_rutina, constantes.error_swal)
+        if(err.error.codigo==constantes.error_codigo_datos_invalidos){
+          Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+        }
+        if(err.error.codigo==constantes.error_codigo_generico){
+          Swal.fire(constantes.error, constantes.error_actualizar_rutina, constantes.error_swal);
+        }
       }
     );
   }
@@ -137,7 +147,13 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
         this.modalService.dismissAll();
       },
       err => {
-        Swal.fire(constantes.error, constantes.error_actualizar_usuario, constantes.error_swal)
+        if(err.error.codigo==constantes.error_codigo_datos_invalidos){
+          Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+        }
+        if(err.error.codigo==constantes.error_codigo_generico){
+          Swal.fire(constantes.error, constantes.error_actualizar_usuario, constantes.error_swal);
+        }
+        
       }
     );
   }
@@ -156,7 +172,12 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
         Swal.fire(constantes.exito, constantes.exito_eliminar_rutina, constantes.exito_swal)
       },
       err => {
-        Swal.fire(constantes.error, constantes.error_eliminar_rutina, constantes.error_swal)
+        if(err.error.codigo==constantes.error_codigo_datos_invalidos){
+          Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+        }
+        if(err.error.codigo==constantes.error_codigo_generico){
+          Swal.fire(constantes.error, constantes.error_eliminar_rutina, constantes.error_swal)
+        }
       }
     );
   }
