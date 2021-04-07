@@ -1,3 +1,7 @@
+.scrollcustom {
+  max-height: 500px;
+  overflow-y: scroll;
+}
 .separate{
     margin-right: 10px;
 }
