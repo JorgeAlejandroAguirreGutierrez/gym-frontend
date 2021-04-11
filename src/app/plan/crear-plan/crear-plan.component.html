@@ -7,8 +7,8 @@
             <a href="/leer-cliente" class="list-group-item list-group-item-action bg-light">VER CLIENTES</a>
             <a href="/crear-ejercicio" class="list-group-item list-group-item-action bg-light">CREAR EJERCICIO</a>
             <a href="/leer-ejercicio" class="list-group-item list-group-item-action bg-light">VER EJERCICIOS</a>
-            <a href="/crear-plantilla" class="list-group-item list-group-item-action bg-light">CREAR PLANTILLA</a>
-            <a href="/leer-plantilla" class="list-group-item list-group-item-action bg-light">VER PLANTILLAS</a>
+            <a href="/crear-plantilla-plan" class="list-group-item list-group-item-action bg-light">CREAR PLANTILLA</a>
+            <a href="/leer-plantilla-plan" class="list-group-item list-group-item-action bg-light">VER PLANTILLAS</a>
             <a href="#" (click)="cerrarSesion($event)" class="list-group-item list-group-item-action bg-light">CERRAR
                 SESION</a>
         </div>
@@ -109,10 +109,10 @@
                                                         <table class="table table-sm table-hover table-bordered">
                                                             <thead>
                                                                 <tr class="menor-fuente">
-                                                                    <th scope="col">#</th>
+                                                                    <th scope="col">°</th>
                                                                     <th scope="col">EJERCICIO</th>
-                                                                    <th scope="col">REPE</th>
-                                                                    <th scope="col">VECES</th>
+                                                                    <th scope="col">#</th>
+                                                                    <th scope="col">DE</th>
                                                                     <th scope="col">PESO&nbsp;&nbsp;&nbsp;</th>
                                                                     <th scope="col">TIEMPO</th>
                                                                     <th scope="col">OPC</th>
@@ -246,7 +246,7 @@
                 <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input type="text" [(ngModel)]="rutinaCrear.repeticiones"
+                        <input type="number" [(ngModel)]="rutinaCrear.repeticiones"
                             oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
                         <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
                     </div>
@@ -256,7 +256,7 @@
                 <label class="col-sm-4 col-form-label font-weight-bold">Veces</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input type="text" [(ngModel)]="rutinaCrear.veces"
+                        <input type="number" [(ngModel)]="rutinaCrear.veces"
                             oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
                         <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
                     </div>
@@ -266,7 +266,7 @@
                 <label class="col-sm-4 col-form-label font-weight-bold">Valor Peso</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input type="text" [(ngModel)]="rutinaCrear.valorPeso"
+                        <input type="number" [(ngModel)]="rutinaCrear.valorPeso"
                             oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
                         <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
                     </div>
@@ -292,7 +292,7 @@
                 <label class="col-sm-4 col-form-label font-weight-bold">Tiempo</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input type="text" [(ngModel)]="rutinaCrear.valorTiempo"
+                        <input type="number" [(ngModel)]="rutinaCrear.valorTiempo"
                             oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
                         <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
                     </div>
@@ -364,7 +364,7 @@
                 <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input type="text" [(ngModel)]="rutinaActualizar.repeticiones"
+                        <input type="number" [(ngModel)]="rutinaActualizar.repeticiones"
                             oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
                         <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
                     </div>
@@ -374,7 +374,7 @@
                 <label class="col-sm-4 col-form-label font-weight-bold">Veces</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input type="text" [(ngModel)]="rutinaActualizar.veces"
+                        <input type="number" [(ngModel)]="rutinaActualizar.veces"
                             oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
                         <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
                     </div>
@@ -384,7 +384,7 @@
                 <label class="col-sm-4 col-form-label font-weight-bold">Valor Peso</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input type="text" [(ngModel)]="rutinaActualizar.valorPeso"
+                        <input type="number" [(ngModel)]="rutinaActualizar.valorPeso"
                             oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
                         <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
                     </div>
@@ -410,7 +410,7 @@
                 <label class="col-sm-4 col-form-label font-weight-bold">Tiempo</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input type="text" [(ngModel)]="rutinaActualizar.valorTiempo"
+                        <input type="number" [(ngModel)]="rutinaActualizar.valorTiempo"
                             oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
                         <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
                     </div>

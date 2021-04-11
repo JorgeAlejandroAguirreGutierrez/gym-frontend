@@ -100,10 +100,8 @@ export class CrearPlanComponent implements OnInit {
   }
 
   asignarPlantillaPlan(){
-    console.log(this.plantillaPlanAsignar);
     if(this.plantillaPlanAsignar!=null){
-      console.log("entro");
-      this.usuario.plan={... this.plantillaPlanAsignar.plan};
+      this.usuario.plan.dias={... this.plantillaPlanAsignar.plan.dias};
       this.usuarioService.actualizar(this.usuario).subscribe(
         res => {
           this.usuario=res;
