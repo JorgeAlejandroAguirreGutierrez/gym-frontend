@@ -31,6 +31,16 @@ export class EjercicioService {
       })
     );
   }
+
+  consultarPorTipoMusculo(tipoMusculoId: string): Observable<Ejercicio[]> {
+    let params = new HttpParams().set("tipoMusculoId", tipoMusculoId);
+    return this.http.get(environment.host+util.ruta+util.ejercicio+util.consultarPorTipoMusculo, {params: params, headers: util.options.headers}).pipe(
+      map(response => response as Ejercicio[]),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
   
   async consultarAsync(): Promise<Ejercicio[]> {
     return await this.http.get<Ejercicio[]>(environment.host + util.ruta + util.ejercicio, util.options).pipe(

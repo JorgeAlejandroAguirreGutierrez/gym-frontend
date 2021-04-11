@@ -17,9 +17,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PrincipalComponent } from './principal/principal.component';
 import { LeerEjercicioComponent } from './ejercicio/leer-ejercicio/leer-ejercicio.component';
 import { CrearEjercicioComponent } from './ejercicio/crear-ejercicio/crear-ejercicio.component';
-import { CrearPlanEntrenamientoComponent } from './plan-entrenamiento/crear-plan-entrenamiento/crear-plan-entrenamiento.component';
-import { LeerPlanEntrenamientoComponent } from './plan-entrenamiento/leer-plan-entrenamiento/leer-plan-entrenamiento.component';
-import { LeerMedidaComponent } from './plan-entrenamiento/leer-medida/leer-medida.component';
+import { CrearPlanComponent } from './plan/crear-plan/crear-plan.component';
+import { LeerPlanComponent } from './plan/leer-plan/leer-plan.component';
+import { LeerMedidaComponent } from './plan/leer-medida/leer-medida.component';
+import { CrearPlantillaPlanComponent } from './plan/crear-plantilla-plan/crear-plantilla-plan.component';
+import { LeerPlantillaPlanComponent } from './plan/leer-plantilla-plan/leer-plantilla-plan.component';
 
 @NgModule({
   declarations: [
@@ -32,9 +34,11 @@ import { LeerMedidaComponent } from './plan-entrenamiento/leer-medida/leer-medid
     PrincipalComponent,
     LeerEjercicioComponent,
     CrearEjercicioComponent,
-    CrearPlanEntrenamientoComponent,
-    LeerPlanEntrenamientoComponent,
-    LeerMedidaComponent
+    CrearPlanComponent,
+    LeerPlanComponent,
+    LeerMedidaComponent,
+    CrearPlantillaPlanComponent,
+    LeerPlantillaPlanComponent
   ],
   imports: [
     BrowserModule,

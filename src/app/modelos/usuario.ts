@@ -2,7 +2,7 @@ import { Objetivo } from "./objetivo";
 import { Observacion } from "./observacion";
 import { Perfil } from "./perfil";
 import { Peso } from "./peso";
-import { PlanEntrenamiento } from "./plan-entrenamiento";
+import { Plan } from "./plan";
 import { Suscripcion } from "./suscripcion";
 
 export class Usuario {
@@ -18,7 +18,7 @@ export class Usuario {
     suscripciones: Suscripcion[];
     objetivos: Objetivo[];
     observaciones: Observacion[];
-    planesEntrenamiento: PlanEntrenamiento[];
+    plan: Plan;
 
     constructor(){
         this.id=0;
@@ -33,6 +33,6 @@ export class Usuario {
         this.suscripciones=[];
         this.objetivos=[];
         this.observaciones=[];
-        this.planesEntrenamiento=[];
+        this.plan=new Plan();
     }
 }

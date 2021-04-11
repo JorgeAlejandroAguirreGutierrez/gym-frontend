@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Ejercicio } from 'src/app/modelos/ejercicio';
-import { PlanEntrenamiento } from 'src/app/modelos/plan-entrenamiento';
-import { RutinaEntrenamiento } from 'src/app/modelos/rutina-entrenamiento';
+import { Rutina } from 'src/app/modelos/rutina';
 import { Usuario } from 'src/app/modelos/usuario';
 import { EjercicioService } from 'src/app/servicios/ejercicio.service';
 import { SesionService } from 'src/app/servicios/sesion.service';
@@ -14,34 +13,44 @@ import { environment } from '../../../environments/environment';
 import * as util from '../../util';
 import { Parametro } from 'src/app/modelos/parametro';
 import { ParametroService } from 'src/app/servicios/parametro.service';
+import { TipoMusculo } from 'src/app/modelos/tipo-musculo';
+import { TipoMusculoService } from 'src/app/servicios/tipo-musculo.service';
+import { Dia } from 'src/app/modelos/dia';
+import { Plan } from 'src/app/modelos/plan';
 
 @Component({
-  selector: 'app-crear-plan-entrenamiento',
-  templateUrl: './crear-plan-entrenamiento.component.html',
-  styleUrls: ['./crear-plan-entrenamiento.component.css']
+  selector: 'app-crear-plan',
+  templateUrl: './crear-plan.component.html',
+  styleUrls: ['./crear-plan.component.css']
 })
-export class CrearPlanEntrenamientoComponent implements OnInit {
+export class CrearPlanComponent implements OnInit {
 
   identificacion: string="";
   usuario: Usuario=new Usuario();
   cerrarModal: string = "";
-  planEntrenamientoCrear: PlanEntrenamiento=new PlanEntrenamiento();
-  rutinaEntrenamientoCrear: RutinaEntrenamiento=new RutinaEntrenamiento();
-  rutinaEntrenamientoActualizar: RutinaEntrenamiento=new RutinaEntrenamiento();
+  diaCrear: Dia=new Dia();
+  rutinaCrear: Rutina=new Rutina();
+  rutinaActualizar: Rutina=new Rutina();
   seleccionPE: number=-1;
   seleccionRE: number=-1;
 
+  tiposMusculos: TipoMusculo[]=[];
   ejercicios: Ejercicio[]=[];
   medidasPesos: Parametro[]=[];
+  medidasTiempos: Parametro[]=[];
 
   prefijoUrlEjercicios= environment.prefijo_url_ejercicios;
 
-  @ViewChild('modalCrearRutinaEntrenamiento', { static: false }) private modalCrearRutinaEntrenamiento: any;
-  @ViewChild('modalActualizarRutinaEntrenamiento', { static: false }) private modalActualizarRutinaEntrenamiento: any;
+  tipoMusculoFuncional=constantes.parametroTipoMusculoFuncional;
+  vacio=constantes.parametroVacio;
+
+  @ViewChild('modalCrearRutina', { static: false }) private modalCrearRutina: any;
+  @ViewChild('modalActualizarRutina', { static: false }) private modalActualizarRutina: any;
   @ViewChild('modalLeerEjercicio', { static: false }) private modalLeerEjercicio: any;
 
   constructor(private sesionService: SesionService, private usuarioService: UsuarioService,
     private ejercicioService: EjercicioService, private parametroService: ParametroService,
+    private tipoMusculoService: TipoMusculoService,
     private route: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -52,14 +61,18 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
       this.navegarIndex();
     }
     this.obtenerPorIdentificacion();
-    this.consultarEjercicios();
+    this.consultarTiposMusculos();
     this.consultarMedidasPesos();
+    this.consultarMedidasTiempos();
   }
 
   obtenerPorIdentificacion(){
     this.usuarioService.obtenerPorIdentificacion(this.identificacion).subscribe(
       res => {
         this.usuario=res;
+        if (this.usuario.plan==null){
+          this.usuario.plan=new Plan();
+        }
       },
       err => {
         Swal.fire(constantes.error, constantes.error_obtener_usuario, constantes.error_swal)
@@ -67,16 +80,16 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     );
   }
 
-  abrirModalCrearRutinaEntrenamiento(i: number) {
+  abrirModalCrearRutina(i: number) {
     this.seleccionPE=i;
-    this.open(this.modalCrearRutinaEntrenamiento);
+    this.open(this.modalCrearRutina);
   }
 
-  abrirModalActualizarRutinaEntrenamiento(i: number, j:number) {
+  abrirModalActualizarRutina(i: number, j:number) {
     this.seleccionPE=i;
     this.seleccionRE=j;
-    this.rutinaEntrenamientoActualizar={ ... this.usuario.planesEntrenamiento[this.seleccionPE].rutinasEntrenamiento[this.seleccionRE]};
-    this.open(this.modalActualizarRutinaEntrenamiento);
+    this.rutinaActualizar={ ... this.usuario.plan.dias[this.seleccionPE].rutinas[this.seleccionRE]};
+    this.open(this.modalActualizarRutina);
   }
 
 
@@ -86,42 +99,53 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     this.open(this.modalLeerEjercicio);
   }
 
-  crearPlanEntrenamiento(){
-    if(this.usuario.planesEntrenamiento.length==7){
-      Swal.fire(constantes.error, constantes.error_maximo_plan_entrenamiento, constantes.error_swal)
+  crearPlan(){
+    if(this.usuario.plan.dias.length==7){
+      Swal.fire(constantes.error, constantes.error_maximo_plan, constantes.error_swal)
+      return;
     }
-    let numero: number=this.usuario.planesEntrenamiento.length+1;
-    this.planEntrenamientoCrear.numero=numero;
-    this.planEntrenamientoCrear.dia=util.dia.get("DIA"+numero)!;
-    this.usuario.planesEntrenamiento.push(this.planEntrenamientoCrear);
+    let numero: number=this.usuario.plan.dias.length+1;
+    this.diaCrear.numero=numero;
+    this.diaCrear.nombre=util.dia.get("DIA"+numero)!;
+    this.usuario.plan.dias.push(this.diaCrear);
     console.log(this.usuario);
     this.usuarioService.actualizar(this.usuario).subscribe(
       res => {
         this.usuario=res;
-        this.planEntrenamientoCrear=new PlanEntrenamiento();
+        this.diaCrear=new Dia();
         this.desactivarAcordeon();
-        this.usuario.planesEntrenamiento[this.usuario.planesEntrenamiento.length-1].show="show";
+        this.usuario.plan.dias[this.usuario.plan.dias.length-1].show="show";
       },
       err => {
         if(err.error.codigo==constantes.error_codigo_datos_invalidos){
           Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
         }
         if(err.error.codigo==constantes.error_codigo_generico){
-          Swal.fire(constantes.error, constantes.error_crear_plan_entrenamiento, constantes.error_swal);
+          Swal.fire(constantes.error, constantes.error_crear_plan, constantes.error_swal);
         }
       }
     );
   }
 
-  crearRutinaEntrenamiento(){
-    this.usuario.planesEntrenamiento[this.seleccionPE].rutinasEntrenamiento.push({... this.rutinaEntrenamientoCrear})
+  crearRutina(){
+    if(this.rutinaCrear.ejercicio.tipoMusculo.descripcion!=this.tipoMusculoFuncional){
+      this.rutinaCrear.valorTiempo=0;
+      this.rutinaCrear.medidaTiempo="";
+    }
+    if(this.rutinaCrear.ejercicio.tipoMusculo.descripcion==this.tipoMusculoFuncional){
+      this.rutinaCrear.repeticiones=0;
+      this.rutinaCrear.veces=0;
+      this.rutinaCrear.valorPeso=0;
+      this.rutinaCrear.medidaPeso="";
+    }
+    this.usuario.plan.dias[this.seleccionPE].rutinas.push({... this.rutinaCrear})
     console.log(this.usuario);
     this.usuarioService.actualizar(this.usuario).subscribe(
       res => {
         this.usuario=res;
-        this.rutinaEntrenamientoCrear=new RutinaEntrenamiento();
+        this.rutinaCrear=new Rutina();
         this.desactivarAcordeon();
-        this.usuario.planesEntrenamiento[this.seleccionPE].show="show";
+        this.usuario.plan.dias[this.seleccionPE].show="show";
         this.modalService.dismissAll();
       },
       err => {
@@ -135,15 +159,24 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     );
   }
 
-  actualizarRutinaEntrenamiento(){
-    this.usuario.planesEntrenamiento[this.seleccionPE].rutinasEntrenamiento[this.seleccionRE]=({... this.rutinaEntrenamientoActualizar})
-    console.log(this.usuario.planesEntrenamiento);
+  actualizarRutina(){
+    if(this.rutinaActualizar.ejercicio.tipoMusculo.descripcion!=this.tipoMusculoFuncional){
+      this.rutinaActualizar.valorTiempo=0;
+      this.rutinaActualizar.medidaTiempo="";
+    }
+    if(this.rutinaActualizar.ejercicio.tipoMusculo.descripcion==this.tipoMusculoFuncional){
+      this.rutinaActualizar.repeticiones=0;
+      this.rutinaActualizar.veces=0;
+      this.rutinaActualizar.valorPeso=0;
+      this.rutinaActualizar.medidaPeso="";
+    }
+    this.usuario.plan.dias[this.seleccionPE].rutinas[this.seleccionRE]=({... this.rutinaActualizar})
     this.usuarioService.actualizar(this.usuario).subscribe(
       res => {
         this.usuario=res;
-        this.rutinaEntrenamientoActualizar=new RutinaEntrenamiento();
+        this.rutinaActualizar=new Rutina();
         this.desactivarAcordeon();
-        this.usuario.planesEntrenamiento[this.seleccionPE].show="show";
+        this.usuario.plan.dias[this.seleccionPE].show="show";
         this.modalService.dismissAll();
       },
       err => {
@@ -158,16 +191,16 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     );
   }
 
-  eliminarRutinaEntrenamiento(i: number, j:number){
+  eliminarRutina(i: number, j:number){
     this.seleccionPE=i;
     this.seleccionRE=j;
-    this.usuario.planesEntrenamiento[this.seleccionPE].rutinasEntrenamiento.splice(this.seleccionRE, 1);
+    this.usuario.plan.dias[this.seleccionPE].rutinas.splice(this.seleccionRE, 1);
     console.log(this.usuario);
     this.usuarioService.actualizar(this.usuario).subscribe(
       res => {
         this.usuario=res;
         this.desactivarAcordeon();
-        this.usuario.planesEntrenamiento[this.seleccionPE].show="show";
+        this.usuario.plan.dias[this.seleccionPE].show="show";
         this.modalService.dismissAll();
         Swal.fire(constantes.exito, constantes.exito_eliminar_rutina, constantes.exito_swal)
       },
@@ -182,13 +215,35 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     );
   }
 
-  consultarEjercicios(){
-    this.ejercicioService.consultar().subscribe(
+  consultarTiposMusculos(){
+    this.tipoMusculoService.consultar().subscribe(
+      res => {
+        this.tiposMusculos=res;
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_consultar_musculos, constantes.error_swal)
+      }
+    );
+  }
+
+  cargarEjerciciosCrearRutina(){
+    console.log(this.rutinaCrear);
+    let tipoMusculoId=this.rutinaCrear.ejercicio.tipoMusculo.id.toString();
+    this.consultarEjerciciosPorTipoMusculo(tipoMusculoId);
+  }
+
+  cargarEjerciciosCrearActualizar(){
+    let tipoMusculoId=this.rutinaActualizar.ejercicio.tipoMusculo.id.toString();
+    this.consultarEjerciciosPorTipoMusculo(tipoMusculoId);
+  }
+
+  consultarEjerciciosPorTipoMusculo(tipoMusculoId: string){
+    this.ejercicioService.consultarPorTipoMusculo(tipoMusculoId).subscribe(
       res => {
         this.ejercicios=res;
       },
       err => {
-        Swal.fire(constantes.error, constantes.error_obtener_usuario, constantes.error_swal)
+        Swal.fire(constantes.error, constantes.error_consultar_ejercicios, constantes.error_swal)
       }
     );
   }
@@ -204,13 +259,24 @@ export class CrearPlanEntrenamientoComponent implements OnInit {
     );
   }
 
+  consultarMedidasTiempos(){
+    this.parametroService.consultarPorTipo(constantes.parametroMedidaTiempo).subscribe(
+      res => {
+        this.medidasTiempos=res;
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_consultar_medidas_pesos, constantes.error_swal)
+      }
+    );
+  }
+
   compareFn(a:any, b:any) {
     return a && b && a.id == b.id;
   }
 
   desactivarAcordeon(){
-    for(let i=0; i<this.usuario.planesEntrenamiento.length; i++){
-      this.usuario.planesEntrenamiento[i].show="";
+    for(let i=0; i<this.usuario.plan.dias.length; i++){
+      this.usuario.plan.dias[i].show="";
     }
   }
 

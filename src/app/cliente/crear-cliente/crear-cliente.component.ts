@@ -78,6 +78,7 @@ export class CrearClienteComponent implements OnInit {
   }
 
   crear() {
+    this.usuario.plan=null as any;
     console.log(this.usuario);
     this.usuarioService.crearCliente(this.usuario).subscribe(
       res => {

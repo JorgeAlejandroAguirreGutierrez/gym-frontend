@@ -23,7 +23,7 @@
                 </div>
             </div>
             <br>
-            <ng-container *ngIf="usuario.planesEntrenamiento.length==0">
+            <ng-container *ngIf="usuario.plan.dias.length==0">
                 <div class="row">
                     <div class="col-sm">
                         <div align="center" class="alert alert-warning font-weight-bold" role="alert">
@@ -32,26 +32,26 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="usuario.planesEntrenamiento.length!=0">
+            <ng-container *ngIf="usuario.plan.dias.length!=0">
                 <div class="row">
                     <div class="col-sm">
                         <div id="accordion">
-                            <ng-container *ngFor="let planEntrenamiento of usuario.planesEntrenamiento; let i=index">
+                            <ng-container *ngFor="let dia of usuario.plan.dias; let i=index">
                                 <div class="card">
                                     <div class="card-header" id="heading{{i+1}}">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link" data-toggle="collapse"
                                                 attr.data-target="#collapse{{i+1}}" aria-expanded="true"
                                                 attr.aria-controls="collapse{{i+1}}">
-                                                DIA {{i+1}} ({{planEntrenamiento.dia}})
+                                                DIA {{i+1}} ({{dia.nombre}})
                                             </button>
                                         </h5>
                                     </div>
 
-                                    <div id="collapse{{i+1}}" class="collapse {{planEntrenamiento.show}}"
+                                    <div id="collapse{{i+1}}" class="collapse {{dia.show}}"
                                         attr.aria-labelledby="heading{{i+1}}" data-parent="#accordion">
                                         <div class="card-body">
-                                            <ng-container *ngIf="planEntrenamiento.rutinasEntrenamiento.length>0">
+                                            <ng-container *ngIf="dia.rutinas.length>0">
                                                 <div class="row">
                                                     <div class="col-sm table-responsive">
                                                         <table class="table table-sm table-hover table-bordered">
@@ -62,19 +62,42 @@
                                                                     <th scope="col">REPETIR</th>
                                                                     <th scope="col">VECES</th>
                                                                     <th scope="col">PESO</th>
+                                                                    <th scope="col">TIEMPO</th>
                                                                     <th scope="col">OPCIONES</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <tr
-                                                                    *ngFor="let rutinaEntrenamiento of planEntrenamiento.rutinasEntrenamiento; let j=index">
+                                                                    *ngFor="let rutina of dia.rutinas; let j=index">
                                                                     <td>{{j+1}}</td>
-                                                                    <td class="menor-fuente">{{rutinaEntrenamiento.ejercicio.descripcion}}
+                                                                    <td class="menor-fuente">
+                                                                        {{rutina.ejercicio.descripcion}}
                                                                     </td>
-                                                                    <td>{{rutinaEntrenamiento.repeticiones}}</td>
-                                                                    <td>{{rutinaEntrenamiento.veces}}</td>
-                                                                    <td>{{rutinaEntrenamiento.valorPeso}} -
-                                                                        {{rutinaEntrenamiento.medidaPeso}}</td>
+                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
+                                                                        {{rutina.repeticiones}}
+                                                                    </td>
+                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
+                                                                        NA
+                                                                    </td>
+                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
+                                                                        {{rutina.veces}}</td>
+                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
+                                                                        NA
+                                                                    </td>
+                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
+                                                                        {{rutina.valorPeso}} -
+                                                                        {{rutina.medidaPeso}}
+                                                                    </td>
+                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
+                                                                        NA
+                                                                    </td>
+                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
+                                                                        {{rutina.valorTiempo}} -
+                                                                        {{rutina.medidaTiempo}}
+                                                                    </td>
+                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
+                                                                        NA
+                                                                    </td>
                                                                     <td>
                                                                         <button class="btn btn-sm btn-primary separate"
                                                                             (click)="abrirModalLeerEjercicio(i, j)">
@@ -121,9 +144,9 @@
         <div class="form-group row">
             <div align="center" class="col-sm">
                 <label
-                    class="font-weight-bold">{{usuario.planesEntrenamiento[seleccionPE].rutinasEntrenamiento[seleccionRE].ejercicio.descripcion}}</label>
+                    class="font-weight-bold">{{usuario.plan.dias[seleccionPE].rutinas[seleccionRE].ejercicio.descripcion}}</label>
                 <img class="card-img-top"
-                    src="{{prefijoUrlEjercicios+usuario.planesEntrenamiento[seleccionPE].rutinasEntrenamiento[seleccionRE].ejercicio.imagen}}"
+                    src="{{prefijoUrlEjercicios+usuario.plan.dias[seleccionPE].rutinas[seleccionRE].ejercicio.imagen}}"
                     height="300px" alt="Card image cap">
             </div>
         </div>

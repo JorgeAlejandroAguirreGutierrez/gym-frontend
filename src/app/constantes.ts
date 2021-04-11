@@ -26,19 +26,23 @@ export const error_datos_invalidos='Error en los datos ingresados';
 export const exito_eliminar_ejercicio='Exito al eliminar el ejercicio'
 export const error_eliminar_ejercicio='Error al eliminar el ejercicio';
 
-export const error_crear_plan_entrenamiento='Error al crear el plan de entrenamiento';
+export const exito_eliminar_plantilla_plan='Exito al eliminar la plantilla'
+export const error_eliminar_plantilla_plan='Error al eliminar la plantilla';
+
+export const error_crear_plan='Error al crear el plan de entrenamiento';
 
 export const perfil_admin='ADMIN';
 export const perfil_cliente='CLIENTE';
 
 export const error_consultar_musculos='Error al consultar los tipos de musculos';
+export const error_consultar_ejercicios='Error al consultar los ejercicios';
 export const error_consultar_medidas_pesos='Error al consultar las medidas de los pesos';
 export const error_consultar_sliders='Error al consultar las imagenes de los sliders';
 export const error_consultar_servicios='Error al consultar las imagenes de los servicios';
 export const error_consultar_descripciones='Error al consultar las descripciones de los servicios';
 
 export const error_seleccion_ejercicio='Error al seleccionar el ejercicio';
-export const error_maximo_plan_entrenamiento='Error supera la semana de entrenamiento';
+export const error_maximo_plan='Error supera la semana de entrenamiento';
 
 //CODIGOS DE ERROR
 export const error_codigo_modelo_existente="4001";
@@ -51,6 +55,10 @@ export const error_codigo_generico="4000";
 //PARAMETROS
 export const parametroMusculo="MUSCULO";
 export const parametroMedidaPeso="MEDIDAPESO";
+export const parametroMedidaTiempo="MEDIDATIEMPO";
 export const parametroSlider="SLIDER";
 export const parametroServicio="SERVICIO";
 export const parametroDescripcion="DESCRIPCION";
+export const parametroTipoMusculoFuncional="FUNCIONAL";
+export const parametroVacio="";
+export const parametroCero="0";

@@ -11,17 +11,20 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Sesion } from 'src/app/modelos/sesion';
 
 @Component({
-  selector: 'app-leer-plan-entrenamiento',
-  templateUrl: './leer-plan-entrenamiento.component.html',
-  styleUrls: ['./leer-plan-entrenamiento.component.css']
+  selector: 'app-leer-plan',
+  templateUrl: './leer-plan.component.html',
+  styleUrls: ['./leer-plan.component.css']
 })
-export class LeerPlanEntrenamientoComponent implements OnInit {
+export class LeerPlanComponent implements OnInit {
 
   sesion: Sesion= null as any;
   usuario: Usuario=new Usuario();
   prefijoUrlEjercicios= environment.prefijo_url_ejercicios;
   seleccionPE: number=-1;
   seleccionRE: number=-1;
+
+  tipoMusculoFuncional=constantes.parametroTipoMusculoFuncional;
+  
   cerrarModal: string = "";
   @ViewChild('modalLeerEjercicio', { static: false }) private modalLeerEjercicio: any;
 
