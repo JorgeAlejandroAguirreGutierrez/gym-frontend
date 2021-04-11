@@ -30,10 +30,12 @@ export const exito_eliminar_plantilla_plan='Exito al eliminar la plantilla'
 export const error_eliminar_plantilla_plan='Error al eliminar la plantilla';
 
 export const error_crear_plan='Error al crear el plan de entrenamiento';
+export const error_asignar_plan='Error al asignar el plan de entrenamiento';
 
 export const perfil_admin='ADMIN';
 export const perfil_cliente='CLIENTE';
 
+export const error_consultar_plantillas_plan='Error al consultar las plantillas de los planes';
 export const error_consultar_musculos='Error al consultar los tipos de musculos';
 export const error_consultar_ejercicios='Error al consultar los ejercicios';
 export const error_consultar_medidas_pesos='Error al consultar las medidas de los pesos';

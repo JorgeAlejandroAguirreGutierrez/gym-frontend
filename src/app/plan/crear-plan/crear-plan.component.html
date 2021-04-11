@@ -38,15 +38,32 @@
             <div class="row">
                 <div class="col-sm-12">
                     <label class="font-weight-bold">Usuario:</label>
-                    <input type="text" [(ngModel)]="usuario.nombre" class="form-control form-control-sm" [disabled]="true"
-                        oninput="this.value = this.value.toUpperCase()">
+                    <input type="text" [(ngModel)]="usuario.nombre" class="form-control form-control-sm"
+                        [disabled]="true" oninput="this.value = this.value.toUpperCase()">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <label class="font-weight-bold">Identificacion:</label>
-                    <input type="text" [(ngModel)]="usuario.identificacion" class="form-control form-control-sm" [disabled]="true"
-                        oninput="this.value = this.value.toUpperCase()">
+                    <input type="text" [(ngModel)]="usuario.identificacion" class="form-control form-control-sm"
+                        [disabled]="true" oninput="this.value = this.value.toUpperCase()">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-10">
+                    <label class="font-weight-bold">Plantilla:</label>
+                    <select [(ngModel)]="plantillaPlanAsignar" [compareWith]="compareFn"
+                        class="form-control form-control-sm">
+                        <option [ngValue]="null"></option>
+                        <option *ngFor="let plantillaPlan of plantillasPlan" [ngValue]="plantillaPlan">
+                            {{plantillaPlan.nombre}} - {{plantillaPlan.somatotipo}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <label>&nbsp;&nbsp;&nbsp;</label>
+                    <button class="btn btn-sm btn-primary btn-block" (click)="asignarPlantillaPlan()">Asignar</button>
                 </div>
             </div>
             <br>
@@ -91,7 +108,7 @@
                                                     <div class="col-sm table-responsive">
                                                         <table class="table table-sm table-hover table-bordered">
                                                             <thead>
-                                                                <tr>
+                                                                <tr class="menor-fuente">
                                                                     <th scope="col">#</th>
                                                                     <th scope="col">EJERCICIO</th>
                                                                     <th scope="col">REPE</th>
@@ -102,35 +119,42 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr
-                                                                    *ngFor="let rutina of dia.rutinas; let j=index">
+                                                                <tr *ngFor="let rutina of dia.rutinas; let j=index">
                                                                     <td>{{j+1}}</td>
                                                                     <td class="menor-fuente">
                                                                         {{rutina.ejercicio.descripcion}}
                                                                     </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
+                                                                    <td
+                                                                        *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
                                                                         {{rutina.repeticiones}}
                                                                     </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
+                                                                    <td
+                                                                        *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
                                                                         NA
                                                                     </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
+                                                                    <td
+                                                                        *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
                                                                         {{rutina.veces}}</td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
+                                                                    <td
+                                                                        *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
                                                                         NA
                                                                     </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
+                                                                    <td
+                                                                        *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
                                                                         {{rutina.valorPeso}} -
                                                                         {{rutina.medidaPeso}}
                                                                     </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
+                                                                    <td
+                                                                        *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
                                                                         NA
                                                                     </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
+                                                                    <td
+                                                                        *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
                                                                         {{rutina.valorTiempo}} -
                                                                         {{rutina.medidaTiempo}}
                                                                     </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
+                                                                    <td
+                                                                        *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
                                                                         NA
                                                                     </td>
                                                                     <td>
@@ -191,9 +215,8 @@
             <label class="col-sm-4 col-form-label font-weight-bold">Zona Muscular</label>
             <div class="col-sm-8">
                 <div class="input-group">
-                    <select [(ngModel)]="rutinaCrear.ejercicio.tipoMusculo.id"
-                        (change)="cargarEjerciciosCrearRutina()" [compareWith]="compareFn"
-                        class="form-control form-control-sm">
+                    <select [(ngModel)]="rutinaCrear.ejercicio.tipoMusculo.id" (change)="cargarEjerciciosCrearRutina()"
+                        [compareWith]="compareFn" class="form-control form-control-sm">
                         <option value="0"></option>
                         <option *ngFor="let tipoMusculo of tiposMusculos" [ngValue]="tipoMusculo.id">
                             {{tipoMusculo.descripcion}}
@@ -279,8 +302,7 @@
                 <label class="col-sm-4 col-form-label font-weight-bold">En</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <select [(ngModel)]="rutinaCrear.medidaTiempo"
-                            class="form-control form-control-sm">
+                        <select [(ngModel)]="rutinaCrear.medidaTiempo" class="form-control form-control-sm">
                             <option></option>
                             <option *ngFor="let medidaTiempo of medidasTiempos" [ngValue]="medidaTiempo.valor">
                                 {{medidaTiempo.valor}}
@@ -372,8 +394,7 @@
                 <label class="col-sm-4 col-form-label font-weight-bold">Medida Peso</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <select [(ngModel)]="rutinaActualizar.medidaPeso"
-                            class="form-control form-control-sm">
+                        <select [(ngModel)]="rutinaActualizar.medidaPeso" class="form-control form-control-sm">
                             <option></option>
                             <option *ngFor="let medidaPeso of medidasPesos" [ngValue]="medidaPeso.valor">
                                 {{medidaPeso.valor}}
@@ -399,8 +420,7 @@
                 <label class="col-sm-4 col-form-label font-weight-bold">En</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <select [(ngModel)]="rutinaActualizar.medidaTiempo"
-                            class="form-control form-control-sm">
+                        <select [(ngModel)]="rutinaActualizar.medidaTiempo" class="form-control form-control-sm">
                             <option></option>
                             <option *ngFor="let medidaTiempo of medidasTiempos" [ngValue]="medidaTiempo.valor">
                                 {{medidaTiempo.valor}}

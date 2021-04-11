@@ -17,6 +17,8 @@ import { TipoMusculo } from 'src/app/modelos/tipo-musculo';
 import { TipoMusculoService } from 'src/app/servicios/tipo-musculo.service';
 import { Dia } from 'src/app/modelos/dia';
 import { Plan } from 'src/app/modelos/plan';
+import { PlantillaPlan } from 'src/app/modelos/plantilla-plan';
+import { PlantillaPlanService } from 'src/app/servicios/plantilla-plan.service';
 
 @Component({
   selector: 'app-crear-plan',
@@ -25,6 +27,9 @@ import { Plan } from 'src/app/modelos/plan';
 })
 export class CrearPlanComponent implements OnInit {
 
+  plantillasPlan: PlantillaPlan[]=[];
+  plantillaPlanAsignar: PlantillaPlan=null as any;
+  
   identificacion: string="";
   usuario: Usuario=new Usuario();
   cerrarModal: string = "";
@@ -50,7 +55,7 @@ export class CrearPlanComponent implements OnInit {
 
   constructor(private sesionService: SesionService, private usuarioService: UsuarioService,
     private ejercicioService: EjercicioService, private parametroService: ParametroService,
-    private tipoMusculoService: TipoMusculoService,
+    private tipoMusculoService: TipoMusculoService, private plantillaPlanService: PlantillaPlanService,
     private route: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -64,6 +69,7 @@ export class CrearPlanComponent implements OnInit {
     this.consultarTiposMusculos();
     this.consultarMedidasPesos();
     this.consultarMedidasTiempos();
+    this.consultarPlantillasPlan();
   }
 
   obtenerPorIdentificacion(){
@@ -78,6 +84,43 @@ export class CrearPlanComponent implements OnInit {
         Swal.fire(constantes.error, constantes.error_obtener_usuario, constantes.error_swal)
       }
     );
+  }
+
+  consultarPlantillasPlan(){
+    this.plantillaPlanService.consultar().subscribe(
+      res => {
+        this.plantillasPlan=res;
+      },
+      err => {
+        if(err.error.codigo==constantes.error_codigo_generico){
+          Swal.fire(constantes.error, constantes.error_consultar_plantillas_plan, constantes.error_swal);
+        }
+      }
+    );
+  }
+
+  asignarPlantillaPlan(){
+    console.log(this.plantillaPlanAsignar);
+    if(this.plantillaPlanAsignar!=null){
+      console.log("entro");
+      this.usuario.plan={... this.plantillaPlanAsignar.plan};
+      this.usuarioService.actualizar(this.usuario).subscribe(
+        res => {
+          this.usuario=res;
+          this.diaCrear=new Dia();
+          this.desactivarAcordeon();
+          this.usuario.plan.dias[this.usuario.plan.dias.length-1].show="show";
+        },
+        err => {
+          if(err.error.codigo==constantes.error_codigo_datos_invalidos){
+            Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+          }
+          if(err.error.codigo==constantes.error_codigo_generico){
+            Swal.fire(constantes.error, constantes.error_asignar_plan, constantes.error_swal);
+          }
+        }
+      );
+    }
   }
 
   abrirModalCrearRutina(i: number) {

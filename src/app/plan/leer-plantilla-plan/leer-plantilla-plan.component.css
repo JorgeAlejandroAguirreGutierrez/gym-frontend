@@ -45,4 +45,7 @@
   .separate {
     margin-bottom: 5px;
   }
+  .menor-fuente {
+    font-size: small;
+  }
 }
