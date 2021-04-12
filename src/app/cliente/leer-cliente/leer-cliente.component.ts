@@ -144,7 +144,6 @@ export class LeerClienteComponent implements OnInit {
   }
 
   actualizar(){
-    console.log(this.usuarioActualizar);
     this.usuarioService.actualizar(this.usuarioActualizar).subscribe(
       res => {
         this.usuarioActualizar=res;

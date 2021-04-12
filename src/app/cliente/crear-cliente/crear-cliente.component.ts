@@ -79,14 +79,12 @@ export class CrearClienteComponent implements OnInit {
 
   crear() {
     this.usuario.plan=null as any;
-    console.log(this.usuario);
     this.usuarioService.crearCliente(this.usuario).subscribe(
       res => {
         Swal.fire(constantes.exito, constantes.exito_crear_usuario, constantes.exito_swal);
         this.navegarLeerCliente();
       },
       err => {
-        console.log(err);
         if(err.error.codigo==constantes.error_codigo_datos_invalidos){
           Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
         }

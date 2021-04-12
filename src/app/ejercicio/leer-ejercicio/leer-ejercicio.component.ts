@@ -96,7 +96,6 @@ export class LeerEjercicioComponent implements OnInit {
   }
 
   actualizar(){
-    console.log(this.ejercicioActualizar);
     this.ejercicioService.actualizar(this.ejercicioActualizar).subscribe(
       res => {
         this.modalService.dismissAll();

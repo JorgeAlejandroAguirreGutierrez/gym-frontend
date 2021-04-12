@@ -225,7 +225,6 @@ export class CrearPlantillaPlanComponent implements OnInit {
   }
 
   cargarEjerciciosCrearRutina(){
-    console.log(this.rutinaCrear);
     let tipoMusculoId=this.rutinaCrear.ejercicio.tipoMusculo.id.toString();
     this.consultarEjerciciosPorTipoMusculo(tipoMusculoId);
   }

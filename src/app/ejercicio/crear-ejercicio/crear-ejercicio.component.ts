@@ -69,7 +69,6 @@ export class CrearEjercicioComponent implements OnInit {
   }
 
   crear() {
-    console.log(this.ejercicio);
     this.ejercicioService.crear(this.ejercicio).subscribe(
       res => {
         Swal.fire(constantes.exito, constantes.exito_crear_ejercicio, constantes.exito_swal);

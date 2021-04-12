@@ -61,7 +61,6 @@ export class CrearPlanComponent implements OnInit {
   ngOnInit(): void {
     util.loadScripts();
     this.identificacion=this.route.snapshot.queryParamMap.get('identificacion') || null as any;
-    console.log(this.identificacion);
     if(this.identificacion==null){
       this.navegarIndex();
     }
@@ -159,7 +158,6 @@ export class CrearPlanComponent implements OnInit {
     this.diaCrear.numero=numero;
     this.diaCrear.nombre=util.dia.get("DIA"+numero)!;
     this.usuario.plan.dias.push(this.diaCrear);
-    console.log(this.usuario);
     this.usuarioService.actualizar(this.usuario).subscribe(
       res => {
         this.usuario=res;
@@ -190,7 +188,6 @@ export class CrearPlanComponent implements OnInit {
       this.rutinaCrear.medidaPeso="";
     }
     this.usuario.plan.dias[this.seleccionPE].rutinas.push({... this.rutinaCrear})
-    console.log(this.usuario);
     this.usuarioService.actualizar(this.usuario).subscribe(
       res => {
         this.usuario=res;
@@ -246,7 +243,6 @@ export class CrearPlanComponent implements OnInit {
     this.seleccionPE=i;
     this.seleccionRE=j;
     this.usuario.plan.dias[this.seleccionPE].rutinas.splice(this.seleccionRE, 1);
-    console.log(this.usuario);
     this.usuarioService.actualizar(this.usuario).subscribe(
       res => {
         this.usuario=res;
@@ -278,7 +274,6 @@ export class CrearPlanComponent implements OnInit {
   }
 
   cargarEjerciciosCrearRutina(){
-    console.log(this.rutinaCrear);
     let tipoMusculoId=this.rutinaCrear.ejercicio.tipoMusculo.id.toString();
     this.consultarEjerciciosPorTipoMusculo(tipoMusculoId);
   }
