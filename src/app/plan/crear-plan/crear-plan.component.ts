@@ -101,7 +101,8 @@ export class CrearPlanComponent implements OnInit {
 
   asignarPlantillaPlan(){
     if(this.plantillaPlanAsignar!=null){
-      this.usuario.plan.dias={... this.plantillaPlanAsignar.plan.dias};
+      this.convertirParaAsignar();
+      this.usuario.plan.dias={ ... this.plantillaPlanAsignar.plan.dias};
       this.usuarioService.actualizar(this.usuario).subscribe(
         res => {
           this.usuario=res;
@@ -118,6 +119,15 @@ export class CrearPlanComponent implements OnInit {
           }
         }
       );
+    }
+  }
+
+  convertirParaAsignar(){
+    for(let i=0; i<this.plantillaPlanAsignar.plan.dias.length; i++){
+      this.plantillaPlanAsignar.plan.dias[i].id=0;
+      for(let j=0; j<this.plantillaPlanAsignar.plan.dias[i].rutinas.length; j++){
+        this.plantillaPlanAsignar.plan.dias[i].rutinas[j].id=0;
+      }
     }
   }
 
