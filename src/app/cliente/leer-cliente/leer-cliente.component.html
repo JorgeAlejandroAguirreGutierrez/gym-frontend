@@ -48,7 +48,7 @@
             <ng-container *ngFor="let usuarioEnc of usuariosEnc">
                 <div class="row">
                     <div class="card-group col-sm">
-                        <ng-container *ngFor="let usuario of usuarioEnc; let i=index">
+                        <ng-container *ngFor="let usuario of usuarioEnc">
                             <div class="card">
                                 <div class="card-body">
                                     <h2 class="card-title">{{usuario.nombre}}</h2>
@@ -81,7 +81,7 @@
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-sm" style="text-align: center;">
-                                                <button (click)="editar(i)"
+                                                <button (click)="editar(usuario)"
                                                     class="btn btn-sm btn-block btn-primary">ACTUALIZAR DATOS DEL
                                                     CLIENTE</button>
                                             </div>
@@ -90,7 +90,7 @@
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-sm" style="text-align: center;">
-                                                <button (click)="actualizarSuscripciones(i)"
+                                                <button (click)="actualizarSuscripciones(usuario)"
                                                     class="btn btn-sm btn-block btn-primary">ACTUALIZAR
                                                     SUSCRIPCIONES</button>
                                             </div>
@@ -99,7 +99,7 @@
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-sm" style="text-align: center;">
-                                                <button (click)="pesosVer(i)" class="btn btn-sm btn-block btn-primary">
+                                                <button (click)="pesosVer(usuario)" class="btn btn-sm btn-block btn-primary">
                                                     VER PESOS
                                                 </button>
                                             </div>
@@ -108,7 +108,7 @@
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-sm" style="text-align: center;">
-                                                <button (click)="observacionesVer(i)"
+                                                <button (click)="observacionesVer(usuario)"
                                                     class="btn btn-sm btn-block btn-primary">
                                                     VER OBSERVACIONES
                                                 </button>
@@ -118,7 +118,7 @@
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-sm" style="text-align: center;">
-                                                <button (click)="objetivosVer(i)"
+                                                <button (click)="objetivosVer(usuario)"
                                                     class="btn btn-sm btn-block btn-primary">
                                                     VER OBJETIVOS
                                                 </button>

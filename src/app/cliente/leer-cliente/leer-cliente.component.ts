@@ -58,6 +58,7 @@ export class LeerClienteComponent implements OnInit {
     this.usuarioService.consultarClientes().subscribe(
       res => {
         this.usuarios = res;
+        console.log(this.usuarios);
         this.usuariosEnc=[];
         let usuariosRec: Usuario[] = [];
         for (let i = 0; i < this.usuarios.length; i++) {
@@ -96,14 +97,20 @@ export class LeerClienteComponent implements OnInit {
     );
   }
 
-  pesosVer(i: number){
-    this.usuarioActualizar=this.usuarios[i];
+  pesosVer(usuario: Usuario){
+    this.usuarioActualizar=usuario;
+    console.log(this.usuarioActualizar);
     this.open(this.modalPesos);
   }
 
-  observacionesVer(i: number){
-    this.usuarioActualizar=this.usuarios[i];
+  observacionesVer(usuario: Usuario){
+    this.usuarioActualizar=usuario;
     this.open(this.modalObservaciones);
+  }
+
+  objetivosVer(usuario: Usuario){
+    this.usuarioActualizar=usuario;
+    this.open(this.modalObjetivos);
   }
 
   pesoEliminar(i: number){
@@ -114,14 +121,6 @@ export class LeerClienteComponent implements OnInit {
     this.usuarioActualizar.observaciones.splice(i, 1);
   }
 
-  objetivosVer(i: number){
-    this.usuarioActualizar=this.usuarios[i];
-    this.open(this.modalObjetivos);
-  }
-
-  planEntrenamientoVer(i:number){
-  }
-
   objetivoEliminar(i: number){
     this.usuarioActualizar.objetivos.splice(i, 1);
   }
@@ -130,16 +129,13 @@ export class LeerClienteComponent implements OnInit {
     this.usuarioActualizar.suscripciones.splice(i, 1);
   }
 
-  planEntrenamientoEliminar(i:number){
-  }
-
-  editar(i: number){
-    this.usuarioActualizar= this.usuarios[i];
+  editar(usuario: Usuario){
+    this.usuarioActualizar= usuario;
     this.open(this.modalUsuarioActualizar);
   }
 
-  actualizarSuscripciones(i: number){
-    this.usuarioActualizar= {... this.usuarios[i]};
+  actualizarSuscripciones(usuario: Usuario){
+    this.usuarioActualizar= usuario;
     this.open(this.modalActualizarSuscripciones);
   }
 
