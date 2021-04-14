@@ -8,6 +8,7 @@ export const exito_actualizar_usuario='Exito al actualizar el usuario';
 export const exito_crear_rutina='Exito al crear la rutina';
 export const exito_actualizar_rutina='Exito al actualizar la rutina';
 export const exito_eliminar_rutina='Exito al eliminar la rutina';
+export const error_actualizar_plantilla_plan='Error al actualizar la plantilla del plan';
 export const error_crear_usuario='Error al crear el usuario';
 export const error_crear_rutina='Error al crear la rutina';
 export const error_crear_ejercicio='Error al crear el ejercicio';

@@ -31,14 +31,14 @@
             <div class="row">
                 <div class="col-sm-12">
                     <label class="font-weight-bold">Nombre Plantilla:</label>
-                    <input type="text" [(ngModel)]="plantillaPlan.nombre" class="form-control form-control-sm"
+                    <input type="text" [(ngModel)]="plantillaPlan.nombre" (change)="actualizar()" class="form-control form-control-sm"
                         oninput="this.value = this.value.toUpperCase()">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <label class="font-weight-bold">Somatotipo:</label>
-                    <input type="text" [(ngModel)]="plantillaPlan.somatotipo" class="form-control form-control-sm"
+                    <input type="text" [(ngModel)]="plantillaPlan.somatotipo" (change)="actualizar()" class="form-control form-control-sm"
                         oninput="this.value = this.value.toUpperCase()">
                 </div>
             </div>

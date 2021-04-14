@@ -81,6 +81,17 @@ export class CrearPlantillaPlanComponent implements OnInit {
     );
   }
 
+  actualizar(){
+    this.plantillaPlanService.actualizar(this.plantillaPlan).subscribe(
+      res => {
+        this.plantillaPlan=res;
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_actualizar_plantilla_plan, constantes.error_swal)
+      }
+    );
+  }
+
   abrirModalCrearRutina(i: number) {
     this.seleccionPE=i;
     this.open(this.modalCrearRutina);
