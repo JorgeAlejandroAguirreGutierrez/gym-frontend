@@ -105,6 +105,9 @@
           "configurations": {
             "production": {
               "browserTarget": "gym-frontend:build:production"
+            },
+            "gimnasioolimpia": {
+              "browserTarget": "gym-frontend:build:gimnasioolimpia"
             }
           }
         },
@@ -161,6 +164,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "gym-frontend:serve:production"
+            },
+            "gimnasioolimpia": {
+              "devServerTarget": "gym-frontend:serve:gimnasioolimpia"
             }
           }
         }
