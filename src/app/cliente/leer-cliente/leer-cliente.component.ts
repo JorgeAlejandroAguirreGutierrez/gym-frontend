@@ -61,7 +61,6 @@ export class LeerClienteComponent implements OnInit {
     this.usuarioService.consultarClientes().subscribe(
       res => {
         this.usuarios = res;
-        console.log(this.usuarios);
         this.usuariosEnc=[];
         let usuariosRec: Usuario[] = [];
         for (let i = 0; i < this.usuarios.length; i++) {
@@ -102,7 +101,6 @@ export class LeerClienteComponent implements OnInit {
 
   pesosVer(usuario: Usuario){
     this.usuarioActualizar=usuario;
-    console.log(this.usuarioActualizar);
     this.open(this.modalPesos);
   }
 

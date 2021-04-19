@@ -23,7 +23,7 @@
                 </div>
             </div>
             <br>
-            <ng-container *ngIf="usuario.plan.dias.length==0">
+            <ng-container *ngIf="usuario.plan != null && usuario.plan.dias.length==0">
                 <div class="row">
                     <div class="col-sm">
                         <div align="center" class="alert alert-warning font-weight-bold" role="alert">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="usuario.plan.dias.length!=0">
+            <ng-container *ngIf="usuario.plan != null && usuario.plan.dias.length!=0">
                 <div class="row">
                     <div class="col-sm">
                         <div id="accordion">
@@ -59,9 +59,9 @@
                                                                 <tr class="menor-fuente">
                                                                     <th scope="col">°</th>
                                                                     <th scope="col">EJERCICIO</th>
-                                                                    <th scope="col">REPETIR</th>
                                                                     <th scope="col">#</th>
                                                                     <th scope="col">DE</th>
+                                                                    <th scope="col">PESO&nbsp;&nbsp;&nbsp;</th>
                                                                     <th scope="col">TIEMPO</th>
                                                                     <th scope="col">OPC</th>
                                                                 </tr>
