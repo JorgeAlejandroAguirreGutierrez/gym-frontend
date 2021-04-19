@@ -25,8 +25,8 @@ export class Usuario {
         this.nombre="";
         this.identificacion="";
         this.contrasena="";
-        this.talla=0;
-        this.edad=0;
+        this.talla=null as any;
+        this.edad=null as any;
         this.imagen="";
         this.perfil=new Perfil();
         this.pesos=[];

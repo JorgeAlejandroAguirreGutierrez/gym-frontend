@@ -27,6 +27,9 @@ import { PlantillaPlanService } from 'src/app/servicios/plantilla-plan.service';
 })
 export class CrearPlanComponent implements OnInit {
 
+  gimnasio=environment.gimnasio;
+  ubicacion=environment.ubicacion;
+
   plantillasPlan: PlantillaPlan[]=[];
   plantillaPlanAsignar: PlantillaPlan=null as any;
   
@@ -183,7 +186,7 @@ export class CrearPlanComponent implements OnInit {
     }
     if(this.rutinaCrear.ejercicio.tipoMusculo.descripcion==this.tipoMusculoFuncional){
       this.rutinaCrear.repeticiones=0;
-      this.rutinaCrear.veces=0;
+      this.rutinaCrear.series=0;
       this.rutinaCrear.valorPeso=0;
       this.rutinaCrear.medidaPeso="";
     }
@@ -214,7 +217,7 @@ export class CrearPlanComponent implements OnInit {
     }
     if(this.rutinaActualizar.ejercicio.tipoMusculo.descripcion==this.tipoMusculoFuncional){
       this.rutinaActualizar.repeticiones=0;
-      this.rutinaActualizar.veces=0;
+      this.rutinaActualizar.series=0;
       this.rutinaActualizar.valorPeso=0;
       this.rutinaActualizar.medidaPeso="";
     }

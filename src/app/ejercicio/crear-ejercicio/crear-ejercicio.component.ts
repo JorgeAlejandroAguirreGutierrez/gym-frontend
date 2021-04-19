@@ -9,6 +9,7 @@ import { SesionService } from 'src/app/servicios/sesion.service';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
 import * as util from '../../util';
+import { environment } from './../../../environments/environment';
 
 @Component({
   selector: 'app-crear-ejercicio',
@@ -17,6 +18,9 @@ import * as util from '../../util';
 })
 export class CrearEjercicioComponent implements OnInit {
 
+  gimnasio=environment.gimnasio;
+  ubicacion=environment.ubicacion;
+  
   ejercicio: Ejercicio = new Ejercicio();
   imagen: any = null;
   musculos: Parametro[] = [];

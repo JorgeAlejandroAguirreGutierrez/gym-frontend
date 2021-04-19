@@ -8,6 +8,7 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 import * as util from '../../util';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-leer-medida',
@@ -15,6 +16,9 @@ import * as util from '../../util';
   styleUrls: ['./leer-medida.component.css']
 })
 export class LeerMedidaComponent implements OnInit {
+
+  gimnasio=environment.gimnasio;
+  ubicacion=environment.ubicacion;
 
   usuario: Usuario=new Usuario();
   sesion: Sesion=null as any;

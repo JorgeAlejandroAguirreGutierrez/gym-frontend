@@ -4,6 +4,7 @@ import { SesionService } from '../servicios/sesion.service';
 import Swal from 'sweetalert2';
 import * as constantes from '../constantes';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -11,6 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./inicio-sesion.component.css']
 })
 export class InicioSesionComponent implements OnInit {
+
+  gimnasio=environment.gimnasio;
+  ubicacion=environment.ubicacion;
 
   sesion: Sesion=new Sesion();
 

@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom justify">
             <button class="btn btn-ligth" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></button>
             <span class="separate"></span>
-            <a class="navbar-brand" href="#">GIMNASIO OLIMPIA</a>
+            <a class="navbar-brand" href="#">{{gimnasio}}</a>
         </nav>
         <div class="container">
             <div class="row">
@@ -134,7 +134,7 @@
                                                                     </td>
                                                                     <td
                                                                         *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
-                                                                        {{rutina.veces}}</td>
+                                                                        {{rutina.series}}</td>
                                                                     <td
                                                                         *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
                                                                         NA
@@ -190,7 +190,7 @@
                 <div class="col-sm">
                     <footer class="text-muted">
                         <div class="container">
-                            <p>GIMNASIO OLIMPIA SALAMINA CALDAS. Todos los derechos reservados 2021.</p>
+                            <p>{{gimnasio}} {{ubicacion}}. Todos los derechos reservados 2021.</p>
                             <p>Instagram Gimnasio Olimpia <a href="../../">
                                     Visitala!</a> o haznos una pregunta a <a
                                     href="../../getting-started/">Contactenos</a>.</p>
@@ -253,10 +253,10 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label font-weight-bold">Veces</label>
+                <label class="col-sm-4 col-form-label font-weight-bold">Series</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input type="number" [(ngModel)]="rutinaCrear.veces"
+                        <input type="number" [(ngModel)]="rutinaCrear.series"
                             oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
                         <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
                     </div>
@@ -371,10 +371,10 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label font-weight-bold">Veces</label>
+                <label class="col-sm-4 col-form-label font-weight-bold">Series</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input type="number" [(ngModel)]="rutinaActualizar.veces"
+                        <input type="number" [(ngModel)]="rutinaActualizar.series"
                             oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
                         <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
                     </div>

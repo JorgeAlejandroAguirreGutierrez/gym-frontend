@@ -12,6 +12,9 @@ import { Parametro } from '../modelos/parametro';
 })
 export class PrincipalComponent implements OnInit {
 
+  gimnasio=environment.gimnasio;
+  ubicacion=environment.ubicacion;
+
   prefijoUrlImagenes = environment.prefijo_url_imagenes;
 
   sliders: Parametro[]=[new Parametro(), new Parametro(), new Parametro()];

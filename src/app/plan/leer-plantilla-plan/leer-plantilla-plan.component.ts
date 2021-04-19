@@ -18,6 +18,9 @@ import { Sesion } from 'src/app/modelos/sesion';
 })
 export class LeerPlantillaPlanComponent implements OnInit {
 
+  gimnasio=environment.gimnasio;
+  ubicacion=environment.ubicacion;
+
   plantillasPlan: PlantillaPlan[]=[];
   nombre: string="";
   somatotipo: string="";

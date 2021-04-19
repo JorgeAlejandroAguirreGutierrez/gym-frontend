@@ -19,6 +19,9 @@ import * as util from '../../util';
 })
 export class LeerEjercicioComponent implements OnInit {
 
+  gimnasio=environment.gimnasio;
+  ubicacion=environment.ubicacion;
+
   ejercicios: Ejercicio[]=[];
   descripcion: string="";
   ejercicioActualizar: Ejercicio=new Ejercicio();

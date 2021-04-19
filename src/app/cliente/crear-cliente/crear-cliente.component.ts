@@ -10,6 +10,7 @@ import * as constantes from '../../constantes';
 import * as util from '../../util';
 import { Peso } from 'src/app/modelos/peso';
 import { Sesion } from 'src/app/modelos/sesion';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-crear-cliente',
@@ -18,10 +19,13 @@ import { Sesion } from 'src/app/modelos/sesion';
 })
 export class CrearClienteComponent implements OnInit {
 
+  gimnasio=environment.gimnasio;
+  ubicacion=environment.ubicacion;
+  
   usuario: Usuario = new Usuario();
   observacion: string = ""
   objetivo: string = "";
-  peso: number = 0;
+  peso: number = null as any;
   sesion: Sesion=null as any;
 
   constructor(private usuarioService: UsuarioService, 

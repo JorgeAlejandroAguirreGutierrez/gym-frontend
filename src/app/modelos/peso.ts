@@ -4,7 +4,7 @@ export class Peso {
     fecha: Date;
     constructor(){
         this.id=0;
-        this.valor=0;
+        this.valor=null as any;
         this.fecha=new Date();
     }
 }
