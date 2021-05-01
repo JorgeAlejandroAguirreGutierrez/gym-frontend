@@ -67,36 +67,23 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr
-                                                                    *ngFor="let rutina of dia.rutinas; let j=index">
+                                                                <tr class="menor-fuente" *ngFor="let rutina of dia.rutinas; let j=index">
                                                                     <td>{{j+1}}</td>
-                                                                    <td class="menor-fuente">
+                                                                    <td>
                                                                         {{rutina.ejercicio.descripcion}}
                                                                     </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
+                                                                    <td>
                                                                         {{rutina.repeticiones}}
                                                                     </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
-                                                                        NA
-                                                                    </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
+                                                                    <td>
                                                                         {{rutina.series}}</td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
-                                                                        NA
-                                                                    </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
-                                                                        {{rutina.valorPeso}} -
+                                                                    <td>
+                                                                        {{rutina.valorPeso}}&nbsp;
                                                                         {{rutina.medidaPeso}}
                                                                     </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
-                                                                        NA
-                                                                    </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion==tipoMusculoFuncional">
-                                                                        {{rutina.valorTiempo}} -
+                                                                    <td>
+                                                                        {{rutina.valorTiempo}}&nbsp;
                                                                         {{rutina.medidaTiempo}}
-                                                                    </td>
-                                                                    <td *ngIf="rutina.ejercicio.tipoMusculo.descripcion!=tipoMusculoFuncional">
-                                                                        NA
                                                                     </td>
                                                                     <td>
                                                                         <button class="btn btn-sm btn-primary separate"

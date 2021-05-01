@@ -180,15 +180,23 @@ export class CrearPlanComponent implements OnInit {
   }
 
   crearRutina(){
-    if(this.rutinaCrear.ejercicio.tipoMusculo.descripcion!=this.tipoMusculoFuncional){
-      this.rutinaCrear.valorTiempo=0;
-      this.rutinaCrear.medidaTiempo="";
+    console.log(this.rutinaCrear.valorPeso);
+    console.log(this.rutinaCrear.valorTiempo);
+    if(this.rutinaCrear.valorPeso!=null && this.rutinaCrear.medidaPeso==constantes.parametroVacio){
+      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+      return;
     }
-    if(this.rutinaCrear.ejercicio.tipoMusculo.descripcion==this.tipoMusculoFuncional){
-      this.rutinaCrear.repeticiones=0;
-      this.rutinaCrear.series=0;
-      this.rutinaCrear.valorPeso=0;
-      this.rutinaCrear.medidaPeso="";
+    if(this.rutinaCrear.valorTiempo!=null && this.rutinaCrear.medidaTiempo==constantes.parametroVacio){
+      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+      return;
+    }
+    if(this.rutinaCrear.valorPeso==null && this.rutinaCrear.medidaPeso!=constantes.parametroVacio){
+      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+      return;
+    }
+    if(this.rutinaCrear.valorTiempo==null && this.rutinaCrear.medidaTiempo!=constantes.parametroVacio){
+      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+      return;
     }
     this.usuario.plan.dias[this.seleccionPE].rutinas.push({... this.rutinaCrear})
     this.usuarioService.actualizar(this.usuario).subscribe(
@@ -211,15 +219,13 @@ export class CrearPlanComponent implements OnInit {
   }
 
   actualizarRutina(){
-    if(this.rutinaActualizar.ejercicio.tipoMusculo.descripcion!=this.tipoMusculoFuncional){
-      this.rutinaActualizar.valorTiempo=0;
-      this.rutinaActualizar.medidaTiempo="";
+    if(this.rutinaActualizar.valorPeso!=0 && this.rutinaActualizar.medidaPeso==""){
+      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+      return;
     }
-    if(this.rutinaActualizar.ejercicio.tipoMusculo.descripcion==this.tipoMusculoFuncional){
-      this.rutinaActualizar.repeticiones=0;
-      this.rutinaActualizar.series=0;
-      this.rutinaActualizar.valorPeso=0;
-      this.rutinaActualizar.medidaPeso="";
+    if(this.rutinaActualizar.valorTiempo!=0 && this.rutinaActualizar.medidaTiempo==""){
+      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+      return;
     }
     this.usuario.plan.dias[this.seleccionPE].rutinas[this.seleccionRE]=({... this.rutinaActualizar})
     this.usuarioService.actualizar(this.usuario).subscribe(

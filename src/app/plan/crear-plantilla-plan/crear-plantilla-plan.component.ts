@@ -142,15 +142,13 @@ export class CrearPlantillaPlanComponent implements OnInit {
   }
 
   crearRutina(){
-    if(this.rutinaCrear.ejercicio.tipoMusculo.descripcion!=this.tipoMusculoFuncional){
-      this.rutinaCrear.valorTiempo=0;
-      this.rutinaCrear.medidaTiempo="";
+    if(this.rutinaCrear.valorPeso!=0 && this.rutinaCrear.medidaPeso==""){
+      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+      return;
     }
-    if(this.rutinaCrear.ejercicio.tipoMusculo.descripcion==this.tipoMusculoFuncional){
-      this.rutinaCrear.repeticiones=0;
-      this.rutinaCrear.series=0;
-      this.rutinaCrear.valorPeso=0;
-      this.rutinaCrear.medidaPeso="";
+    if(this.rutinaCrear.valorTiempo!=0 && this.rutinaCrear.medidaTiempo==""){
+      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+      return;
     }
     this.plantillaPlan.plan.dias[this.seleccionPE].rutinas.push({... this.rutinaCrear})
     this.plantillaPlanService.actualizar(this.plantillaPlan).subscribe(
@@ -173,15 +171,13 @@ export class CrearPlantillaPlanComponent implements OnInit {
   }
 
   actualizarRutina(){
-    if(this.rutinaActualizar.ejercicio.tipoMusculo.descripcion!=this.tipoMusculoFuncional){
-      this.rutinaActualizar.valorTiempo=0;
-      this.rutinaActualizar.medidaTiempo="";
+    if(this.rutinaActualizar.valorPeso!=0 && this.rutinaActualizar.medidaPeso==""){
+      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+      return;
     }
-    if(this.rutinaActualizar.ejercicio.tipoMusculo.descripcion==this.tipoMusculoFuncional){
-      this.rutinaActualizar.repeticiones=0;
-      this.rutinaActualizar.series=0;
-      this.rutinaActualizar.valorPeso=0;
-      this.rutinaActualizar.medidaPeso="";
+    if(this.rutinaActualizar.valorTiempo!=0 && this.rutinaActualizar.medidaTiempo==""){
+      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+      return;
     }
     this.plantillaPlan.plan.dias[this.seleccionPE].rutinas[this.seleccionRE]=({... this.rutinaActualizar})
     this.plantillaPlanService.actualizar(this.plantillaPlan).subscribe(
