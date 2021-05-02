@@ -8,6 +8,7 @@ export const exito_actualizar_usuario='Exito al actualizar el usuario';
 export const exito_crear_rutina='Exito al crear la rutina';
 export const exito_actualizar_rutina='Exito al actualizar la rutina';
 export const exito_eliminar_rutina='Exito al eliminar la rutina';
+export const error_crear_plantilla_plan='Error al crear la plantilla del plan';
 export const error_actualizar_plantilla_plan='Error al actualizar la plantilla del plan';
 export const error_crear_usuario='Error al crear el usuario';
 export const error_crear_rutina='Error al crear la rutina';
@@ -27,6 +28,7 @@ export const error_datos_invalidos='Error en los datos ingresados';
 export const exito_eliminar_ejercicio='Exito al eliminar el ejercicio'
 export const error_eliminar_ejercicio='Error al eliminar el ejercicio';
 
+export const exito_crear_plantilla_plan='Exito al crear la plantilla'
 export const exito_eliminar_plantilla_plan='Exito al eliminar la plantilla'
 export const error_eliminar_plantilla_plan='Error al eliminar la plantilla';
 

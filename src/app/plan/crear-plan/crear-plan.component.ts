@@ -30,6 +30,7 @@ export class CrearPlanComponent implements OnInit {
   gimnasio=environment.gimnasio;
   ubicacion=environment.ubicacion;
 
+  plantillaPlanCrear: PlantillaPlan=new PlantillaPlan();
   plantillasPlan: PlantillaPlan[]=[];
   plantillaPlanAsignar: PlantillaPlan=null as any;
   
@@ -55,6 +56,7 @@ export class CrearPlanComponent implements OnInit {
   @ViewChild('modalCrearRutina', { static: false }) private modalCrearRutina: any;
   @ViewChild('modalActualizarRutina', { static: false }) private modalActualizarRutina: any;
   @ViewChild('modalLeerEjercicio', { static: false }) private modalLeerEjercicio: any;
+  @ViewChild('modalCrearPlantillaPlan', { static: false }) private modalCrearPlantillaPlan: any;
 
   constructor(private sesionService: SesionService, private usuarioService: UsuarioService,
     private ejercicioService: EjercicioService, private parametroService: ParametroService,
@@ -133,6 +135,32 @@ export class CrearPlanComponent implements OnInit {
     }
   }
 
+  crearPlantillaPlan(){
+    this.convertirParaGuardar();
+    this.plantillaPlanService.crear(this.plantillaPlanCrear).subscribe(
+      res => {
+        this.plantillaPlanCrear=new PlantillaPlan();
+        this.modalService.dismissAll();
+        Swal.fire(constantes.exito, constantes.exito_crear_plantilla_plan, constantes.exito_swal);
+      },
+      err => {
+        if(err.error.codigo==constantes.error_codigo_datos_invalidos){
+          Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
+        }
+      }
+    );
+  }
+
+  convertirParaGuardar(){
+    this.plantillaPlanCrear.plan.dias= this.getCopy(this.usuario.plan.dias);
+    for(let i=0; i<this.plantillaPlanCrear.plan.dias.length; i++){
+      this.plantillaPlanCrear.plan.dias[i].id=0;
+      for(let j=0; j<this.plantillaPlanCrear.plan.dias[i].rutinas.length; j++){
+        this.plantillaPlanCrear.plan.dias[i].rutinas[j].id=0;
+      }
+    }
+  }
+
   abrirModalCrearRutina(i: number) {
     this.seleccionPE=i;
     this.open(this.modalCrearRutina);
@@ -150,6 +178,10 @@ export class CrearPlanComponent implements OnInit {
     this.seleccionPE=i;
     this.seleccionRE=j;
     this.open(this.modalLeerEjercicio);
+  }
+
+  abrirModalCrearPlantillaPlan(){
+    this.open(this.modalCrearPlantillaPlan);
   }
 
   crearPlan(){
@@ -180,8 +212,6 @@ export class CrearPlanComponent implements OnInit {
   }
 
   crearRutina(){
-    console.log(this.rutinaCrear.valorPeso);
-    console.log(this.rutinaCrear.valorTiempo);
     if(this.rutinaCrear.valorPeso!=null && this.rutinaCrear.medidaPeso==constantes.parametroVacio){
       Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
       return;
@@ -323,6 +353,10 @@ export class CrearPlanComponent implements OnInit {
         Swal.fire(constantes.error, constantes.error_consultar_medidas_pesos, constantes.error_swal)
       }
     );
+  }
+
+  getCopy(obj:any){
+    return (JSON.parse(JSON.stringify(obj)));
   }
 
   compareFn(a:any, b:any) {
