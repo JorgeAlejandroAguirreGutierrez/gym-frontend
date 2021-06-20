@@ -229,74 +229,86 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <input type="number" [(ngModel)]="rutinaCrear.repeticiones"
-                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
+        <ng-container *ngIf="campoRepeticiones">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input type="number" [(ngModel)]="rutinaCrear.repeticiones"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                        <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Series</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <input type="number" [(ngModel)]="rutinaCrear.series"
-                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
+        </ng-container>
+        <ng-container *ngIf="campoSeries">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Series</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input type="number" [(ngModel)]="rutinaCrear.series"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                        <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Valor Peso</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <input type="number" [(ngModel)]="rutinaCrear.valorPeso"
-                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+        </ng-container>
+        <ng-container *ngIf="campoValorPeso">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Valor Peso</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input type="number" [(ngModel)]="rutinaCrear.valorPeso"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                        <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Medida Peso</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <select [(ngModel)]="rutinaCrear.medidaPeso" class="form-control form-control-sm">
-                        <option></option>
-                        <option *ngFor="let medidaPeso of medidasPesos" [ngValue]="medidaPeso.valor">
-                            {{medidaPeso.valor}}
-                        </option>
-                    </select>
-                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+        </ng-container>
+        <ng-container *ngIf="campoMedidaPeso">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Medida Peso</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <select [(ngModel)]="rutinaCrear.medidaPeso" class="form-control form-control-sm">
+                            <option></option>
+                            <option *ngFor="let medidaPeso of medidasPesos" [ngValue]="medidaPeso.valor">
+                                {{medidaPeso.valor}}
+                            </option>
+                        </select>
+                        <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Tiempo</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <input type="number" [(ngModel)]="rutinaCrear.valorTiempo"
-                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+        </ng-container>
+        <ng-container *ngIf="campoValorTiempo">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Tiempo</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input type="number" [(ngModel)]="rutinaCrear.valorTiempo"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                        <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">En</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <select [(ngModel)]="rutinaCrear.medidaTiempo" class="form-control form-control-sm">
-                        <option></option>
-                        <option *ngFor="let medidaTiempo of medidasTiempos" [ngValue]="medidaTiempo.valor">
-                            {{medidaTiempo.valor}}
-                        </option>
-                    </select>
-                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+        </ng-container>
+        <ng-container *ngIf="campoMedidaTiempo">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">En</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <select [(ngModel)]="rutinaCrear.medidaTiempo" class="form-control form-control-sm">
+                            <option></option>
+                            <option *ngFor="let medidaTiempo of medidasTiempos" [ngValue]="medidaTiempo.valor">
+                                {{medidaTiempo.valor}}
+                            </option>
+                        </select>
+                        <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </ng-container>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="crearRutina()">Guardar</button>
@@ -317,7 +329,7 @@
             <div class="col-sm-8">
                 <div class="input-group">
                     <select [(ngModel)]="rutinaActualizar.ejercicio.tipoMusculo"
-                        (change)="cargarEjerciciosCrearActualizar()" [compareWith]="compareFn"
+                        (change)="cargarEjerciciosActualizarRutinaChange()" [compareWith]="compareFn"
                         class="form-control form-control-sm">
                         <option></option>
                         <option *ngFor="let tipoMusculo of tiposMusculos" [ngValue]="tipoMusculo">
@@ -343,74 +355,86 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <input type="number" [(ngModel)]="rutinaActualizar.repeticiones"
-                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
+        <ng-container *ngIf="campoRepeticiones">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input type="number" [(ngModel)]="rutinaActualizar.repeticiones"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                        <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Series</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <input type="number" [(ngModel)]="rutinaActualizar.series"
-                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
+        </ng-container>
+        <ng-container *ngIf="campoSeries">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Series</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input type="number" [(ngModel)]="rutinaActualizar.series"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                        <div class="input-group-text"><i class="fa fa-hashtag"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Valor Peso</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <input type="number" [(ngModel)]="rutinaActualizar.valorPeso"
-                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+        </ng-container>
+        <ng-container *ngIf="campoValorPeso">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Valor Peso</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input type="number" [(ngModel)]="rutinaActualizar.valorPeso"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                        <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Medida Peso</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <select [(ngModel)]="rutinaActualizar.medidaPeso" class="form-control form-control-sm">
-                        <option></option>
-                        <option *ngFor="let medidaPeso of medidasPesos" [ngValue]="medidaPeso.valor">
-                            {{medidaPeso.valor}}
-                        </option>
-                    </select>
-                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+        </ng-container>
+        <ng-container *ngIf="campoMedidaPeso">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Medida Peso</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <select [(ngModel)]="rutinaActualizar.medidaPeso" class="form-control form-control-sm">
+                            <option></option>
+                            <option *ngFor="let medidaPeso of medidasPesos" [ngValue]="medidaPeso.valor">
+                                {{medidaPeso.valor}}
+                            </option>
+                        </select>
+                        <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">Tiempo</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <input type="number" [(ngModel)]="rutinaActualizar.valorTiempo"
-                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
-                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+        </ng-container>
+        <ng-container *ngIf="campoValorTiempo">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Tiempo</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input type="number" [(ngModel)]="rutinaActualizar.valorTiempo"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
+                        <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label font-weight-bold">En</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <select [(ngModel)]="rutinaActualizar.medidaTiempo" class="form-control form-control-sm">
-                        <option></option>
-                        <option *ngFor="let medidaTiempo of medidasTiempos" [ngValue]="medidaTiempo.valor">
-                            {{medidaTiempo.valor}}
-                        </option>
-                    </select>
-                    <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+        </ng-container>
+        <ng-container *ngIf="campoMedidaTiempo">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">En</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <select [(ngModel)]="rutinaActualizar.medidaTiempo" class="form-control form-control-sm">
+                            <option></option>
+                            <option *ngFor="let medidaTiempo of medidasTiempos" [ngValue]="medidaTiempo.valor">
+                                {{medidaTiempo.valor}}
+                            </option>
+                        </select>
+                        <div class="input-group-text"><i class="fa fa-arrow-up"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </ng-container>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="actualizarRutina()">Guardar</button>

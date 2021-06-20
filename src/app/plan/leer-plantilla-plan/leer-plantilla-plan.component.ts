@@ -76,6 +76,7 @@ export class LeerPlantillaPlanComponent implements OnInit {
     this.plantillaPlanService.eliminar(this.plantillasPlan[i].id).subscribe(
       res => {
         Swal.fire(constantes.exito, constantes.exito_eliminar_plantilla_plan, constantes.exito_swal)
+        this.consultarPlantillasPlan();
       },
       err => {
         if(err.error.codigo==constantes.error_codigo_datos_invalidos){

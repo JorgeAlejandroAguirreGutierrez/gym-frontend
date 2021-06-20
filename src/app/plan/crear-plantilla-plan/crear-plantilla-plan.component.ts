@@ -16,6 +16,7 @@ import { TipoMusculoService } from 'src/app/servicios/tipo-musculo.service';
 import { PlantillaPlan } from 'src/app/modelos/plantilla-plan';
 import { Dia } from 'src/app/modelos/dia';
 import { PlantillaPlanService } from 'src/app/servicios/plantilla-plan.service';
+import { RutinaService } from 'src/app/servicios/rutina.service';
 
 @Component({
   selector: 'app-crear-plantilla-plan',
@@ -45,13 +46,20 @@ export class CrearPlantillaPlanComponent implements OnInit {
   tipoMusculoFuncional=constantes.parametroTipoMusculoFuncional;
   vacio=constantes.parametroVacio;
 
+  campoRepeticiones: boolean=true;
+  campoSeries: boolean=true;
+  campoValorPeso: boolean=true;
+  campoMedidaPeso: boolean=true;
+  campoValorTiempo: boolean=true;
+  campoMedidaTiempo: boolean=true;
+
   @ViewChild('modalCrearRutina', { static: false }) private modalCrearRutina: any;
   @ViewChild('modalActualizarRutina', { static: false }) private modalActualizarRutina: any;
   @ViewChild('modalLeerEjercicio', { static: false }) private modalLeerEjercicio: any;
 
   constructor(private sesionService: SesionService, private plantillaPlanService: PlantillaPlanService,
     private ejercicioService: EjercicioService, private parametroService: ParametroService,
-    private tipoMusculoService: TipoMusculoService,
+    private tipoMusculoService: TipoMusculoService, private rutinaService: RutinaService,
     private route: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -103,8 +111,17 @@ export class CrearPlantillaPlanComponent implements OnInit {
   abrirModalActualizarRutina(i: number, j:number) {
     this.seleccionPE=i;
     this.seleccionRE=j;
-    this.rutinaActualizar={ ... this.plantillaPlan.plan.dias[this.seleccionPE].rutinas[this.seleccionRE]};
-    this.open(this.modalActualizarRutina);
+    let rutinaId=this.plantillaPlan.plan.dias[this.seleccionPE].rutinas[this.seleccionRE].id;
+    this.rutinaService.obtener(rutinaId).subscribe(
+      res => {
+        this.rutinaActualizar=res;
+        this.cargarEjerciciosActualizarRutina();
+        this.open(this.modalActualizarRutina);
+      },
+      err => {
+        Swal.fire(constantes.error, constantes.error_actualizar_plantilla_plan, constantes.error_swal)
+      }
+    );
   }
 
 
@@ -142,14 +159,6 @@ export class CrearPlantillaPlanComponent implements OnInit {
   }
 
   crearRutina(){
-    if(this.rutinaCrear.valorPeso!=0 && this.rutinaCrear.medidaPeso==""){
-      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
-      return;
-    }
-    if(this.rutinaCrear.valorTiempo!=0 && this.rutinaCrear.medidaTiempo==""){
-      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
-      return;
-    }
     this.plantillaPlan.plan.dias[this.seleccionPE].rutinas.push({... this.rutinaCrear})
     this.plantillaPlanService.actualizar(this.plantillaPlan).subscribe(
       res => {
@@ -171,14 +180,6 @@ export class CrearPlantillaPlanComponent implements OnInit {
   }
 
   actualizarRutina(){
-    if(this.rutinaActualizar.valorPeso!=0 && this.rutinaActualizar.medidaPeso==""){
-      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
-      return;
-    }
-    if(this.rutinaActualizar.valorTiempo!=0 && this.rutinaActualizar.medidaTiempo==""){
-      Swal.fire(constantes.error, constantes.error_datos_invalidos, constantes.error_swal);
-      return;
-    }
     this.plantillaPlan.plan.dias[this.seleccionPE].rutinas[this.seleccionRE]=({... this.rutinaActualizar})
     this.plantillaPlanService.actualizar(this.plantillaPlan).subscribe(
       res => {
@@ -235,13 +236,42 @@ export class CrearPlantillaPlanComponent implements OnInit {
   }
 
   cargarEjerciciosCrearRutina(){
-    let tipoMusculoId=this.rutinaCrear.ejercicio.tipoMusculo.id.toString();
-    this.consultarEjerciciosPorTipoMusculo(tipoMusculoId);
+    this.ejercicios=[];
+    if(this.rutinaCrear.ejercicio.tipoMusculo!=null){
+      this.rutinaCrear.repeticiones=null as any;
+      this.rutinaCrear.series=null as any;
+      this.rutinaCrear.valorPeso=null as any;
+      this.rutinaCrear.medidaPeso="";
+      this.rutinaCrear.valorTiempo=null as any;
+      this.rutinaCrear.medidaTiempo="";
+      this.cargarCampos(this.rutinaCrear.ejercicio.tipoMusculo.descripcion);
+      let tipoMusculoId=this.rutinaCrear.ejercicio.tipoMusculo.id.toString();
+      this.consultarEjerciciosPorTipoMusculo(tipoMusculoId);
+    }
   }
 
-  cargarEjerciciosCrearActualizar(){
-    let tipoMusculoId=this.rutinaActualizar.ejercicio.tipoMusculo.id.toString();
-    this.consultarEjerciciosPorTipoMusculo(tipoMusculoId);
+  cargarEjerciciosActualizarRutinaChange(){
+    this.ejercicios=[];
+    if(this.rutinaActualizar.ejercicio.tipoMusculo!=null){
+      this.rutinaActualizar.repeticiones=null as any;
+      this.rutinaActualizar.series=null as any;
+      this.rutinaActualizar.valorPeso=null as any;
+      this.rutinaActualizar.medidaPeso="";
+      this.rutinaActualizar.valorTiempo=null as any;
+      this.rutinaActualizar.medidaTiempo="";
+      this.cargarCampos(this.rutinaActualizar.ejercicio.tipoMusculo.descripcion);
+      let tipoMusculoId=this.rutinaActualizar.ejercicio.tipoMusculo.id.toString();
+      this.consultarEjerciciosPorTipoMusculo(tipoMusculoId);
+    }
+  }
+
+  cargarEjerciciosActualizarRutina(){
+    this.ejercicios=[];
+    if(this.rutinaActualizar.ejercicio.tipoMusculo!=null){
+      this.cargarCampos(this.rutinaActualizar.ejercicio.tipoMusculo.descripcion);
+      let tipoMusculoId=this.rutinaActualizar.ejercicio.tipoMusculo.id.toString();
+      this.consultarEjerciciosPorTipoMusculo(tipoMusculoId);
+    }
   }
 
   consultarEjerciciosPorTipoMusculo(tipoMusculoId: string){
@@ -275,6 +305,56 @@ export class CrearPlantillaPlanComponent implements OnInit {
         Swal.fire(constantes.error, constantes.error_consultar_medidas_pesos, constantes.error_swal)
       }
     );
+  }
+
+  private cargarCampos(tipoMusculo: string){
+    this.campoRepeticiones=false;
+    this.campoSeries=false;
+    this.campoValorPeso=false;
+    this.campoMedidaPeso=false;
+    this.campoValorTiempo=false;
+    this.campoMedidaTiempo=false;
+    let descripcion=tipoMusculo;
+    if (descripcion==constantes.biceps || descripcion==constantes.triceps
+      || descripcion==constantes.espalda || descripcion==constantes.pecho
+      || descripcion==constantes.pierna || descripcion==constantes.abdomen
+      || descripcion==constantes.hombro || descripcion==constantes.antebrazo
+      || descripcion==constantes.aductores || descripcion==constantes.abductores
+      || descripcion==constantes.gluteo || descripcion==constantes.pantorrillas){
+        this.campoRepeticiones=true;
+        this.campoSeries=true;
+        this.campoValorPeso=true;
+        this.campoMedidaPeso=true;
+        this.campoValorTiempo=false;
+        this.campoMedidaTiempo=false;
+    }
+
+    if(descripcion==constantes.funcional){
+        this.campoRepeticiones=true;
+        this.campoSeries=true;
+        this.campoValorPeso=false;
+        this.campoMedidaPeso=false;
+        this.campoValorTiempo=true;
+        this.campoMedidaTiempo=true;
+    }
+
+    if(descripcion==constantes.cardio){
+        this.campoRepeticiones=false;
+        this.campoSeries=false;
+        this.campoValorPeso=false;
+        this.campoMedidaPeso=false;
+        this.campoValorTiempo=true;
+        this.campoMedidaTiempo=true;
+    }
+
+    if(descripcion==constantes.hitboxFuncional){
+      this.campoRepeticiones=true;
+        this.campoSeries=true;
+        this.campoValorPeso=false;
+        this.campoMedidaPeso=false;
+        this.campoValorTiempo=true;
+        this.campoMedidaTiempo=true;
+    }
   }
 
   compareFn(a:any, b:any) {
