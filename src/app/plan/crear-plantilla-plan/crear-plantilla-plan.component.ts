@@ -46,6 +46,7 @@ export class CrearPlantillaPlanComponent implements OnInit {
   tipoMusculoFuncional=constantes.parametroTipoMusculoFuncional;
   vacio=constantes.parametroVacio;
 
+  campoDetalle: boolean=true;
   campoRepeticiones: boolean=true;
   campoSeries: boolean=true;
   campoValorPeso: boolean=true;
@@ -238,6 +239,10 @@ export class CrearPlantillaPlanComponent implements OnInit {
   cargarEjerciciosCrearRutina(){
     this.ejercicios=[];
     if(this.rutinaCrear.ejercicio.tipoMusculo!=null){
+      this.rutinaCrear.ejercicio.id=0;
+      this.rutinaCrear.ejercicio.descripcion="";
+      this.rutinaCrear.ejercicio.detalle="";
+      this.rutinaCrear.ejercicio.imagen="";
       this.rutinaCrear.repeticiones=null as any;
       this.rutinaCrear.series=null as any;
       this.rutinaCrear.valorPeso=null as any;
@@ -253,6 +258,10 @@ export class CrearPlantillaPlanComponent implements OnInit {
   cargarEjerciciosActualizarRutinaChange(){
     this.ejercicios=[];
     if(this.rutinaActualizar.ejercicio.tipoMusculo!=null){
+      this.rutinaActualizar.ejercicio.id=0;
+      this.rutinaActualizar.ejercicio.descripcion="";
+      this.rutinaActualizar.ejercicio.detalle="";
+      this.rutinaActualizar.ejercicio.imagen="";
       this.rutinaActualizar.repeticiones=null as any;
       this.rutinaActualizar.series=null as any;
       this.rutinaActualizar.valorPeso=null as any;
@@ -321,39 +330,43 @@ export class CrearPlantillaPlanComponent implements OnInit {
       || descripcion==constantes.hombro || descripcion==constantes.antebrazo
       || descripcion==constantes.aductores || descripcion==constantes.abductores
       || descripcion==constantes.gluteo || descripcion==constantes.pantorrillas){
-        this.campoRepeticiones=true;
-        this.campoSeries=true;
-        this.campoValorPeso=true;
-        this.campoMedidaPeso=true;
-        this.campoValorTiempo=false;
-        this.campoMedidaTiempo=false;
+      this.campoDetalle=false;
+      this.campoRepeticiones=true;
+      this.campoSeries=true;
+      this.campoValorPeso=true;
+      this.campoMedidaPeso=true;
+      this.campoValorTiempo=false;
+      this.campoMedidaTiempo=false;
     }
 
     if(descripcion==constantes.funcional){
-        this.campoRepeticiones=true;
-        this.campoSeries=true;
-        this.campoValorPeso=false;
-        this.campoMedidaPeso=false;
-        this.campoValorTiempo=true;
-        this.campoMedidaTiempo=true;
+      this.campoDetalle=false;
+      this.campoRepeticiones=true;
+      this.campoSeries=true;
+      this.campoValorPeso=false;
+      this.campoMedidaPeso=false;
+      this.campoValorTiempo=true;
+      this.campoMedidaTiempo=true;
     }
 
     if(descripcion==constantes.cardio){
-        this.campoRepeticiones=false;
-        this.campoSeries=false;
-        this.campoValorPeso=false;
-        this.campoMedidaPeso=false;
-        this.campoValorTiempo=true;
-        this.campoMedidaTiempo=true;
+      this.campoDetalle=false;  
+      this.campoRepeticiones=false;
+      this.campoSeries=false;
+      this.campoValorPeso=false;
+      this.campoMedidaPeso=false;
+      this.campoValorTiempo=true;
+      this.campoMedidaTiempo=true;
     }
 
     if(descripcion==constantes.hitboxFuncional){
+      this.campoDetalle=true;
       this.campoRepeticiones=true;
-        this.campoSeries=true;
-        this.campoValorPeso=false;
-        this.campoMedidaPeso=false;
-        this.campoValorTiempo=true;
-        this.campoMedidaTiempo=true;
+      this.campoSeries=true;
+      this.campoValorPeso=false;
+      this.campoMedidaPeso=false;
+      this.campoValorTiempo=true;
+      this.campoMedidaTiempo=true;
     }
   }
 

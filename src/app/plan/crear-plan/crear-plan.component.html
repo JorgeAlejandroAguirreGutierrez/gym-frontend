@@ -203,10 +203,10 @@
             <label class="col-sm-4 col-form-label font-weight-bold">Zona Muscular</label>
             <div class="col-sm-8">
                 <div class="input-group">
-                    <select [(ngModel)]="rutinaCrear.ejercicio.tipoMusculo.id" (change)="cargarEjerciciosCrearRutina()"
+                    <select [(ngModel)]="rutinaCrear.ejercicio.tipoMusculo" (change)="cargarEjerciciosCrearRutina()"
                         [compareWith]="compareFn" class="form-control form-control-sm">
                         <option value="0"></option>
-                        <option *ngFor="let tipoMusculo of tiposMusculos" [ngValue]="tipoMusculo.id">
+                        <option *ngFor="let tipoMusculo of tiposMusculos" [ngValue]="tipoMusculo">
                             {{tipoMusculo.descripcion}}
                         </option>
                     </select>
@@ -229,6 +229,15 @@
                 </div>
             </div>
         </div>
+        <ng-container *ngIf="campoDetalle">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Detalle</label>
+                <div class="col-sm-8">
+                    <textarea rows="3" [(ngModel)]="rutinaCrear.ejercicio.detalle" [disabled]="true"
+                        class="form-control form-control-sm"></textarea>
+                </div>
+            </div>
+        </ng-container>
         <ng-container *ngIf="campoRepeticiones">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
@@ -355,6 +364,15 @@
                 </div>
             </div>
         </div>
+        <ng-container *ngIf="campoDetalle">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label font-weight-bold">Detalle</label>
+                <div class="col-sm-8">
+                    <textarea rows="3" [(ngModel)]="rutinaActualizar.ejercicio.detalle" [disabled]="true"
+                        class="form-control form-control-sm"></textarea>
+                </div>
+            </div>
+        </ng-container>
         <ng-container *ngIf="campoRepeticiones">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label font-weight-bold">Repeticiones</label>
@@ -454,9 +472,15 @@
             <div align="center" class="col-sm">
                 <label
                     class="font-weight-bold">{{usuario.plan.dias[seleccionPE].rutinas[seleccionRE].ejercicio.descripcion}}</label>
-                <img class="card-img-top"
+                <ng-container *ngIf="usuario.plan.dias[seleccionPE].rutinas[seleccionRE].ejercicio.imagen!=null">
+                    <img class="card-img-top"
                     src="{{prefijoUrlEjercicios+usuario.plan.dias[seleccionPE].rutinas[seleccionRE].ejercicio.imagen}}"
                     height="300px" alt="Card image cap">
+                </ng-container>
+                <ng-container *ngIf="usuario.plan.dias[seleccionPE].rutinas[seleccionRE].ejercicio.imagen==null">
+                    <textarea rows="3" [disabled]="true" [(ngModel)]="usuario.plan.dias[seleccionPE].rutinas[seleccionRE].ejercicio.detalle"
+                            class="form-control form-control-sm"></textarea>
+                </ng-container>
             </div>
         </div>
     </div>

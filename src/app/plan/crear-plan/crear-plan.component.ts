@@ -54,6 +54,7 @@ export class CrearPlanComponent implements OnInit {
   tipoMusculoFuncional = constantes.parametroTipoMusculoFuncional;
   vacio = constantes.parametroVacio;
 
+  campoDetalle: boolean=false;
   campoRepeticiones: boolean = false;
   campoSeries: boolean = false;
   campoValorPeso: boolean = false;
@@ -309,12 +310,17 @@ export class CrearPlanComponent implements OnInit {
   cargarEjerciciosCrearRutina() {
     this.ejercicios = [];
     if (this.rutinaCrear.ejercicio.tipoMusculo != null) {
+      this.rutinaCrear.ejercicio.id=0;
+      this.rutinaCrear.ejercicio.descripcion="";
+      this.rutinaCrear.ejercicio.detalle="";
+      this.rutinaCrear.ejercicio.imagen="";
       this.rutinaCrear.repeticiones = null as any;
       this.rutinaCrear.series = null as any;
       this.rutinaCrear.valorPeso = null as any;
       this.rutinaCrear.medidaPeso = "";
       this.rutinaCrear.valorTiempo = null as any;
       this.rutinaCrear.medidaTiempo = "";
+      this.rutinaCrear.ejercicio.detalle = "";
       this.cargarCampos(this.rutinaCrear.ejercicio.tipoMusculo.descripcion);
       let tipoMusculoId = this.rutinaCrear.ejercicio.tipoMusculo.id.toString();
       this.consultarEjerciciosPorTipoMusculo(tipoMusculoId);
@@ -324,6 +330,10 @@ export class CrearPlanComponent implements OnInit {
   cargarEjerciciosActualizarRutinaChange() {
     this.ejercicios = [];
     if (this.rutinaActualizar.ejercicio.tipoMusculo != null) {
+      this.rutinaActualizar.ejercicio.id=0;
+      this.rutinaActualizar.ejercicio.descripcion="";
+      this.rutinaActualizar.ejercicio.detalle="";
+      this.rutinaActualizar.ejercicio.imagen="";
       this.rutinaActualizar.repeticiones = null as any;
       this.rutinaActualizar.series = null as any;
       this.rutinaActualizar.valorPeso = null as any;
@@ -392,6 +402,7 @@ export class CrearPlanComponent implements OnInit {
       || descripcion == constantes.hombro || descripcion == constantes.antebrazo
       || descripcion == constantes.aductores || descripcion == constantes.abductores
       || descripcion == constantes.gluteo || descripcion == constantes.pantorrillas) {
+      this.campoDetalle=false;
       this.campoRepeticiones = true;
       this.campoSeries = true;
       this.campoValorPeso = true;
@@ -401,6 +412,7 @@ export class CrearPlanComponent implements OnInit {
     }
 
     if (descripcion == constantes.funcional) {
+      this.campoDetalle=false;
       this.campoRepeticiones = true;
       this.campoSeries = true;
       this.campoValorPeso = false;
@@ -410,6 +422,7 @@ export class CrearPlanComponent implements OnInit {
     }
 
     if (descripcion == constantes.cardio) {
+      this.campoDetalle=false;
       this.campoRepeticiones = false;
       this.campoSeries = false;
       this.campoValorPeso = false;
@@ -419,12 +432,13 @@ export class CrearPlanComponent implements OnInit {
     }
 
     if (descripcion == constantes.hitboxFuncional) {
+      this.campoDetalle=true;
       this.campoRepeticiones = true;
       this.campoSeries = true;
       this.campoValorPeso = false;
       this.campoMedidaPeso = false;
       this.campoValorTiempo = true;
-      this.campoMedidaTiempo = true;
+      this.campoMedidaTiempo = true; 
     }
   }
 
